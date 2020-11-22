@@ -1,6 +1,9 @@
 use crate::api::Api;
 use std::ffi::{c_void, CString};
-use tm_sys::ffi::{tm_log_type_TM_LOG_TYPE_INFO, tm_logger_api, TM_LOGGER_API_NAME};
+use tm_sys::ffi::{
+    tm_log_type_TM_LOG_TYPE_DEBUG, tm_log_type_TM_LOG_TYPE_ERROR, tm_log_type_TM_LOG_TYPE_INFO,
+    tm_logger_api, TM_LOGGER_API_NAME,
+};
 
 #[derive(Copy, Clone)]
 pub struct LogApi {
@@ -28,11 +31,11 @@ impl LogApi {
 
     pub fn print_debug(&self, message: &str) {
         let message = CString::new(message).unwrap();
-        unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_INFO, message.as_ptr() as _) };
+        unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_DEBUG, message.as_ptr() as _) };
     }
 
     pub fn print_error(&self, message: &str) {
         let message = CString::new(message).unwrap();
-        unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_INFO, message.as_ptr() as _) };
+        unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_ERROR, message.as_ptr() as _) };
     }
 }
