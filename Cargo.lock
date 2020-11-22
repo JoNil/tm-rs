@@ -2,13 +2,13 @@
 # It is not intended for manual editing.
 [[package]]
 name = "tm-rs"
-version = "2020.11.1"
+version = "2020.11.2"
 dependencies = [
  "tm-sys",
 ]
 
 [[package]]
 name = "tm-sys"
-version = "2020.11.2"
+version = "2020.11.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed8ab22dd6ab71109ada60f77b33fd0b634818cb44cc282441be1b58e06156d8"
+checksum = "86941869b18dfeb28f6b1d061dac0d61a7f9ec7221a998348bf337809c6ff76b"
