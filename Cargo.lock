@@ -2,7 +2,7 @@
 # It is not intended for manual editing.
 [[package]]
 name = "tm-rs"
-version = "2020.11.0"
+version = "2020.11.1"
 dependencies = [
  "tm-sys",
 ]
