@@ -17,7 +17,7 @@ lazy_static! {
     static ref REGISTERED_APIS: RwLock<Map<dyn Any + Send + Sync>> = RwLock::new(Map::new());
 }
 
-pub fn register<A: Api>(reg: *mut tm_api_registry_api) {
+pub unsafe fn register<A: Api>(reg: *mut tm_api_registry_api) {
     REGISTERED_APIS
         .write()
         .unwrap()
