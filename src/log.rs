@@ -15,12 +15,8 @@ impl Api for LogApi {
     type RsType = LogApi;
     const NAME: &'static [u8] = TM_LOGGER_API_NAME;
 
-    fn new(api: *mut tm_logger_api) -> LogApi {
-        LogApi { api }
-    }
-
-    fn from_void(api: *mut c_void) -> Self::CType {
-        api as _
+    fn new(api: *mut c_void) -> LogApi {
+        LogApi { api: api as _ }
     }
 }
 

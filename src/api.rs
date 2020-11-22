@@ -10,8 +10,7 @@ pub trait Api {
     type RsType: Copy + Clone + Send + Sync + 'static;
     const NAME: &'static [u8];
 
-    fn new(api: Self::CType) -> Self::RsType;
-    fn from_void(api: *mut c_void) -> Self::CType;
+    fn new(api: *mut c_void) -> Self::RsType;
 }
 
 lazy_static! {
@@ -22,7 +21,7 @@ pub fn register<A: Api>(reg: *mut tm_api_registry_api) {
     REGISTERED_APIS
         .write()
         .unwrap()
-        .insert(A::new(A::from_void(reg.get(A::NAME))));
+        .insert(A::new(reg.get(A::NAME)));
 }
 
 pub fn get<A: Api>() -> A::RsType {
