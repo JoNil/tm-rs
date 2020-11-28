@@ -5,12 +5,18 @@ use tm_sys::ffi::tm_api_registry_api;
 
 use crate::registry::RegistryApi;
 
-pub trait Api {
+pub trait Api: Copy + Clone + Send + Sync + 'static {
     type CType;
-    type RsType: Copy + Clone + Send + Sync + 'static;
     const NAME: &'static [u8];
 
-    fn new(api: *mut c_void) -> Self::RsType;
+    fn new(api: *mut c_void) -> Self;
+}
+
+pub trait ApiWithCtx: Api {
+    type Ctx;
+    type ApiInstance: Copy + Clone;
+
+    fn wrap(self, ctx: Self::Ctx) -> Self::ApiInstance;
 }
 
 lazy_static! {
@@ -18,12 +24,22 @@ lazy_static! {
 }
 
 pub unsafe fn register<A: Api>(reg: *mut tm_api_registry_api) {
+    assert!(!reg.is_null());
     REGISTERED_APIS
         .write()
         .unwrap()
         .insert(A::new(reg.get(A::NAME)));
 }
 
-pub fn get<A: Api>() -> A::RsType {
-    *REGISTERED_APIS.read().unwrap().get::<A::RsType>().unwrap()
+pub fn get<A: Api>() -> A {
+    *REGISTERED_APIS.read().unwrap().get::<A>().unwrap()
+}
+
+pub unsafe fn with_ctx<A: ApiWithCtx>(ctx: A::Ctx) -> A::ApiInstance {
+    REGISTERED_APIS
+        .read()
+        .unwrap()
+        .get::<A>()
+        .unwrap()
+        .wrap(ctx)
 }

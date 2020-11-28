@@ -12,6 +12,7 @@ pub trait RegistryApi {
     unsafe fn add_listener(self, listener: *const ffi::tm_api_registry_listener_i);
     unsafe fn static_variable(self, id: u64, size: u32, file: &[u8], line: u32) -> *mut c_void;
     unsafe fn log_missing_apis(self);
+    unsafe fn add_or_remove_implementation(self, load: bool, name: &[u8], ptr: *mut c_void);
 }
 
 impl RegistryApi for *mut ffi::tm_api_registry_api {
@@ -64,5 +65,14 @@ impl RegistryApi for *mut ffi::tm_api_registry_api {
     unsafe fn log_missing_apis(self) {
         assert!(!self.is_null());
         (*self).log_missing_apis.unwrap()()
+    }
+
+    #[inline]
+    unsafe fn add_or_remove_implementation(self, load: bool, name: &[u8], ptr: *mut c_void) {
+        if load {
+            self.add_implementation(name, ptr);
+        } else {
+            self.remove_implementation(name, ptr);
+        }
     }
 }

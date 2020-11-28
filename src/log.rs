@@ -15,26 +15,28 @@ unsafe impl Sync for LogApi {}
 
 impl Api for LogApi {
     type CType = *mut tm_logger_api;
-    type RsType = LogApi;
     const NAME: &'static [u8] = TM_LOGGER_API_NAME;
 
-    fn new(api: *mut c_void) -> LogApi {
-        LogApi { api: api as _ }
+    fn new(api: *mut c_void) -> Self {
+        Self { api: api as _ }
     }
 }
 
 impl LogApi {
-    pub fn print_info(&self, message: &str) {
+    #[inline]
+    pub fn info(&self, message: &str) {
         let message = CString::new(message).unwrap();
         unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_INFO, message.as_ptr() as _) };
     }
 
-    pub fn print_debug(&self, message: &str) {
+    #[inline]
+    pub fn debug(&self, message: &str) {
         let message = CString::new(message).unwrap();
         unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_DEBUG, message.as_ptr() as _) };
     }
 
-    pub fn print_error(&self, message: &str) {
+    #[inline]
+    pub fn error(&self, message: &str) {
         let message = CString::new(message).unwrap();
         unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_ERROR, message.as_ptr() as _) };
     }
