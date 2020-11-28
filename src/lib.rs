@@ -2,6 +2,9 @@
 
 pub mod api;
 pub mod entity;
+mod hash;
 pub mod log;
 pub mod registry;
+
+pub use hash::hash;
 pub use tm_sys::ffi;
