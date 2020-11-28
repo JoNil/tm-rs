@@ -70,6 +70,7 @@ const fn murmur_hash64a(key: &[u8], seed: u64) -> u64 {
     h ^= h >> r;
     h
 }
+
 #[inline]
 pub fn hash(key: &[u8]) -> u64 {
     let mut key = key;
