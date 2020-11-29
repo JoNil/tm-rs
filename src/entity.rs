@@ -1,4 +1,7 @@
-use crate::api::{Api, ApiWithCtx};
+use crate::{
+    api::{Api, ApiWithCtx},
+    component::{ComponentTuple, Components},
+};
 use std::{
     ffi::{c_void, CString},
     slice,
@@ -42,24 +45,6 @@ impl ApiWithCtx for EntityApi {
     }
 }
 
-pub struct Engine<'a, ComponentsIter, ExcludesIter, WritesIter, UpdateFn, FilterFn>
-where
-    ComponentsIter: IntoIterator<Item = &'a u32>,
-    ExcludesIter: IntoIterator<Item = &'a bool>,
-    WritesIter: IntoIterator<Item = &'a bool>,
-    UpdateFn: Fn(*mut tm_engine_update_set_t) + Send + Sync + 'static,
-    FilterFn: Fn(&[u32], &tm_component_mask_t) -> bool + Send + Sync + 'static,
-{
-    pub name: &'static str,
-    pub disabled: bool,
-    pub num_components: u32,
-    pub components: ComponentsIter,
-    pub excludes: ExcludesIter,
-    pub writes: WritesIter,
-    pub update: UpdateFn,
-    pub filter: Option<FilterFn>,
-}
-
 struct EngineCallbackData {
     ctx: *mut tm_entity_context_o,
     update: Box<dyn Fn(*mut tm_engine_update_set_t)>,
@@ -96,39 +81,24 @@ impl EntityApiInstance {
     }
 
     #[inline]
-    pub fn register_engine<'a, ComponentsIter, ExcludesIter, WritesIter, UpdateFn, FilterFn>(
+    pub fn register_engine<C, UpdateFn, FilterFn>(
         &mut self,
-        engine: Engine<'a, ComponentsIter, ExcludesIter, WritesIter, UpdateFn, FilterFn>,
+        name: &'static str,
+        update: UpdateFn,
+        filter: Option<FilterFn>,
     ) where
-        ComponentsIter: IntoIterator<Item = &'a u32>,
-        ExcludesIter: IntoIterator<Item = &'a bool>,
-        WritesIter: IntoIterator<Item = &'a bool>,
-        UpdateFn: Fn(*mut tm_engine_update_set_t) + Send + Sync + 'static,
+        C: ComponentTuple,
+        UpdateFn: Fn(Components<C>) + Send + Sync + 'static,
         FilterFn: Fn(&[u32], &tm_component_mask_t) -> bool + Send + Sync + 'static,
     {
-        let name = CString::new(engine.name).unwrap();
+        let name = CString::new(name).unwrap();
 
-        let mut components = [0; 16];
-        for (component, out) in engine.components.into_iter().zip(components.iter_mut()) {
-            *out = *component;
-        }
-
-        let mut excludes = [false; 16];
-        for (exclude, out) in engine.excludes.into_iter().zip(excludes.iter_mut()) {
-            *out = *exclude;
-        }
-
-        let mut writes = [false; 16];
-        for (write, out) in engine.writes.into_iter().zip(writes.iter_mut()) {
-            *out = *write;
-        }
-
-        let has_filter_fn = engine.filter.is_some();
+        let has_filter_fn = filter.is_some();
 
         let inst = Box::into_raw(Box::new(EngineCallbackData {
             ctx: self.ctx,
-            update: Box::new(engine.update),
-            filter: if let Some(filter) = engine.filter {
+            update: Box::new(update),
+            filter: if let Some(filter) = filter {
                 Some(Box::new(filter))
             } else {
                 None
@@ -137,12 +107,12 @@ impl EntityApiInstance {
 
         let engine = tm_engine_i {
             name: name.as_ptr(),
-            disabled: engine.disabled,
+            disabled: false,
             _padding_215: [0; 3],
-            num_components: engine.num_components,
-            components,
-            excludes,
-            writes,
+            num_components: C::get_count(),
+            components: C::get_components(self),
+            excludes: [false; 16],
+            writes: C::get_writes(),
             inst,
             update: Some(engine_update),
             filter: if has_filter_fn {
