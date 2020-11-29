@@ -1,6 +1,7 @@
 #![allow(clippy::missing_safety_doc)]
 
 pub mod api;
+pub mod component;
 pub mod entity;
 mod hash;
 pub mod log;
