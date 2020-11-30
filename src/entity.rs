@@ -46,7 +46,7 @@ impl ApiWithCtx for EntityApi {
 }
 
 struct EngineCallbackData {
-    ctx: *mut tm_entity_context_o,
+    _ctx: *mut tm_entity_context_o,
     update: Box<dyn Fn(&mut tm_engine_update_set_t)>,
     filter: Option<Box<dyn Fn(&[u32], &tm_component_mask_t) -> bool>>,
 }
@@ -102,7 +102,7 @@ impl EntityApiInstance {
 
         // This is leaked
         let inst = Box::into_raw(Box::new(EngineCallbackData {
-            ctx: self.ctx,
+            _ctx: self.ctx,
             update: Box::new(update),
             filter: if let Some(filter) = filter {
                 Some(Box::new(filter))

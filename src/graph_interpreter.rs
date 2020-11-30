@@ -1,5 +1,5 @@
 use crate::api::{Api, ApiWithCtx};
-use std::ffi::{c_void, CString};
+use std::ffi::c_void;
 use tm_sys::ffi::{
     tm_graph_interpreter_api, tm_graph_interpreter_o, tm_graph_interpreter_wire_content_t,
     TM_GRAPH_INTERPRETER_API_NAME,
