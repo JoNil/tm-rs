@@ -2,7 +2,9 @@
 
 pub mod api;
 pub mod component;
+pub mod components;
 pub mod entity;
+pub mod graph_interpreter;
 mod hash;
 pub mod log;
 pub mod registry;

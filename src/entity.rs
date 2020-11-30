@@ -19,12 +19,6 @@ pub struct EntityApi {
 unsafe impl Send for EntityApi {}
 unsafe impl Sync for EntityApi {}
 
-#[derive(Copy, Clone)]
-pub struct EntityApiInstance {
-    api: *mut tm_entity_api,
-    ctx: *mut tm_entity_context_o,
-}
-
 impl Api for EntityApi {
     type CType = *mut tm_entity_api;
     const NAME: &'static [u8] = TM_ENTITY_API_NAME;
@@ -35,12 +29,18 @@ impl Api for EntityApi {
     }
 }
 
+#[derive(Copy, Clone)]
+pub struct EntityApiInstance {
+    api: *mut tm_entity_api,
+    ctx: *mut tm_entity_context_o,
+}
+
 impl ApiWithCtx for EntityApi {
-    type Ctx = *mut tm_entity_context_o;
+    type Ctx = tm_entity_context_o;
     type ApiInstance = EntityApiInstance;
 
     #[inline]
-    fn wrap(self, ctx: Self::Ctx) -> Self::ApiInstance {
+    fn wrap(self, ctx: *mut Self::Ctx) -> Self::ApiInstance {
         EntityApiInstance { api: self.api, ctx }
     }
 }

@@ -16,7 +16,7 @@ pub trait ApiWithCtx: Api {
     type Ctx;
     type ApiInstance: Copy + Clone;
 
-    fn wrap(self, ctx: Self::Ctx) -> Self::ApiInstance;
+    fn wrap(self, ctx: *mut Self::Ctx) -> Self::ApiInstance;
 }
 
 lazy_static! {
@@ -35,7 +35,7 @@ pub fn get<A: Api>() -> A {
     *REGISTERED_APIS.read().unwrap().get::<A>().unwrap()
 }
 
-pub unsafe fn with_ctx<A: ApiWithCtx>(ctx: A::Ctx) -> A::ApiInstance {
+pub fn with_ctx<A: ApiWithCtx>(ctx: *mut A::Ctx) -> A::ApiInstance {
     REGISTERED_APIS
         .read()
         .unwrap()

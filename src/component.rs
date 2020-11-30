@@ -1,29 +1,12 @@
 use std::{marker::PhantomData, mem::size_of};
 
-use tm_sys::ffi::{
-    tm_engine_update_array_t, tm_engine_update_set_t, tm_graph_component_t, tm_light_component_t,
-    TM_TT_TYPE__GRAPH_COMPONENT, TM_TT_TYPE__LIGHT_COMPONENT,
-};
+use tm_sys::ffi::{tm_engine_update_array_t, tm_engine_update_set_t};
 
 use crate::{entity::EntityApiInstance, hash};
 
 pub trait Component {
     const NAME: &'static [u8];
     type CType;
-}
-
-pub struct LightComponent;
-
-impl Component for LightComponent {
-    const NAME: &'static [u8] = TM_TT_TYPE__LIGHT_COMPONENT;
-    type CType = tm_light_component_t;
-}
-
-pub struct GraphComponent;
-
-impl Component for GraphComponent {
-    const NAME: &'static [u8] = TM_TT_TYPE__GRAPH_COMPONENT;
-    type CType = tm_graph_component_t;
 }
 
 pub trait Accessor {
