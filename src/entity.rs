@@ -1,6 +1,6 @@
 use crate::{
     api::{Api, ApiWithCtx},
-    component::{ComponentTuple, Components},
+    component::ComponentTuple,
 };
 use std::{
     ffi::{c_void, CString},
@@ -47,14 +47,17 @@ impl ApiWithCtx for EntityApi {
 
 struct EngineCallbackData {
     ctx: *mut tm_entity_context_o,
-    update: Box<dyn Fn(*mut tm_engine_update_set_t)>,
+    update: Box<dyn Fn(&mut tm_engine_update_set_t)>,
     filter: Option<Box<dyn Fn(&[u32], &tm_component_mask_t) -> bool>>,
 }
 
 unsafe extern "C" fn engine_update(inst: *mut tm_engine_o, data: *mut tm_engine_update_set_t) {
+    assert!(!inst.is_null());
+    assert!(!data.is_null());
+
     let callback_data = (inst as *const EngineCallbackData).as_ref().unwrap();
 
-    (callback_data.update)(data);
+    (callback_data.update)(data.as_mut().unwrap());
 }
 
 unsafe extern "C" fn engine_filter(
@@ -63,6 +66,10 @@ unsafe extern "C" fn engine_filter(
     num_components: u32,
     mask: *const tm_component_mask_t,
 ) -> bool {
+    assert!(!inst.is_null());
+    assert!(!components.is_null());
+    assert!(!mask.is_null());
+
     let callback_data = (inst as *const EngineCallbackData).as_ref().unwrap();
     let components = slice::from_raw_parts(components, num_components as usize);
     let mask = mask.as_ref().unwrap();
@@ -81,15 +88,13 @@ impl EntityApiInstance {
     }
 
     #[inline]
-    pub fn register_engine<C, UpdateFn, FilterFn>(
+    pub fn register_engine<C>(
         &mut self,
         name: &'static str,
-        update: UpdateFn,
-        filter: Option<FilterFn>,
+        update: fn(&mut tm_engine_update_set_t),
+        filter: Option<fn(&[u32], &tm_component_mask_t) -> bool>,
     ) where
         C: ComponentTuple,
-        UpdateFn: Fn(Components<C>) + Send + Sync + 'static,
-        FilterFn: Fn(&[u32], &tm_component_mask_t) -> bool + Send + Sync + 'static,
     {
         let name = CString::new(name).unwrap();
 

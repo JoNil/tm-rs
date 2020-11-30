@@ -1,7 +1,7 @@
 use std::{marker::PhantomData, mem::size_of};
 
 use tm_sys::ffi::{
-    tm_engine_update_array_t, tm_graph_component_t, tm_light_component_t,
+    tm_engine_update_array_t, tm_engine_update_set_t, tm_graph_component_t, tm_light_component_t,
     TM_TT_TYPE__GRAPH_COMPONENT, TM_TT_TYPE__LIGHT_COMPONENT,
 };
 
@@ -62,14 +62,29 @@ impl<'a, C: Component> Accessor for Write<'a, C> {
     }
 }
 
-pub struct Components<'a, C> {
-    pub arrays: &'a [tm_engine_update_array_t],
-    pub arrays_index: usize,
-    pub components_index: usize,
-    pub phantom_data: PhantomData<C>,
+pub struct ComponentsIterator<'a, C> {
+    arrays: &'a [tm_engine_update_array_t],
+    arrays_index: usize,
+    components_index: usize,
+    phantom_data: PhantomData<C>,
 }
 
-impl<'a, A, B> Iterator for Components<'a, (A, B)>
+impl<'a, C> ComponentsIterator<'a, C> {
+    pub fn new(update_set: &'a mut tm_engine_update_set_t) -> Self {
+        Self {
+            arrays: unsafe {
+                (*update_set)
+                    .arrays
+                    .as_mut_slice((*update_set).num_arrays as usize)
+            },
+            arrays_index: 0,
+            components_index: 0,
+            phantom_data: PhantomData,
+        }
+    }
+}
+
+impl<'a, A, B> Iterator for ComponentsIterator<'a, (A, B)>
 where
     A: Accessor,
     B: Accessor,
@@ -110,7 +125,7 @@ where
 
 pub trait ComponentTuple {
     fn get_struct_sizes() -> [usize; 16];
-    fn get_components(entity_api: &EntityApiInstance) -> [u32; 16];
+    fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16];
     fn get_writes() -> [bool; 16];
     fn get_count() -> u32;
 }
@@ -143,7 +158,7 @@ where
     }
 
     #[inline]
-    fn get_components(entity_api: &EntityApiInstance) -> [u32; 16] {
+    fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16] {
         [
             entity_api.lookup_component(hash(A::C::NAME)),
             entity_api.lookup_component(hash(B::C::NAME)),
