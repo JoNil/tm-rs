@@ -100,6 +100,7 @@ impl EntityApiInstance {
 
         let has_filter_fn = filter.is_some();
 
+        // This is leaked
         let inst = Box::into_raw(Box::new(EngineCallbackData {
             ctx: self.ctx,
             update: Box::new(update),
