@@ -1,9 +1,7 @@
+use crate::registry::RegistryApi;
 use anymap::{any::Any, Map};
 use lazy_static::lazy_static;
 use std::{ffi::c_void, sync::RwLock};
-use tm_sys::ffi::tm_api_registry_api;
-
-use crate::registry::RegistryApi;
 
 pub trait Api: Copy + Clone + Send + Sync + 'static {
     type CType;
@@ -23,8 +21,7 @@ lazy_static! {
     static ref REGISTERED_APIS: RwLock<Map<dyn Any + Send + Sync>> = RwLock::new(Map::new());
 }
 
-pub unsafe fn register<A: Api>(reg: *mut tm_api_registry_api) {
-    assert!(!reg.is_null());
+pub unsafe fn register<A: Api>(reg: &mut RegistryApi) {
     REGISTERED_APIS
         .write()
         .unwrap()

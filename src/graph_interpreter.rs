@@ -4,8 +4,7 @@ use crate::{
 };
 use std::{convert::TryInto, ffi::c_void, slice};
 use tm_sys::ffi::{
-    tm_graph_interpreter_api, tm_graph_interpreter_o, tm_graph_interpreter_wire_content_t,
-    TM_GRAPH_INTERPRETER_API_NAME,
+    tm_graph_interpreter_api, tm_graph_interpreter_o, TM_GRAPH_INTERPRETER_API_NAME,
 };
 
 #[derive(Copy, Clone)]
