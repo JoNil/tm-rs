@@ -40,10 +40,8 @@ impl RegistryApi {
 
 #[macro_export]
 macro_rules! add_or_remove_entity_simulation {
-    ($reg:expr, |$entity_api:ident: &mut EntityApiInstance| $body:block) => {
-        unsafe extern "C" fn register_entity_simulation(
-            ctx: *mut $crate::ffi::tm_entity_context_o,
-        ) {
+    ($reg:expr, fn $name:ident($entity_api:ident: &mut EntityApiInstance) $body:block) => {
+        unsafe extern "C" fn $name(ctx: *mut $crate::ffi::tm_entity_context_o) {
             assert!(!ctx.is_null());
 
             let mut entity_api = $crate::api::with_ctx::<$crate::entity::EntityApi>(ctx);
@@ -53,7 +51,7 @@ macro_rules! add_or_remove_entity_simulation {
 
         $reg.add_or_remove_implementation(
             $crate::ffi::TM_ENTITY_SIMULATION_INTERFACE_NAME,
-            register_entity_simulation as _,
+            $name as _,
         );
     };
 }
