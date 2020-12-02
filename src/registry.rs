@@ -7,6 +7,7 @@ pub struct RegistryApi {
 }
 
 impl RegistryApi {
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn new(reg: *mut ffi::tm_api_registry_api, load: bool) -> Self {
         assert!(!reg.is_null());
         Self { reg, load }
@@ -35,4 +36,24 @@ impl RegistryApi {
             self.remove_implementation(name, ptr);
         }
     }
+}
+
+#[macro_export]
+macro_rules! add_or_remove_entity_simulation {
+    ($reg:expr, |$entity_api:ident: &mut EntityApiInstance| $body:block) => {
+        unsafe extern "C" fn register_entity_simulation(
+            ctx: *mut $crate::ffi::tm_entity_context_o,
+        ) {
+            assert!(!ctx.is_null());
+
+            let mut entity_api = $crate::api::with_ctx::<$crate::entity::EntityApi>(ctx);
+
+            (|$entity_api: &mut $crate::entity::EntityApiInstance| $body)(&mut entity_api);
+        }
+
+        $reg.add_or_remove_implementation(
+            $crate::ffi::TM_ENTITY_SIMULATION_INTERFACE_NAME,
+            register_entity_simulation as _,
+        );
+    };
 }

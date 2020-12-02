@@ -41,6 +41,7 @@ impl ApiWithCtx for GraphInterpreterApi {
 }
 
 impl GraphInterpreterApiInstance {
+    #[inline]
     pub fn read_variable_f32(&mut self, variable: &str) -> Option<f32> {
         let variable = hash(variable.as_bytes());
         let var = unsafe { (*self.api).read_variable.unwrap()(self.ctx, variable) };

@@ -1,5 +1,3 @@
-#![allow(clippy::missing_safety_doc)]
-
 pub mod api;
 pub mod component;
 pub mod components;
@@ -17,7 +15,10 @@ macro_rules! tm_plugin {
     (|$reg:ident: &mut RegistryApi| $body:block) => {
         #[no_mangle]
         #[allow(clippy::missing_safety_doc)]
-        pub unsafe extern "C" fn tm_load_plugin(reg: *mut tm_api_registry_api, load: bool) {
+        pub unsafe extern "C" fn tm_load_plugin(
+            reg: *mut $crate::ffi::tm_api_registry_api,
+            load: bool,
+        ) {
             let $reg = &mut $crate::registry::RegistryApi::new(reg, load);
             $body
         }
