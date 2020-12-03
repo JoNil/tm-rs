@@ -127,7 +127,8 @@ macro_rules! impl_component_tuple {
                         let mut component_count = 0;
 
                         $(
-                            let [<$t:lower>] = (array.components[component_count] as *mut <$t::C as Component>::CType).add(self.components_index);
+                            let [<$t:lower>] = (array.components[component_count] as *mut <$t::C as Component>::CType)
+                                .add(self.components_index);
                             component_count += 1;
                         )*
 
