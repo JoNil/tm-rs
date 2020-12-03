@@ -1,6 +1,6 @@
 use crate::{
     api::{Api, ApiWithCtx},
-    component::ComponentTuple,
+    component::{ComponentTuple, ComponentsIterator},
 };
 use std::{
     ffi::{c_void, CString},
@@ -91,7 +91,7 @@ impl EntityApiInstance {
     pub fn register_engine<C>(
         &mut self,
         name: &'static str,
-        update: fn(&mut tm_engine_update_set_t),
+        update: impl Fn(ComponentsIterator<C>) + Send + Sync + 'static,
         filter: Option<fn(&[u32], &tm_component_mask_t) -> bool>,
     ) where
         C: ComponentTuple,
@@ -103,7 +103,10 @@ impl EntityApiInstance {
         // This is leaked
         let inst = Box::into_raw(Box::new(EngineCallbackData {
             _ctx: self.ctx,
-            update: Box::new(update),
+            update: Box::new(move |update_set| {
+                let components = ComponentsIterator::<C>::new(update_set);
+                update(components)
+            }),
             filter: if let Some(filter) = filter {
                 Some(Box::new(filter))
             } else {
