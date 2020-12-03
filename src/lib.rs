@@ -15,6 +15,9 @@ pub use tm_sys::ffi::tm_vec2_t as Vec2;
 pub use tm_sys::ffi::tm_vec3_t as Vec3;
 pub use tm_sys::ffi::tm_vec4_t as Vec4;
 
+#[doc(hidden)]
+pub use paste;
+
 #[macro_export]
 macro_rules! tm_plugin {
     (|$reg:ident: &mut RegistryApi| $body:block) => {
