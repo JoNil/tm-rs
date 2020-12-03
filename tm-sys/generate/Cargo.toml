@@ -4,6 +4,8 @@ version = "1.0.0"
 authors = ["Jonathan Nilsson <jonathan@voysys.se>"]
 edition = "2018"
 
+[workspace]
+
 [dependencies]
 bindgen = "0.56"
 walkdir = "2"
