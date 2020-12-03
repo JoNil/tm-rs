@@ -1,6 +1,7 @@
 use crate::{
-    api::{Api, ApiWithCtx},
+    api::{self, Api, ApiWithCtx},
     component::{ComponentTuple, ComponentsIterator},
+    ComponentMask,
 };
 use std::{
     ffi::{c_void, CString},
@@ -46,9 +47,10 @@ impl ApiWithCtx for EntityApi {
 }
 
 struct EngineCallbackData {
-    _ctx: *mut tm_entity_context_o,
-    update: Box<dyn Fn(&mut tm_engine_update_set_t)>,
-    filter: Option<Box<dyn Fn(&[u32], &tm_component_mask_t) -> bool>>,
+    ctx: *mut tm_entity_context_o,
+    update: Box<dyn Fn(*mut tm_entity_context_o, &mut tm_engine_update_set_t)>,
+    #[allow(clippy::type_complexity)]
+    filter: Option<Box<dyn Fn(&[u32], &ComponentMask) -> bool>>,
 }
 
 unsafe extern "C" fn engine_update(inst: *mut tm_engine_o, data: *mut tm_engine_update_set_t) {
@@ -57,7 +59,7 @@ unsafe extern "C" fn engine_update(inst: *mut tm_engine_o, data: *mut tm_engine_
 
     let callback_data = (inst as *const EngineCallbackData).as_ref().unwrap();
 
-    (callback_data.update)(data.as_mut().unwrap());
+    (callback_data.update)(callback_data.ctx, data.as_mut().unwrap());
 }
 
 unsafe extern "C" fn engine_filter(
@@ -91,8 +93,8 @@ impl EntityApiInstance {
     pub fn register_engine<C>(
         &mut self,
         name: &'static str,
-        update: impl Fn(ComponentsIterator<C>) + Send + Sync + 'static,
-        filter: Option<fn(&[u32], &tm_component_mask_t) -> bool>,
+        update: impl Fn(&mut EntityApiInstance, ComponentsIterator<C>) + Send + Sync + 'static,
+        filter: Option<fn(&[u32], &ComponentMask) -> bool>,
     ) where
         C: ComponentTuple,
     {
@@ -102,10 +104,11 @@ impl EntityApiInstance {
 
         // This is leaked
         let inst = Box::into_raw(Box::new(EngineCallbackData {
-            _ctx: self.ctx,
-            update: Box::new(move |update_set| {
+            ctx: self.ctx,
+            update: Box::new(move |ctx, update_set| {
+                let mut entity_api = api::with_ctx::<EntityApi>(ctx);
                 let components = ComponentsIterator::<C>::new(update_set);
-                update(components)
+                update(&mut entity_api, components)
             }),
             filter: if let Some(filter) = filter {
                 Some(Box::new(filter))
