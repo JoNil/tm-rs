@@ -68,45 +68,6 @@ impl<'a, C> ComponentsIterator<'a, C> {
     }
 }
 
-impl<'a, A, B> Iterator for ComponentsIterator<'a, (A, B)>
-where
-    A: Accessor,
-    B: Accessor,
-{
-    type Item = (A::RefT, B::RefT);
-
-    #[inline]
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.arrays_index >= self.arrays.len() {
-            return None;
-        }
-
-        let mut array = &self.arrays[self.arrays_index];
-
-        if self.components_index >= array.n as usize {
-            self.arrays_index += 1;
-            self.components_index = 0;
-
-            if self.arrays_index >= self.arrays.len() {
-                return None;
-            }
-
-            array = &self.arrays[self.arrays_index];
-        }
-
-        unsafe {
-            let a =
-                (array.components[0] as *mut <A::C as Component>::CType).add(self.components_index);
-            let b =
-                (array.components[1] as *mut <B::C as Component>::CType).add(self.components_index);
-
-            self.components_index += 1;
-
-            Some((A::ref_from_ptr(a), B::ref_from_ptr(b)))
-        }
-    }
-}
-
 pub trait ComponentTuple {
     fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16];
     fn get_writes() -> [bool; 16];
@@ -133,8 +94,52 @@ macro_rules! count_idents {
 
 macro_rules! impl_component_tuple {
     ($($t:ident),* $(,)* $($none:literal),*) => {
-        #[allow(unused_parens)]
-        impl<$($t),*> ComponentTuple for ($($t),*)
+
+        paste::paste! {
+            impl<'a, $($t),*> Iterator for ComponentsIterator<'a, ($($t),*,)>
+            where
+                $($t: Accessor),*
+            {
+                type Item = ($($t::RefT),*,);
+
+                #[inline]
+                fn next(&mut self) -> Option<Self::Item> {
+                    if self.arrays_index >= self.arrays.len() {
+                        return None;
+                    }
+
+                    let mut array = &self.arrays[self.arrays_index];
+
+                    if self.components_index >= array.n as usize {
+                        self.arrays_index += 1;
+                        self.components_index = 0;
+
+                        if self.arrays_index >= self.arrays.len() {
+                            return None;
+                        }
+
+                        array = &self.arrays[self.arrays_index];
+                    }
+
+                    #[allow(unused_assignments)]
+                    unsafe {
+
+                        let mut component_count = 0;
+
+                        $(
+                            let [<$t:lower>] = (array.components[component_count] as *mut <$t::C as Component>::CType).add(self.components_index);
+                            component_count += 1;
+                        )*
+
+                        self.components_index += 1;
+
+                        Some(($($t::ref_from_ptr([<$t:lower>])),*,))
+                    }
+                }
+            }
+        }
+
+        impl<$($t),*> ComponentTuple for ($($t),*,)
         where
             $($t: Accessor),*
         {
