@@ -48,7 +48,7 @@ impl RegistryApi {
 #[macro_export]
 macro_rules! add_or_remove_entity_simulation {
     ($reg:expr, $name:ident) => {
-        tm_rs::paste::paste! {
+        $crate::paste::paste! {
             unsafe extern "C" fn [<$name _extern>](ctx: *mut $crate::ffi::tm_entity_context_o) {
                 assert!(!ctx.is_null());
 
