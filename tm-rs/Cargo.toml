@@ -12,10 +12,9 @@ categories = ["api-bindings", "game-engines"]
 license = "0BSD"
 repository = "https://github.com/JoNil/tm-rs"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 anymap = "0.12"
 lazy_static = "1"
 paste = "1"
+tm-derive = "2020.11"
 tm-sys = "2020.11"

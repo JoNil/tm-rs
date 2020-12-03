@@ -12,6 +12,4 @@ categories = ["game-engines"]
 license = "0BSD"
 repository = "https://github.com/JoNil/tm-rs"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
