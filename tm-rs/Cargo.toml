@@ -6,7 +6,7 @@ edition = "2018"
 
 description = "FFI bindings for the machinery api"
 documentation = "https://docs.rs/tm-rs"
-readme = "README.md"
+readme = "../README.md"
 keywords = ["the-machinery", "our-machinery"]
 categories = ["api-bindings", "game-engines"]
 license = "0BSD"

@@ -6,9 +6,9 @@ edition = "2018"
 
 description = "FFI bindings for the machinery api"
 documentation = "https://docs.rs/tm-derive"
-readme = "README.md"
+readme = "../README.md"
 keywords = ["the-machinery", "our-machinery"]
-categories = ["external-ffi-bindings", "game-engines"]
+categories = ["game-engines"]
 license = "0BSD"
 repository = "https://github.com/JoNil/tm-rs"
 
