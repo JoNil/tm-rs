@@ -114,7 +114,7 @@ pub trait ComponentTuple {
 }
 
 macro_rules! replace_expr {
-    ($_t:tt, $sub:expr) => {
+    ($_i:ident, $sub:expr) => {
         $sub
     };
 }
@@ -125,66 +125,56 @@ macro_rules! replace_lit {
     };
 }
 
-macro_rules! count_tts {
-    ($($tts:tt),*) => {0u32 $(+ replace_expr!($tts, 1u32))*};
+macro_rules! count_idents {
+    ($($tts:ident),*) => {
+        0u32 $(+ replace_expr!($tts, 1u32))*
+    };
 }
 
 macro_rules! impl_component_tuple {
-    ($($t:tt),* | $($none:literal),*) => {
+    ($($t:ident),* $(,)* $($none:literal),*) => {
         #[allow(unused_parens)]
         impl<$($t),*> ComponentTuple for ($($t),*)
         where
-            $(
-                $t: Accessor,
-            )*
+            $($t: Accessor),*
         {
             #[inline]
             fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16] {
                 [
-                    $(
-                        entity_api.lookup_component(hash($t::C::NAME))
-                    ),*
-                    ,
-                    $(
-                        replace_lit!($none, 0)
-                    ),*
+                    $(entity_api.lookup_component(hash($t::C::NAME))),*,
+                    $(replace_lit!($none, 0)),*
                 ]
             }
 
             #[inline]
             fn get_writes() -> [bool; 16] {
                 [
-                    $(
-                        $t::WRITE
-                    ),*
-                    ,
-                    $(
-                        replace_lit!($none, false)
-                    ),*
+                    $($t::WRITE),*,
+                    $(replace_lit!($none, false)),*
                 ]
             }
 
             #[inline]
             fn get_count() -> u32 {
-                count_tts!($($t),*)
+                count_idents!($($t),*)
             }
         }
     };
 }
 
-impl_component_tuple!(A | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G | 0, 0, 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H | 0, 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H, I | 0, 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H, I, J | 0, 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K | 0, 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L | 0, 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M | 0, 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N | 0, 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O | 0);
-impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P |);
+impl_component_tuple!(A, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P);
