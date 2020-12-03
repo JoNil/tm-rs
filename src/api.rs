@@ -21,6 +21,7 @@ lazy_static! {
     static ref REGISTERED_APIS: RwLock<Map<dyn Any + Send + Sync>> = RwLock::new(Map::new());
 }
 
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn register<A: Api>(reg: &mut RegistryApi) {
     REGISTERED_APIS
         .write()
@@ -33,6 +34,7 @@ pub fn get<A: Api>() -> A {
 }
 
 pub fn with_ctx<A: ApiWithCtx>(ctx: *mut A::Ctx) -> A::ApiInstance {
+    assert!(!ctx.is_null());
     REGISTERED_APIS
         .read()
         .unwrap()

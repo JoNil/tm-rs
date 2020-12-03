@@ -14,7 +14,8 @@ pub trait Accessor {
     type C: Component;
     type RefT;
 
-    fn ref_from_ptr(ptr: *mut <Self::C as Component>::CType) -> Self::RefT;
+    #[allow(clippy::missing_safety_doc)]
+    unsafe fn ref_from_ptr(ptr: *mut <Self::C as Component>::CType) -> Self::RefT;
 }
 
 pub struct Read<'a, C: Component + 'a> {
@@ -26,8 +27,8 @@ impl<'a, C: Component> Accessor for Read<'a, C> {
     type C = C;
     type RefT = &'a C::CType;
 
-    fn ref_from_ptr(ptr: *mut <Self::C as Component>::CType) -> Self::RefT {
-        unsafe { ptr.as_ref().unwrap() }
+    unsafe fn ref_from_ptr(ptr: *mut <Self::C as Component>::CType) -> Self::RefT {
+        ptr.as_ref().unwrap()
     }
 }
 
@@ -40,8 +41,8 @@ impl<'a, C: Component> Accessor for Write<'a, C> {
     type C = C;
     type RefT = &'a mut C::CType;
 
-    fn ref_from_ptr(ptr: *mut <Self::C as Component>::CType) -> Self::RefT {
-        unsafe { ptr.as_mut().unwrap() }
+    unsafe fn ref_from_ptr(ptr: *mut <Self::C as Component>::CType) -> Self::RefT {
+        ptr.as_mut().unwrap()
     }
 }
 

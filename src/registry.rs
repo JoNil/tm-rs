@@ -19,17 +19,24 @@ impl RegistryApi {
     }
 
     #[inline]
-    pub fn add_implementation(&mut self, name: &[u8], implementation: *mut c_void) {
-        unsafe { (*self.reg).add_implementation.unwrap()(name.as_ptr() as _, implementation) }
+    #[allow(clippy::missing_safety_doc)]
+    pub unsafe fn add_implementation(&mut self, name: &[u8], implementation: *mut c_void) {
+        assert!(!implementation.is_null());
+        (*self.reg).add_implementation.unwrap()(name.as_ptr() as _, implementation)
     }
 
     #[inline]
-    pub fn remove_implementation(&mut self, name: &[u8], implementation: *mut c_void) {
-        unsafe { (*self.reg).remove_implementation.unwrap()(name.as_ptr() as _, implementation) }
+    #[allow(clippy::missing_safety_doc)]
+    pub unsafe fn remove_implementation(&mut self, name: &[u8], implementation: *mut c_void) {
+        assert!(!implementation.is_null());
+        (*self.reg).remove_implementation.unwrap()(name.as_ptr() as _, implementation)
     }
 
     #[inline]
-    pub fn add_or_remove_implementation(&mut self, name: &[u8], ptr: *mut c_void) {
+    #[allow(clippy::missing_safety_doc)]
+    pub unsafe fn add_or_remove_implementation(&mut self, name: &[u8], ptr: *mut c_void) {
+        assert!(!ptr.is_null());
+
         if self.load {
             self.add_implementation(name, ptr);
         } else {
