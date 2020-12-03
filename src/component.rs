@@ -1,4 +1,4 @@
-use std::{marker::PhantomData, mem::size_of};
+use std::marker::PhantomData;
 
 use tm_sys::ffi::{tm_engine_update_array_t, tm_engine_update_set_t};
 
@@ -108,85 +108,83 @@ where
 }
 
 pub trait ComponentTuple {
-    fn get_struct_sizes() -> [usize; 16];
     fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16];
     fn get_writes() -> [bool; 16];
     fn get_count() -> u32;
 }
 
-impl<A, B> ComponentTuple for (A, B)
-where
-    A: Accessor,
-    B: Accessor,
-{
-    #[inline]
-    fn get_struct_sizes() -> [usize; 16] {
-        [
-            size_of::<<A::C as Component>::CType>(),
-            size_of::<<B::C as Component>::CType>(),
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-        ]
-    }
-
-    #[inline]
-    fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16] {
-        [
-            entity_api.lookup_component(hash(A::C::NAME)),
-            entity_api.lookup_component(hash(B::C::NAME)),
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-        ]
-    }
-
-    #[inline]
-    fn get_writes() -> [bool; 16] {
-        [
-            A::WRITE,
-            B::WRITE,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-        ]
-    }
-
-    #[inline]
-    fn get_count() -> u32 {
-        2
-    }
+macro_rules! replace_expr {
+    ($_t:tt, $sub:expr) => {
+        $sub
+    };
 }
+
+macro_rules! replace_lit {
+    ($_t:literal, $sub:expr) => {
+        $sub
+    };
+}
+
+macro_rules! count_tts {
+    ($($tts:tt),*) => {0u32 $(+ replace_expr!($tts, 1u32))*};
+}
+
+macro_rules! impl_component_tuple {
+    ($($t:tt),* | $($none:literal),*) => {
+        #[allow(unused_parens)]
+        impl<$($t),*> ComponentTuple for ($($t),*)
+        where
+            $(
+                $t: Accessor,
+            )*
+        {
+            #[inline]
+            fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16] {
+                [
+                    $(
+                        entity_api.lookup_component(hash($t::C::NAME))
+                    ),*
+                    ,
+                    $(
+                        replace_lit!($none, 0)
+                    ),*
+                ]
+            }
+
+            #[inline]
+            fn get_writes() -> [bool; 16] {
+                [
+                    $(
+                        $t::WRITE
+                    ),*
+                    ,
+                    $(
+                        replace_lit!($none, false)
+                    ),*
+                ]
+            }
+
+            #[inline]
+            fn get_count() -> u32 {
+                count_tts!($($t),*)
+            }
+        }
+    };
+}
+
+impl_component_tuple!(A | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G | 0, 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H | 0, 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I | 0, 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J | 0, 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K | 0, 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L | 0, 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M | 0, 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N | 0, 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O | 0);
+impl_component_tuple!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P |);
