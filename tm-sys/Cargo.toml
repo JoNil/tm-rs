@@ -1,0 +1,17 @@
+[package]
+name = "tm-sys"
+version = "2020.11.3"
+authors = ["Jonathan Nilsson <jonathan@voysys.se>"]
+edition = "2018"
+
+description = "FFI bindings for the machinery api"
+documentation = "https://docs.rs/tm-sys"
+readme = "README.md"
+keywords = ["the-machinery", "our-machinery"]
+categories = ["external-ffi-bindings", "game-engines"]
+license = "0BSD"
+repository = "https://github.com/JoNil/tm-sys"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]

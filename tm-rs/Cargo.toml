@@ -1,0 +1,21 @@
+[package]
+name = "tm-rs"
+version = "2020.11.8"
+authors = ["Jonathan Nilsson <jonathan@voysys.se>"]
+edition = "2018"
+
+description = "FFI bindings for the machinery api"
+documentation = "https://docs.rs/tm-rs"
+readme = "README.md"
+keywords = ["the-machinery", "our-machinery"]
+categories = ["api-bindings", "game-engines"]
+license = "0BSD"
+repository = "https://github.com/JoNil/tm-rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anymap = "0.12"
+lazy_static = "1"
+paste = "1"
+tm-sys = "2020.11"
