@@ -6,6 +6,7 @@ pub mod graph_interpreter;
 mod hash;
 pub mod log;
 pub mod registry;
+pub mod the_truth;
 
 pub use hash::hash;
 pub use tm_sys::ffi;

@@ -1,5 +1,5 @@
 use crate::{
-    api::{self, Api, ApiWithCtx},
+    api::{self, Api, ApiWithCtx, ApiWithCtxMut},
     component::{ComponentTuple, ComponentsIterator},
     ComponentMask,
 };
@@ -33,6 +33,12 @@ impl Api for EntityApi {
 #[derive(Copy, Clone)]
 pub struct EntityApiInstance {
     api: *mut tm_entity_api,
+    ctx: *const tm_entity_context_o,
+}
+
+#[derive(Copy, Clone)]
+pub struct EntityApiInstanceMut {
+    api: *mut tm_entity_api,
     ctx: *mut tm_entity_context_o,
 }
 
@@ -41,8 +47,17 @@ impl ApiWithCtx for EntityApi {
     type ApiInstance = EntityApiInstance;
 
     #[inline]
-    fn wrap(self, ctx: *mut Self::Ctx) -> Self::ApiInstance {
+    fn wrap(self, ctx: *const Self::Ctx) -> Self::ApiInstance {
         EntityApiInstance { api: self.api, ctx }
+    }
+}
+
+impl ApiWithCtxMut for EntityApi {
+    type ApiInstanceMut = EntityApiInstanceMut;
+
+    #[inline]
+    fn wrap_mut(self, ctx: *mut Self::Ctx) -> Self::ApiInstanceMut {
+        EntityApiInstanceMut { api: self.api, ctx }
     }
 }
 
@@ -83,7 +98,7 @@ unsafe extern "C" fn engine_filter(
     }
 }
 
-impl EntityApiInstance {
+impl EntityApiInstanceMut {
     #[inline]
     pub fn lookup_component(&mut self, name_hash: u64) -> u32 {
         unsafe { (*self.api).lookup_component.unwrap()(self.ctx, name_hash) }
@@ -93,7 +108,7 @@ impl EntityApiInstance {
     pub fn register_engine<C>(
         &mut self,
         name: &'static str,
-        update: impl Fn(&mut EntityApiInstance, ComponentsIterator<C>) + Send + Sync + 'static,
+        update: impl Fn(&mut EntityApiInstanceMut, ComponentsIterator<C>) + Send + Sync + 'static,
         filter: Option<fn(&[u32], &ComponentMask) -> bool>,
     ) where
         C: ComponentTuple,
@@ -106,7 +121,7 @@ impl EntityApiInstance {
         let inst = Box::into_raw(Box::new(EngineCallbackData {
             ctx: self.ctx,
             update: Box::new(move |ctx, update_set| {
-                let mut entity_api = api::with_ctx::<EntityApi>(ctx);
+                let mut entity_api = api::with_ctx_mut::<EntityApi>(ctx);
                 let components = ComponentsIterator::<C>::new(update_set);
                 update(&mut entity_api, components)
             }),

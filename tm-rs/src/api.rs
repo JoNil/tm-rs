@@ -14,7 +14,13 @@ pub trait ApiWithCtx: Api {
     type Ctx;
     type ApiInstance: Copy + Clone;
 
-    fn wrap(self, ctx: *mut Self::Ctx) -> Self::ApiInstance;
+    fn wrap(self, ctx: *const Self::Ctx) -> Self::ApiInstance;
+}
+
+pub trait ApiWithCtxMut: ApiWithCtx {
+    type ApiInstanceMut: Copy + Clone;
+
+    fn wrap_mut(self, ctx: *mut Self::Ctx) -> Self::ApiInstanceMut;
 }
 
 lazy_static! {
@@ -33,7 +39,7 @@ pub fn get<A: Api>() -> A {
     *REGISTERED_APIS.read().unwrap().get::<A>().unwrap()
 }
 
-pub fn with_ctx<A: ApiWithCtx>(ctx: *mut A::Ctx) -> A::ApiInstance {
+pub fn with_ctx<A: ApiWithCtx>(ctx: *const A::Ctx) -> A::ApiInstance {
     assert!(!ctx.is_null());
     REGISTERED_APIS
         .read()
@@ -41,4 +47,14 @@ pub fn with_ctx<A: ApiWithCtx>(ctx: *mut A::Ctx) -> A::ApiInstance {
         .get::<A>()
         .unwrap()
         .wrap(ctx)
+}
+
+pub fn with_ctx_mut<A: ApiWithCtxMut>(ctx: *mut A::Ctx) -> A::ApiInstanceMut {
+    assert!(!ctx.is_null());
+    REGISTERED_APIS
+        .read()
+        .unwrap()
+        .get::<A>()
+        .unwrap()
+        .wrap_mut(ctx)
 }

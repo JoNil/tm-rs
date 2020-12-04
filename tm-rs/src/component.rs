@@ -2,7 +2,7 @@ use std::marker::PhantomData;
 
 use tm_sys::ffi::{tm_engine_update_array_t, tm_engine_update_set_t};
 
-use crate::{entity::EntityApiInstance, hash};
+use crate::{entity::EntityApiInstanceMut, hash};
 
 pub trait Component {
     const NAME: &'static [u8];
@@ -69,7 +69,7 @@ impl<'a, C> ComponentsIterator<'a, C> {
 }
 
 pub trait ComponentTuple {
-    fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16];
+    fn get_components(entity_api: &mut EntityApiInstanceMut) -> [u32; 16];
     fn get_writes() -> [bool; 16];
     fn get_count() -> u32;
 }
@@ -145,7 +145,7 @@ macro_rules! impl_component_tuple {
             $($t: Accessor),*
         {
             #[inline]
-            fn get_components(entity_api: &mut EntityApiInstance) -> [u32; 16] {
+            fn get_components(entity_api: &mut $crate::entity::EntityApiInstanceMut) -> [u32; 16] {
                 [
                     $(entity_api.lookup_component(hash($t::C::NAME))),*,
                     $(replace_lit!($none, 0)),*

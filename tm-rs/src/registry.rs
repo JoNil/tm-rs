@@ -52,7 +52,7 @@ macro_rules! add_or_remove_entity_simulation {
             unsafe extern "C" fn [<$name _extern>](ctx: *mut $crate::ffi::tm_entity_context_o) {
                 assert!(!ctx.is_null());
 
-                let mut entity_api = $crate::api::with_ctx::<$crate::entity::EntityApi>(ctx);
+                let mut entity_api = $crate::api::with_ctx_mut::<$crate::entity::EntityApi>(ctx);
 
                 $name(&mut entity_api);
             }

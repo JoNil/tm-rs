@@ -1,5 +1,5 @@
 use crate::{
-    api::{Api, ApiWithCtx},
+    api::{Api, ApiWithCtx, ApiWithCtxMut},
     hash,
 };
 use std::{convert::TryInto, ffi::c_void, slice};
@@ -27,6 +27,12 @@ impl Api for GraphInterpreterApi {
 #[derive(Copy, Clone)]
 pub struct GraphInterpreterApiInstance {
     api: *mut tm_graph_interpreter_api,
+    ctx: *const tm_graph_interpreter_o,
+}
+
+#[derive(Copy, Clone)]
+pub struct GraphInterpreterApiInstanceMut {
+    api: *mut tm_graph_interpreter_api,
     ctx: *mut tm_graph_interpreter_o,
 }
 
@@ -35,12 +41,21 @@ impl ApiWithCtx for GraphInterpreterApi {
     type ApiInstance = GraphInterpreterApiInstance;
 
     #[inline]
-    fn wrap(self, ctx: *mut Self::Ctx) -> Self::ApiInstance {
+    fn wrap(self, ctx: *const Self::Ctx) -> Self::ApiInstance {
         GraphInterpreterApiInstance { api: self.api, ctx }
     }
 }
 
-impl GraphInterpreterApiInstance {
+impl ApiWithCtxMut for GraphInterpreterApi {
+    type ApiInstanceMut = GraphInterpreterApiInstanceMut;
+
+    #[inline]
+    fn wrap_mut(self, ctx: *mut Self::Ctx) -> Self::ApiInstanceMut {
+        GraphInterpreterApiInstanceMut { api: self.api, ctx }
+    }
+}
+
+impl GraphInterpreterApiInstanceMut {
     #[inline]
     pub fn read_variable_f32(&mut self, variable: &str) -> Option<f32> {
         let variable = hash(variable.as_bytes());

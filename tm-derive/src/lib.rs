@@ -3,6 +3,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, Attribute, Data, DeriveInput, Field, Fields, Ident};
 
+mod create_type;
 mod load_asset;
 
 #[derive(Debug)]
@@ -63,7 +64,7 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
         input.ident.span(),
     );
 
-    let load_asset_fn = load_asset::expand_fn(&load_asset_ident, &properties);
+    let load_asset_fn = load_asset::expand_fn(&struct_ident, &load_asset_ident, &properties);
     let load_asset_option = load_asset::expand_option(&load_asset_ident, &properties);
 
     let expanded = quote! {
@@ -80,12 +81,12 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
             unsafe extern "C" fn #create_ident(
                 ctx: *mut ::tm_rs::ffi::tm_entity_context_o
             ) {
-                let mut entity_api = ::tm_rs::api::with_ctx::<::tm_rs::entity::EntityApi>(ctx);
+                let mut entity_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::entity::EntityApi>(ctx);
 
                 let component = ::tm_rs::ffi::tm_component_i {
                     name: ::std::concat!(#snake_case_name, "\0").as_bytes() as *const _ as *const _,
                     bytes: ::std::mem::size_of::<super::#struct_ident>() as u32,
-                    _padding_103: [0 as ::std::os::raw::c_char; 4],
+                    _padding_103: [0u8 as ::std::os::raw::c_char; 4],
                     default_data: ::std::ptr::null(),
                     manager: ::std::ptr::null_mut(),
                     components_created: None,

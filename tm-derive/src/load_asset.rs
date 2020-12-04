@@ -3,30 +3,57 @@ use proc_macro2::TokenStream;
 use quote::quote;
 use syn::Ident;
 
-pub(crate) fn expand_fn<'a>(load_asset_ident: &Ident, properties: &Vec<Property<'a>>) -> TokenStream {
+pub(crate) fn expand_fn<'a>(
+    struct_ident: &Ident,
+    load_asset_ident: &Ident,
+    properties: &Vec<Property<'a>>,
+) -> TokenStream {
     if properties.is_empty() {
         quote! {}
     } else {
-        quote! {
-                unsafe extern "C" fn #load_asset_ident(
-                    man: *mut ::tm_rs::ffi::tm_component_manager_o,
-                    e: ::tm_rs::ffi::tm_entity_t,
-                    c_vp: *mut std::ffi::c_void,
-                    tt: *const ::tm_rs::ffi::tm_the_truth_o,
-                    asset: ::tm_rs::ffi::tm_tt_id_t) -> bool {
+        let mut get_properties = quote! {};
 
-                    /*struct tm_cave_component_t *c = c_vp;
-                    const tm_the_truth_object_o *asset_r = tm_tt_read(tt, asset);
-                    c->y0 = 0;
-                    c->frequency = tm_the_truth_api->get_float(tt, asset_r, TM_TT_PROP__CAVE_COMPONENT__FREQUENCY);
-                    c->amplitude = tm_the_truth_api->get_float(tt, asset_r, TM_TT_PROP__CAVE_COMPONENT__AMPLITUDE);*/
-                    true
+        for (i, property) in properties.iter().enumerate() {
+            let property_ident = property.ident;
+            let i = i as u32;
+
+            get_properties.extend(quote! {
+                c.#property_ident = the_truth_api.get_f32(asset_r, #i);
+            });
+        }
+
+        quote! {
+            unsafe extern "C" fn #load_asset_ident(
+                _man: *mut ::tm_rs::ffi::tm_component_manager_o,
+                _e: ::tm_rs::ffi::tm_entity_t,
+                c_vp: *mut std::ffi::c_void,
+                tt: *const ::tm_rs::ffi::tm_the_truth_o,
+                asset: ::tm_rs::ffi::tm_tt_id_t) -> bool {
+
+                let mut the_truth_api = ::tm_rs::api::with_ctx::<::tm_rs::the_truth::TheTruthApi>(tt);
+
+                let c = c_vp as *mut super::#struct_ident;
+                let c = c.as_mut().unwrap();
+
+                let asset_r = the_truth_api.read(asset);
+
+                if asset_r.is_null() {
+                    return false;
                 }
+
+                *c = Default::default();
+                #get_properties
+
+                true
+            }
         }
     }
 }
 
-pub(crate) fn expand_option<'a>(load_asset_ident: &Ident, properties: &Vec<Property<'a>>) -> TokenStream {
+pub(crate) fn expand_option<'a>(
+    load_asset_ident: &Ident,
+    properties: &Vec<Property<'a>>,
+) -> TokenStream {
     if properties.is_empty() {
         quote! { None }
     } else {
