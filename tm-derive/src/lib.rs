@@ -1,6 +1,5 @@
 use proc_macro::TokenStream;
 use quote::quote;
-use std::compile_error;
 use syn::{parse_macro_input, Attribute, Data, DeriveInput, Field, Fields, Ident};
 
 #[derive(Debug)]
