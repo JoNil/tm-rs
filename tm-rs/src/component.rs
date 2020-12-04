@@ -6,7 +6,7 @@ use crate::{entity::EntityApiInstance, hash};
 
 pub trait Component {
     const NAME: &'static [u8];
-    type CType;
+    type CType: Copy;
 }
 
 pub trait Accessor {
