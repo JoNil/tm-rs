@@ -20,4 +20,4 @@ proc-macro = true
 Inflector = "0.11"
 proc-macro2 = "1"
 quote = "1"
-syn = { version = "1" }
+syn = "1"
