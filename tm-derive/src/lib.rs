@@ -223,7 +223,7 @@ pub fn derive_component(input: proc_macro::TokenStream) -> proc_macro::TokenStre
                 entity_api.register_component(&component);
             }
 
-            impl ::tm_rs::component::DerivedComponent for #struct_ident {
+            impl ::tm_rs::component::DerivedComponent for super::#struct_ident {
                 const CREATE_TYPES: Option<unsafe extern "C" fn(*mut ::tm_rs::ffi::tm_the_truth_o)> = #create_types_fn_option;
                 const CREATE_COMPONENT: unsafe extern "C" fn(*mut ::tm_rs::ffi::tm_entity_context_o) = #create_component_ident;
             }
