@@ -92,14 +92,28 @@ pub(crate) fn expand_fn<'a>(
                         component_type,
                         default_object);
 
-                    static editor_aspect: EditorUiWrapper = EditorUiWrapper {
-                        inner: ::std::default::Default::default(),
+                    static mut editor_aspect: EditorUiWrapper = EditorUiWrapper {
+                        inner: ::tm_rs::ffi::tm_ci_editor_ui_i {
+                            disabled: None,
+                            category: None,
+                            icon_interface: None,
+                            gizmo_priority: 0.0f32,
+                            _padding_90: [0u8 as::std::os::raw::c_char; 4usize],
+                            gizmo_get_transform: None,
+                            gizmo_set_transform: None,
+                            gizmo_duplicate: None,
+                            override_properties: None,
+                            viewport_interact: None,
+                            create: None,
+                            toolbar: None,
+                        },
                     };
                     (*the_truth_api.api).set_aspect.unwrap()(
                         the_truth_api.ctx,
                         component_type,
                         ::tm_rs::hash(b"tm_ci_editor_ui_i\0"),
-                        &mut editor_aspect.inner as *mut std::ffi::c_void);
+                        &mut editor_aspect.inner as *mut ::tm_rs::ffi::tm_ci_editor_ui_i
+                            as *mut ::std::ffi::c_void);
                 }
             }
         }
