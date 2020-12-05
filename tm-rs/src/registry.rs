@@ -1,3 +1,9 @@
+use tm_sys::ffi::{
+    TM_ENTITY_CREATE_COMPONENT_INTERFACE_NAME, TM_THE_TRUTH_CREATE_TYPES_INTERFACE_NAME,
+};
+
+use crate::component::DerivedComponent;
+
 use super::ffi;
 use std::{ffi::c_void, os::raw::c_char};
 
@@ -41,6 +47,19 @@ impl RegistryApi {
             self.add_implementation(name, ptr);
         } else {
             self.remove_implementation(name, ptr);
+        }
+    }
+
+    pub fn add_or_remove_component<C: DerivedComponent>(&mut self) {
+        unsafe {
+            self.add_or_remove_implementation(
+                TM_THE_TRUTH_CREATE_TYPES_INTERFACE_NAME,
+                C::CREATE_TYPES as *mut c_void,
+            );
+            self.add_or_remove_implementation(
+                TM_ENTITY_CREATE_COMPONENT_INTERFACE_NAME,
+                C::CREATE_COMPONENT as *mut c_void,
+            );
         }
     }
 }

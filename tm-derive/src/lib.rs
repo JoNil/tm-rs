@@ -159,7 +159,8 @@ pub fn derive_component(input: proc_macro::TokenStream) -> proc_macro::TokenStre
         &format!("__{}_internal", snake_case_name),
         input.ident.span(),
     );
-    let create_ident = Ident::new(&format!("{}_create", snake_case_name), input.ident.span());
+    let create_component_ident =
+        Ident::new(&format!("{}_create", snake_case_name), input.ident.span());
     let create_type_ident = Ident::new(
         &format!("{}_create_types", snake_case_name),
         input.ident.span(),
@@ -187,7 +188,7 @@ pub fn derive_component(input: proc_macro::TokenStream) -> proc_macro::TokenStre
 
             #load_asset_fn
 
-            unsafe extern "C" fn #create_ident(
+            unsafe extern "C" fn #create_component_ident(
                 ctx: *mut ::tm_rs::ffi::tm_entity_context_o
             ) {
                 let mut entity_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::entity::EntityApi>(ctx);
@@ -215,6 +216,11 @@ pub fn derive_component(input: proc_macro::TokenStream) -> proc_macro::TokenStre
                 };
 
                 entity_api.register_component(&component);
+            }
+
+            impl ::tm_rs::component::DerivedComponent for #struct_ident {
+                const CREATE_TYPES: unsafe extern "C" fn(*mut ::tm_rs::ffi::tm_the_truth_o) = #create_type_ident;
+                const CREATE_COMPONENT: unsafe extern "C" fn(*mut ::tm_rs::ffi::tm_entity_context_o) = #create_component_ident;
             }
 
             fn assert_send<T: Send>() {}

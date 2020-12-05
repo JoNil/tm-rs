@@ -1,12 +1,19 @@
 use std::marker::PhantomData;
 
-use tm_sys::ffi::{tm_engine_update_array_t, tm_engine_update_set_t};
+use tm_sys::ffi::{
+    tm_engine_update_array_t, tm_engine_update_set_t, tm_entity_context_o, tm_the_truth_o,
+};
 
 use crate::{entity::EntityApiInstanceMut, hash};
 
 pub trait Component {
     const NAME: &'static [u8];
     type CType: Copy;
+}
+
+pub trait DerivedComponent: Component {
+    const CREATE_TYPES: unsafe extern "C" fn(*mut tm_the_truth_o);
+    const CREATE_COMPONENT: unsafe extern "C" fn(*mut tm_entity_context_o);
 }
 
 pub trait Accessor {
