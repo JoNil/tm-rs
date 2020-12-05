@@ -29,6 +29,10 @@ macro_rules! tm_plugin {
             load: bool,
         ) {
             let $reg = &mut $crate::registry::RegistryApi::new(reg, load);
+
+            api::register::<EntityApi>(reg);
+            api::register::<TheTruthApi>(reg);
+
             $body
         }
     };
