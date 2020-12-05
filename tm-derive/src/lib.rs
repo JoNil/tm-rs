@@ -1,13 +1,12 @@
 use inflector::Inflector;
-use proc_macro::TokenStream;
-use proc_macro2::Span;
+use proc_macro2::{Delimiter, Span, TokenStream, TokenTree};
 use quote::quote;
-use syn::{parse_macro_input, Attribute, Data, DeriveInput, Field, Fields, Ident, Type};
+use syn::{parse_macro_input, Attribute, Data, DeriveInput, Fields, Ident, Type};
 
 mod create_type;
 mod load_asset;
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone)]
 enum TheTruthType {
     Float,
     Double,
@@ -73,18 +72,54 @@ impl TheTruthType {
             TheTruthType::Bool => Ident::new("get_bool", span),
         }
     }
+
+    fn get_tt_variadic_convertor(self) -> TokenStream {
+        match self {
+            TheTruthType::Float => quote! { as ::std::os::raw::c_double },
+            TheTruthType::Double => quote! { as ::std::os::raw::c_double },
+            TheTruthType::U32 => quote! { as u32 },
+            TheTruthType::U64 => quote! { as u64 },
+            TheTruthType::Bool => quote! { as bool },
+        }
+    }
 }
 
-#[derive(Debug)]
+fn get_default_value(attribute: &Attribute) -> TokenStream {
+    if let Some(tree) = attribute.tokens.clone().into_iter().next() {
+        if let TokenTree::Group(group) = tree {
+            if group.delimiter() != Delimiter::Parenthesis {
+                return quote! { ::std::default::Default::default() };
+            }
+
+            let tokens = group.stream().into_iter().collect::<Vec<_>>();
+
+            if tokens.len() != 3 {
+                return quote! { ::std::default::Default::default() };
+            }
+
+            if let (TokenTree::Ident(ident), TokenTree::Punct(punct), TokenTree::Literal(lit)) =
+                (&tokens[0], &tokens[1], &tokens[2])
+            {
+                if ident == "default" && punct.as_char() == '=' {
+                    return TokenTree::from(lit.clone()).into();
+                } else {
+                    panic!("Only (default = ..) supported")
+                }
+            }
+        }
+    }
+
+    quote! { ::std::default::Default::default() }
+}
+
 struct Property<'a> {
     ident: &'a Ident,
-    field: &'a Field,
-    attribute: &'a Attribute,
     ttt: TheTruthType,
+    default_value: TokenStream,
 }
 
 #[proc_macro_derive(Component, attributes(property))]
-pub fn derive_component(input: TokenStream) -> TokenStream {
+pub fn derive_component(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
     let name = input.ident.to_string();
@@ -106,9 +141,8 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
                     if let Some(ident) = &field.ident {
                         properties.push(Property {
                             ident,
-                            field,
-                            attribute,
                             ttt: TheTruthType::new(&field.ty),
+                            default_value: get_default_value(&attribute),
                         });
                     }
                 }
@@ -135,12 +169,7 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
         input.ident.span(),
     );
 
-    let create_type_fn = create_type::expand_fn(
-        &struct_ident,
-        &snake_case_name,
-        &create_type_ident,
-        &properties,
-    );
+    let create_type_fn = create_type::expand_fn(&snake_case_name, &create_type_ident, &properties);
 
     let load_asset_fn = load_asset::expand_fn(&struct_ident, &load_asset_ident, &properties);
     let load_asset_option = load_asset::expand_option(&load_asset_ident, &properties);
@@ -164,7 +193,7 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
                 let mut entity_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::entity::EntityApi>(ctx);
 
                 let component = ::tm_rs::ffi::tm_component_i {
-                    name: ::std::concat!(#snake_case_name, "\0").as_bytes().as_ptr() as *const _,
+                    name: ::std::concat!(#snake_case_name, "\0").as_bytes().as_ptr() as *const ::std::os::raw::c_char,
                     bytes: ::std::mem::size_of::<super::#struct_ident>() as u32,
                     _padding_103: [0u8 as ::std::os::raw::c_char; 4usize],
                     default_data: ::std::ptr::null(),
@@ -204,5 +233,5 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
 
     //println!("{}", expanded.to_string());
 
-    TokenStream::from(expanded)
+    proc_macro::TokenStream::from(expanded)
 }

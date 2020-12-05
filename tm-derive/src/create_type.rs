@@ -4,7 +4,6 @@ use quote::quote;
 use syn::Ident;
 
 pub(crate) fn expand_fn<'a>(
-    struct_ident: &Ident,
     snake_case_name: &str,
     create_type_ident: &Ident,
     properties: &[Property<'a>],
@@ -13,6 +12,7 @@ pub(crate) fn expand_fn<'a>(
         quote! {}
     } else {
         let mut properties_array_content = quote! {};
+        let mut properties_default_values = quote! {};
 
         for (i, property) in properties.iter().enumerate() {
             let property_name = property.ident.to_string();
@@ -20,7 +20,7 @@ pub(crate) fn expand_fn<'a>(
 
             properties_array_content.extend(quote! {
                 ::tm_rs::ffi::tm_the_truth_property_definition_t {
-                    name: ::std::concat!(#property_name, "\0").as_bytes() as *const _ as *const _,
+                    name: ::std::concat!(#property_name, "\0").as_bytes().as_ptr() as *const ::std::os::raw::c_char,
                     type_: ::tm_rs::ffi::#type_ident as u32,
                     editor: 0u32,
                     __bindgen_anon_1: ::tm_rs::ffi::tm_the_truth_property_definition_t__bindgen_ty_1 {
@@ -40,14 +40,33 @@ pub(crate) fn expand_fn<'a>(
                     ui_name: ::std::ptr::null(),
                 },
             });
-        }
 
+            let i = i as u32;
+            let default_value = &property.default_value;
+            let convertor = property.ttt.get_tt_variadic_convertor();
+
+            properties_default_values.extend(quote! {
+                #i, #default_value #convertor,
+            });
+        }
+        
         let properties_count = properties.len();
 
         quote! {
+
+            struct EditorUiWrapper {
+                inner: *mut ::tm_rs::ffi::tm_ci_editor_ui_i,
+            }
+
+            unsafe impl Send for EditorUiWrapper {}
+            unsafe impl Sync for EditorUiWrapper {}
+
             unsafe extern "C" fn #create_type_ident(
                 tt: *mut ::tm_rs::ffi::tm_the_truth_o,
             ) {
+                let name = ::std::concat!(#snake_case_name, "\0").as_bytes();
+                let hash = ::tm_rs::hash(name);
+
                 let mut the_truth_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::the_truth::TheTruthApi>(tt);
 
                 let properties: [::tm_rs::ffi::tm_the_truth_property_definition_t; #properties_count] = [
@@ -55,13 +74,31 @@ pub(crate) fn expand_fn<'a>(
                 ];
 
                 let component_type = the_truth_api
-                    .create_object_type(::std::concat!(#snake_case_name, "\0").as_bytes(), &properties);
+                    .create_object_type(name, &properties);
 
-                /*const tm_tt_id_t default_object = tm_the_truth_api->quick_create_object(
-                    tt, TM_TT_NO_UNDO_SCOPE, TM_TT_TYPE_HASH__CAVE_COMPONENT, TM_TT_PROP__CAVE_COMPONENT__FREQUENCY, 1.0f, TM_TT_PROP__CAVE_COMPONENT__AMPLITUDE, 1.0f, -1);
-                tm_the_truth_api->set_default_object(tt, cave_component_type, default_object);
+                unsafe {
+                    let default_object = (*the_truth_api.api).quick_create_object.unwrap()(
+                        the_truth_api.ctx,
+                        ::tm_rs::ffi::tm_tt_undo_scope_t { 
+                            u64_: 0u64,
+                        },
+                        hash,
+                        #properties_default_values
+                        -1,
+                    );
 
-                tm_the_truth_api->set_aspect(tt, cave_component_type, TM_CI_EDITOR_UI, editor_aspect);*/
+                    (*the_truth_api.api).set_default_object.unwrap()(
+                        the_truth_api.ctx,
+                        component_type,
+                        default_object);
+
+                    static editor_aspect: EditorUiWrapper = EditorUiWrapper { inner: ::std::ptr::null_mut() };
+                    (*the_truth_api.api).set_aspect.unwrap()(
+                        the_truth_api.ctx,
+                        component_type,
+                        ::tm_rs::hash(b"tm_ci_editor_ui_i\0"),
+                        editor_aspect.inner as *mut std::ffi::c_void);
+                }
             }
         }
     }

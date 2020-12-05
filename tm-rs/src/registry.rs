@@ -1,5 +1,5 @@
 use super::ffi;
-use std::ffi::c_void;
+use std::{ffi::c_void, os::raw::c_char};
 
 pub struct RegistryApi {
     reg: *mut ffi::tm_api_registry_api,
@@ -15,21 +15,21 @@ impl RegistryApi {
 
     #[inline]
     pub fn get(&mut self, name: &[u8]) -> *mut c_void {
-        unsafe { (*self.reg).get.unwrap()(name.as_ptr() as _) }
+        unsafe { (*self.reg).get.unwrap()(name.as_ptr() as *const c_char) }
     }
 
     #[inline]
     #[allow(clippy::missing_safety_doc)]
     pub unsafe fn add_implementation(&mut self, name: &[u8], implementation: *mut c_void) {
         assert!(!implementation.is_null());
-        (*self.reg).add_implementation.unwrap()(name.as_ptr() as _, implementation)
+        (*self.reg).add_implementation.unwrap()(name.as_ptr() as *const c_char, implementation)
     }
 
     #[inline]
     #[allow(clippy::missing_safety_doc)]
     pub unsafe fn remove_implementation(&mut self, name: &[u8], implementation: *mut c_void) {
         assert!(!implementation.is_null());
-        (*self.reg).remove_implementation.unwrap()(name.as_ptr() as _, implementation)
+        (*self.reg).remove_implementation.unwrap()(name.as_ptr() as *const c_char, implementation)
     }
 
     #[inline]
@@ -59,7 +59,7 @@ macro_rules! add_or_remove_entity_simulation {
 
             $reg.add_or_remove_implementation(
                 $crate::ffi::TM_ENTITY_SIMULATION_INTERFACE_NAME,
-                [<$name _extern>] as _,
+                [<$name _extern>] as *mut ::std::ffi::c_void,
             );
         }
     };

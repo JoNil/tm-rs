@@ -26,20 +26,22 @@ impl Api for EntityApi {
 
     #[inline]
     fn new(api: *mut c_void) -> Self {
-        Self { api: api as _ }
+        Self {
+            api: api as Self::CType,
+        }
     }
 }
 
 #[derive(Copy, Clone)]
 pub struct EntityApiInstance {
-    api: *mut tm_entity_api,
-    ctx: *const tm_entity_context_o,
+    pub api: *mut tm_entity_api,
+    pub ctx: *const tm_entity_context_o,
 }
 
 #[derive(Copy, Clone)]
 pub struct EntityApiInstanceMut {
-    api: *mut tm_entity_api,
-    ctx: *mut tm_entity_context_o,
+    pub api: *mut tm_entity_api,
+    pub ctx: *mut tm_entity_context_o,
 }
 
 impl ApiWithCtx for EntityApi {
@@ -150,13 +152,21 @@ impl EntityApiInstanceMut {
         };
 
         unsafe {
-            (*self.api).register_engine.unwrap()(self.ctx, &engine as *const _);
+            (*self.api).register_engine.unwrap()(
+                self.ctx,
+                &engine as *const ::tm_sys::ffi::tm_engine_i,
+            );
         }
     }
 
     #[inline]
     pub fn register_component(&mut self, component: &tm_component_i) -> u32 {
-        unsafe { (*self.api).register_component.unwrap()(self.ctx, component as *const _) }
+        unsafe {
+            (*self.api).register_component.unwrap()(
+                self.ctx,
+                component as *const ::tm_sys::ffi::tm_component_i,
+            )
+        }
     }
 }
 

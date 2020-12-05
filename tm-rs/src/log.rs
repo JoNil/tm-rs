@@ -19,7 +19,9 @@ impl Api for LogApi {
 
     #[inline]
     fn new(api: *mut c_void) -> Self {
-        Self { api: api as _ }
+        Self {
+            api: api as Self::CType,
+        }
     }
 }
 
@@ -27,18 +29,33 @@ impl LogApi {
     #[inline]
     pub fn info(&self, message: &str) {
         let message = CString::new(message).unwrap();
-        unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_INFO, message.as_ptr() as _) };
+        unsafe {
+            (*self.api).print.unwrap()(
+                tm_log_type_TM_LOG_TYPE_INFO,
+                message.as_ptr() as *const ::std::os::raw::c_char,
+            )
+        };
     }
 
     #[inline]
     pub fn debug(&self, message: &str) {
         let message = CString::new(message).unwrap();
-        unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_DEBUG, message.as_ptr() as _) };
+        unsafe {
+            (*self.api).print.unwrap()(
+                tm_log_type_TM_LOG_TYPE_DEBUG,
+                message.as_ptr() as *const ::std::os::raw::c_char,
+            )
+        };
     }
 
     #[inline]
     pub fn error(&self, message: &str) {
         let message = CString::new(message).unwrap();
-        unsafe { (*self.api).print.unwrap()(tm_log_type_TM_LOG_TYPE_ERROR, message.as_ptr() as _) };
+        unsafe {
+            (*self.api).print.unwrap()(
+                tm_log_type_TM_LOG_TYPE_ERROR,
+                message.as_ptr() as *const ::std::os::raw::c_char,
+            )
+        };
     }
 }

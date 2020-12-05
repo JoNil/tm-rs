@@ -21,20 +21,22 @@ impl Api for GraphInterpreterApi {
 
     #[inline]
     fn new(api: *mut c_void) -> Self {
-        Self { api: api as _ }
+        Self {
+            api: api as Self::CType,
+        }
     }
 }
 
 #[derive(Copy, Clone)]
 pub struct GraphInterpreterApiInstance {
-    api: *mut tm_graph_interpreter_api,
-    ctx: *const tm_graph_interpreter_o,
+    pub api: *mut tm_graph_interpreter_api,
+    pub ctx: *const tm_graph_interpreter_o,
 }
 
 #[derive(Copy, Clone)]
 pub struct GraphInterpreterApiInstanceMut {
-    api: *mut tm_graph_interpreter_api,
-    ctx: *mut tm_graph_interpreter_o,
+    pub api: *mut tm_graph_interpreter_api,
+    pub ctx: *mut tm_graph_interpreter_o,
 }
 
 impl ApiWithCtx for GraphInterpreterApi {

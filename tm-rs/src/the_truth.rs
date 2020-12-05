@@ -19,20 +19,22 @@ impl Api for TheTruthApi {
 
     #[inline]
     fn new(api: *mut c_void) -> Self {
-        Self { api: api as _ }
+        Self {
+            api: api as Self::CType,
+        }
     }
 }
 
 #[derive(Copy, Clone)]
 pub struct TheTruthApiInstance {
-    api: *mut tm_the_truth_api,
-    ctx: *const tm_the_truth_o,
+    pub api: *mut tm_the_truth_api,
+    pub ctx: *const tm_the_truth_o,
 }
 
 #[derive(Copy, Clone)]
 pub struct TheTruthApiInstanceMut {
-    api: *mut tm_the_truth_api,
-    ctx: *mut tm_the_truth_o,
+    pub api: *mut tm_the_truth_api,
+    pub ctx: *mut tm_the_truth_o,
 }
 
 impl ApiWithCtx for TheTruthApi {
@@ -97,7 +99,6 @@ impl TheTruthApiInstance {
 
 impl TheTruthApiInstanceMut {
     #[inline]
-    #[allow(clippy::not_unsafe_ptr_arg_deref)]
     pub fn create_object_type(
         &mut self,
         name: &[u8],
@@ -106,7 +107,7 @@ impl TheTruthApiInstanceMut {
         unsafe {
             (*self.api).create_object_type.unwrap()(
                 self.ctx,
-                name.as_ptr() as *const _,
+                name.as_ptr() as *const ::std::os::raw::c_char,
                 properties.as_ptr(),
                 properties.len() as u32,
             )
