@@ -55,7 +55,7 @@ pub(crate) fn expand_fn<'a>(
         quote! {
 
             struct EditorUiWrapper {
-                inner: *mut ::tm_rs::ffi::tm_ci_editor_ui_i,
+                inner: ::tm_rs::ffi::tm_ci_editor_ui_i,
             }
 
             unsafe impl Send for EditorUiWrapper {}
@@ -92,12 +92,14 @@ pub(crate) fn expand_fn<'a>(
                         component_type,
                         default_object);
 
-                    static editor_aspect: EditorUiWrapper = EditorUiWrapper { inner: ::std::ptr::null_mut() };
+                    static editor_aspect: EditorUiWrapper = EditorUiWrapper {
+                        inner: ::std::default::Default::default(),
+                    };
                     (*the_truth_api.api).set_aspect.unwrap()(
                         the_truth_api.ctx,
                         component_type,
                         ::tm_rs::hash(b"tm_ci_editor_ui_i\0"),
-                        editor_aspect.inner as *mut std::ffi::c_void);
+                        &mut editor_aspect.inner as *mut std::ffi::c_void);
                 }
             }
         }
