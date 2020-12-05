@@ -1,16 +1,86 @@
 use inflector::Inflector;
 use proc_macro::TokenStream;
+use proc_macro2::Span;
 use quote::quote;
-use syn::{parse_macro_input, Attribute, Data, DeriveInput, Field, Fields, Ident};
+use syn::{parse_macro_input, Attribute, Data, DeriveInput, Field, Fields, Ident, Type};
 
 mod create_type;
 mod load_asset;
+
+#[derive(Copy, Clone, Debug)]
+enum TheTruthType {
+    Float,
+    Double,
+    U32,
+    U64,
+    Bool,
+}
+
+impl TheTruthType {
+    fn new(ty: &Type) -> Self {
+        match ty {
+            Type::Path(path) => {
+                if let Some(ident) = path.path.get_ident() {
+                    match ident.to_string().as_str() {
+                        "f32" => TheTruthType::Float,
+                        "f64" => TheTruthType::Double,
+                        "u32" => TheTruthType::U32,
+                        "u64" => TheTruthType::U64,
+                        "bool" => TheTruthType::Bool,
+                        _ => panic!("Unsupported property type"),
+                    }
+                } else {
+                    panic!("Unsupported property type");
+                }
+            }
+            _ => {
+                panic!("Unsupported property type");
+            }
+        }
+    }
+
+    fn get_enum_ident(self, span: Span) -> Ident {
+        match self {
+            TheTruthType::Float => Ident::new(
+                "tm_the_truth_property_type_TM_THE_TRUTH_PROPERTY_TYPE_FLOAT",
+                span,
+            ),
+            TheTruthType::Double => Ident::new(
+                "tm_the_truth_property_type_TM_THE_TRUTH_PROPERTY_TYPE_DOUBLE",
+                span,
+            ),
+            TheTruthType::U32 => Ident::new(
+                "tm_the_truth_property_type_TM_THE_TRUTH_PROPERTY_TYPE_UINT32_T",
+                span,
+            ),
+            TheTruthType::U64 => Ident::new(
+                "tm_the_truth_property_type_TM_THE_TRUTH_PROPERTY_TYPE_UINT64_T",
+                span,
+            ),
+            TheTruthType::Bool => Ident::new(
+                "tm_the_truth_property_type_TM_THE_TRUTH_PROPERTY_TYPE_BOOL",
+                span,
+            ),
+        }
+    }
+
+    fn get_tt_getter_ident(self, span: Span) -> Ident {
+        match self {
+            TheTruthType::Float => Ident::new("get_f32", span),
+            TheTruthType::Double => Ident::new("get_f64", span),
+            TheTruthType::U32 => Ident::new("get_u32", span),
+            TheTruthType::U64 => Ident::new("get_u64", span),
+            TheTruthType::Bool => Ident::new("get_bool", span),
+        }
+    }
+}
 
 #[derive(Debug)]
 struct Property<'a> {
     ident: &'a Ident,
     field: &'a Field,
     attribute: &'a Attribute,
+    ttt: TheTruthType,
 }
 
 #[proc_macro_derive(Component, attributes(property))]
@@ -38,6 +108,7 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
                             ident,
                             field,
                             attribute,
+                            ttt: TheTruthType::new(&field.ty),
                         });
                     }
                 }
@@ -49,19 +120,26 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
         panic!("Only supports Structs");
     }
 
-    //println!("{:#?}", properties);
-
-    //panic!("Hej");
-
     let struct_ident = Ident::new(&name, input.ident.span());
     let internal_mod_ident = Ident::new(
         &format!("__{}_internal", snake_case_name),
         input.ident.span(),
     );
     let create_ident = Ident::new(&format!("{}_create", snake_case_name), input.ident.span());
+    let create_type_ident = Ident::new(
+        &format!("{}_create_types", snake_case_name),
+        input.ident.span(),
+    );
     let load_asset_ident = Ident::new(
         &format!("{}_load_asset", snake_case_name),
         input.ident.span(),
+    );
+
+    let create_type_fn = create_type::expand_fn(
+        &struct_ident,
+        &snake_case_name,
+        &create_type_ident,
+        &properties,
     );
 
     let load_asset_fn = load_asset::expand_fn(&struct_ident, &load_asset_ident, &properties);
@@ -76,6 +154,8 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
 
        mod #internal_mod_ident {
 
+            #create_type_fn
+
             #load_asset_fn
 
             unsafe extern "C" fn #create_ident(
@@ -84,9 +164,9 @@ pub fn derive_component(input: TokenStream) -> TokenStream {
                 let mut entity_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::entity::EntityApi>(ctx);
 
                 let component = ::tm_rs::ffi::tm_component_i {
-                    name: ::std::concat!(#snake_case_name, "\0").as_bytes() as *const _ as *const _,
+                    name: ::std::concat!(#snake_case_name, "\0").as_bytes().as_ptr() as *const _,
                     bytes: ::std::mem::size_of::<super::#struct_ident>() as u32,
-                    _padding_103: [0u8 as ::std::os::raw::c_char; 4],
+                    _padding_103: [0u8 as ::std::os::raw::c_char; 4usize],
                     default_data: ::std::ptr::null(),
                     manager: ::std::ptr::null_mut(),
                     components_created: None,

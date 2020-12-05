@@ -27,6 +27,7 @@ impl<'a, C: Component> Accessor for Read<'a, C> {
     type C = C;
     type RefT = &'a C::CType;
 
+    #[inline]
     unsafe fn ref_from_ptr(ptr: *mut <Self::C as Component>::CType) -> Self::RefT {
         ptr.as_ref().unwrap()
     }
@@ -41,6 +42,7 @@ impl<'a, C: Component> Accessor for Write<'a, C> {
     type C = C;
     type RefT = &'a mut C::CType;
 
+    #[inline]
     unsafe fn ref_from_ptr(ptr: *mut <Self::C as Component>::CType) -> Self::RefT {
         ptr.as_mut().unwrap()
     }
@@ -54,6 +56,7 @@ pub struct ComponentsIterator<'a, C> {
 }
 
 impl<'a, C> ComponentsIterator<'a, C> {
+    #[inline]
     pub fn new(update_set: &'a mut tm_engine_update_set_t) -> Self {
         Self {
             arrays: unsafe {

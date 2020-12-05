@@ -17,6 +17,7 @@ impl Api for LogApi {
     type CType = *mut tm_logger_api;
     const NAME: &'static [u8] = TM_LOGGER_API_NAME;
 
+    #[inline]
     fn new(api: *mut c_void) -> Self {
         Self { api: api as _ }
     }

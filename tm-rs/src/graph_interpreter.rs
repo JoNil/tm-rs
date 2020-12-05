@@ -19,6 +19,7 @@ impl Api for GraphInterpreterApi {
     type CType = *mut tm_graph_interpreter_api;
     const NAME: &'static [u8] = TM_GRAPH_INTERPRETER_API_NAME;
 
+    #[inline]
     fn new(api: *mut c_void) -> Self {
         Self { api: api as _ }
     }

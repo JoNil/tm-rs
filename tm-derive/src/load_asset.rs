@@ -6,7 +6,7 @@ use syn::Ident;
 pub(crate) fn expand_fn<'a>(
     struct_ident: &Ident,
     load_asset_ident: &Ident,
-    properties: &Vec<Property<'a>>,
+    properties: &[Property<'a>],
 ) -> TokenStream {
     if properties.is_empty() {
         quote! {}
@@ -15,10 +15,11 @@ pub(crate) fn expand_fn<'a>(
 
         for (i, property) in properties.iter().enumerate() {
             let property_ident = property.ident;
+            let getter_ident = property.ttt.get_tt_getter_ident(property.ident.span());
             let i = i as u32;
 
             get_properties.extend(quote! {
-                c.#property_ident = the_truth_api.get_f32(asset_r, #i);
+                c.#property_ident = the_truth_api.#getter_ident(asset_r, #i);
             });
         }
 
@@ -28,9 +29,10 @@ pub(crate) fn expand_fn<'a>(
                 _e: ::tm_rs::ffi::tm_entity_t,
                 c_vp: *mut std::ffi::c_void,
                 tt: *const ::tm_rs::ffi::tm_the_truth_o,
-                asset: ::tm_rs::ffi::tm_tt_id_t) -> bool {
+                asset: ::tm_rs::ffi::tm_tt_id_t,
+            ) -> bool {
 
-                let mut the_truth_api = ::tm_rs::api::with_ctx::<::tm_rs::the_truth::TheTruthApi>(tt);
+                let the_truth_api = ::tm_rs::api::with_ctx::<::tm_rs::the_truth::TheTruthApi>(tt);
 
                 let c = c_vp as *mut super::#struct_ident;
                 let c = c.as_mut().unwrap();
@@ -52,7 +54,7 @@ pub(crate) fn expand_fn<'a>(
 
 pub(crate) fn expand_option<'a>(
     load_asset_ident: &Ident,
-    properties: &Vec<Property<'a>>,
+    properties: &[Property<'a>],
 ) -> TokenStream {
     if properties.is_empty() {
         quote! { None }
