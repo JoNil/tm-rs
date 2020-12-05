@@ -171,6 +171,11 @@ pub fn derive_component(input: proc_macro::TokenStream) -> proc_macro::TokenStre
     );
 
     let create_type_fn = create_type::expand_fn(&snake_case_name, &create_type_ident, &properties);
+    let create_types_fn_option = if properties.is_empty() {
+        quote! { None }
+    } else {
+        quote! { Some(#create_type_ident) }
+    };
 
     let load_asset_fn = load_asset::expand_fn(&struct_ident, &load_asset_ident, &properties);
     let load_asset_option = load_asset::expand_option(&load_asset_ident, &properties);
@@ -219,7 +224,7 @@ pub fn derive_component(input: proc_macro::TokenStream) -> proc_macro::TokenStre
             }
 
             impl ::tm_rs::component::DerivedComponent for #struct_ident {
-                const CREATE_TYPES: unsafe extern "C" fn(*mut ::tm_rs::ffi::tm_the_truth_o) = #create_type_ident;
+                const CREATE_TYPES: Option<unsafe extern "C" fn(*mut ::tm_rs::ffi::tm_the_truth_o)> = #create_types_fn_option;
                 const CREATE_COMPONENT: unsafe extern "C" fn(*mut ::tm_rs::ffi::tm_entity_context_o) = #create_component_ident;
             }
 
