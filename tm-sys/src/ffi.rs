@@ -766,20 +766,20 @@ pub type uint_fast64_t = ::std::os::raw::c_ulonglong;
 pub type intmax_t = ::std::os::raw::c_longlong;
 pub type uintmax_t = ::std::os::raw::c_ulonglong;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_vec2_t {
     pub x: f32,
     pub y: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_vec3_t {
     pub x: f32,
     pub y: f32,
     pub z: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_vec4_t {
     pub x: f32,
     pub y: f32,
@@ -787,7 +787,7 @@ pub struct tm_vec4_t {
     pub w: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_mat44_t {
     pub xx: f32,
     pub xy: f32,
@@ -807,14 +807,14 @@ pub struct tm_mat44_t {
     pub ww: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_transform_t {
     pub pos: tm_vec3_t,
     pub rot: tm_vec4_t,
     pub scl: tm_vec3_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_rect_t {
     pub x: f32,
     pub y: f32,
@@ -822,18 +822,18 @@ pub struct tm_rect_t {
     pub h: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_clock_o {
     pub opaque: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_uuid_t {
     pub a: u64,
     pub b: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_color_srgb_t {
     pub r: u8,
     pub g: u8,
@@ -854,7 +854,7 @@ pub union tm_tt_id_t__bindgen_ty_1 {
 }
 #[repr(C)]
 #[repr(align(8))]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tt_id_t__bindgen_ty_1__bindgen_ty_1 {
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 8usize], u32>,
 }
@@ -915,18 +915,8 @@ impl tm_tt_id_t__bindgen_ty_1__bindgen_ty_1 {
         __bindgen_bitfield_unit
     }
 }
-impl Default for tm_tt_id_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_tt_id_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tt_undo_scope_t {
     pub u64_: u64,
 }
@@ -952,13 +942,8 @@ pub struct tm_allocator_i {
         ) -> *mut ::std::os::raw::c_void,
     >,
 }
-impl Default for tm_allocator_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_allocator_statistics_t {
     pub system_allocation_count: u64,
     pub system_allocated_bytes: u64,
@@ -995,11 +980,6 @@ pub struct tm_allocator_api {
         unsafe extern "C" fn(reserve_size: u64, mem_scope: u32) -> tm_allocator_i,
     >,
 }
-impl Default for tm_allocator_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_api_registry_listener_i {
@@ -1012,13 +992,8 @@ pub struct tm_api_registry_listener_i {
         ),
     >,
 }
-impl Default for tm_api_registry_listener_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_api_registry_api {
     pub set: ::std::option::Option<
         unsafe extern "C" fn(
@@ -1091,7 +1066,7 @@ pub type tm_application_modal_f = ::std::option::Option<
     ) -> bool,
 >;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_application_api {
     pub application: ::std::option::Option<unsafe extern "C" fn() -> *mut tm_application_o>,
     pub create: ::std::option::Option<
@@ -1141,13 +1116,8 @@ pub struct tm_asset_database_config_t {
     pub fs: *mut tm_os_file_system_api,
     pub file_io: *mut tm_os_file_io_api,
 }
-impl Default for tm_asset_database_config_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_dabase_saved_item_t {
     pub uuid: tm_uuid_t,
     pub is_directory: bool,
@@ -1159,7 +1129,7 @@ pub struct tm_asset_database_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_database_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -1234,11 +1204,6 @@ pub struct tm_asset_io_import {
     pub asset_browser_version_at_start: u64,
     pub undo_scope: tm_tt_undo_scope_t,
 }
-impl Default for tm_asset_io_import {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_asset_io_i {
@@ -1304,13 +1269,8 @@ pub struct tm_asset_io_i {
         ),
     >,
 }
-impl Default for tm_asset_io_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_io_api {
     pub add_asset_io: ::std::option::Option<unsafe extern "C" fn(loader: *mut tm_asset_io_i)>,
     pub remove_asset_io: ::std::option::Option<unsafe extern "C" fn(loader: *mut tm_asset_io_i)>,
@@ -1327,7 +1287,7 @@ pub struct tm_asset_io_api {
         ::std::option::Option<unsafe extern "C" fn(interfaces: *mut *mut tm_asset_io_i) -> u32>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_base_64_api {
     pub encoded_size: ::std::option::Option<unsafe extern "C" fn(raw_size: u64) -> u64>,
     pub encode: ::std::option::Option<
@@ -1352,7 +1312,7 @@ pub const tm_bounding_volume_type_TM_BOUNDING_VOLUME_TYPE_SPHERE: tm_bounding_vo
 pub const tm_bounding_volume_type_TM_BOUNDING_VOLUME_TYPE_BOX: tm_bounding_volume_type = 1;
 pub type tm_bounding_volume_type = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_bounding_volume_sphere_t {
     pub visibility_mask: u64,
     pub culling_disabled: bool,
@@ -1362,7 +1322,7 @@ pub struct tm_bounding_volume_sphere_t {
     pub _padding_19: [::std::os::raw::c_char; 4usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_bounding_volume_box_t {
     pub visibility_mask: u64,
     pub culling_disabled: bool,
@@ -1373,7 +1333,7 @@ pub struct tm_bounding_volume_box_t {
     pub _padding_30: [::std::os::raw::c_char; 4usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_buddy_allocator_raw_api {
     pub init:
         ::std::option::Option<unsafe extern "C" fn(buffer: *mut u8, size: u32, block_size: u32)>,
@@ -1387,7 +1347,7 @@ pub struct tm_buddy_allocator_raw_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_buddy_allocator_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -1440,13 +1400,8 @@ pub struct tm_buffers_i {
     pub debug__refcount:
         ::std::option::Option<unsafe extern "C" fn(inst: *const tm_buffers_o, id: u32) -> u32>,
 }
-impl Default for tm_buffers_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_streamable_buffers_i {
     pub __bindgen_padding_0: [u64; 10usize],
     pub map: ::std::option::Option<
@@ -1489,7 +1444,7 @@ pub struct tm_streamable_buffers_i {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_buffers_api {
     pub create:
         ::std::option::Option<unsafe extern "C" fn(a: *mut tm_allocator_i) -> *mut tm_buffers_i>,
@@ -1532,7 +1487,7 @@ pub const tm_buffer_compression_format_TM_BUFFER_COMPRESSION_FORMAT_MAX_FORMATS:
     tm_buffer_compression_format = 9;
 pub type tm_buffer_compression_format = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_buffer_format_api {
     pub encode_uncompressed_format: ::std::option::Option<
         unsafe extern "C" fn(
@@ -1576,7 +1531,7 @@ pub const tm_camera_transform_TM_CAMERA_TRANSFORM_EYE_RIGHT: tm_camera_transform
 pub const tm_camera_transform_TM_CAMERA_TRANSFORM_MAX_TRANSFORMS: tm_camera_transform = 3;
 pub type tm_camera_transform = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_camera_t {
     pub projection: [tm_mat44_t; 3usize],
     pub view: [tm_mat44_t; 3usize],
@@ -1585,7 +1540,7 @@ pub struct tm_camera_t {
     pub vertical_fov: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_camera_api {
     pub view_from_transform: ::std::option::Option<
         unsafe extern "C" fn(view: *mut tm_mat44_t, tm: *const tm_transform_t) -> *mut tm_mat44_t,
@@ -1717,11 +1672,6 @@ pub struct tm_collaboration_config_t {
     >,
     pub cache_dir: *const ::std::os::raw::c_char,
 }
-impl Default for tm_collaboration_config_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const tm_collaboration_session_type_TM_COLLABORATION_SESSION_TYPE_NONE:
     tm_collaboration_session_type = 0;
 pub const tm_collaboration_session_type_TM_COLLABORATION_SESSION_TYPE_HOST:
@@ -1810,18 +1760,13 @@ pub struct tm_collaboration_session_i {
         ),
     >,
 }
-impl Default for tm_collaboration_session_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_collaboration_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_collaboration_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -1904,13 +1849,8 @@ pub struct tm_collaboration_discovered_host_t {
     pub address: *const tm_socket_address_t,
     pub name: *const ::std::os::raw::c_char,
 }
-impl Default for tm_collaboration_discovered_host_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_collaboration_p2p_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -1947,7 +1887,7 @@ pub const tm_config_type_TM_CONFIG_TYPE_OBJECT: tm_config_type = 6;
 pub type tm_config_type = ::std::os::raw::c_int;
 #[repr(C)]
 #[repr(align(4))]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_config_item_t {
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize], u32>,
 }
@@ -2101,13 +2041,8 @@ pub struct tm_config_i {
     pub allocator:
         ::std::option::Option<unsafe extern "C" fn(inst: *mut tm_config_o) -> *mut tm_allocator_i>,
 }
-impl Default for tm_config_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_config_api {
     pub create:
         ::std::option::Option<unsafe extern "C" fn(a: *mut tm_allocator_i) -> *mut tm_config_i>,
@@ -2145,11 +2080,6 @@ pub struct tm_core_asset_i {
         ),
     >,
 }
-impl Default for tm_core_asset_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_core_update_result_t {
@@ -2157,13 +2087,8 @@ pub struct tm_core_update_result_t {
     pub removed_assets: *mut tm_tt_id_t,
     pub updated_assets: *mut tm_tt_id_t,
 }
-impl Default for tm_core_update_result_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_core_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(tt: *mut tm_the_truth_o, asset_root_id: tm_tt_id_t),
@@ -2192,18 +2117,13 @@ pub struct tm_core_importer_asset_t {
     pub create_policy: u32,
     pub _padding_46: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_core_importer_asset_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_core_importer_state_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_core_importer_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -2232,18 +2152,13 @@ pub struct tm_crash_recovery_can_recover_result_t {
     pub project: *const ::std::os::raw::c_char,
     pub root: *const tm_uuid_t,
 }
-impl Default for tm_crash_recovery_can_recover_result_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_crash_recovery_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_crash_recovery_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -2303,31 +2218,21 @@ pub struct tm_error_i {
         ),
     >,
 }
-impl Default for tm_error_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_error_api {
     pub log: *mut tm_error_i,
     pub def: *mut tm_error_i,
 }
-impl Default for tm_error_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_feature_flags_api {
     pub enabled: ::std::option::Option<unsafe extern "C" fn(flag: u64) -> bool>,
     pub set_enabled: ::std::option::Option<unsafe extern "C" fn(flag: u64, enabled: bool)>,
     pub all_enabled: ::std::option::Option<unsafe extern "C" fn(count: *mut u32) -> *const u64>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_git_ignore_api {
     pub match_: ::std::option::Option<
         unsafe extern "C" fn(
@@ -2342,7 +2247,7 @@ pub const tm_image_type_TM_IMAGE_TYPE_3D: tm_image_type = 2;
 pub const tm_image_type_TM_IMAGE_TYPE_CUBE: tm_image_type = 3;
 pub type tm_image_type = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_image_t {
     pub type_: u32,
     pub pixel_format: u32,
@@ -2371,11 +2276,6 @@ pub struct tm_image_archive_i {
         ) -> u32,
     >,
     pub size: ::std::option::Option<unsafe extern "C" fn(inst: *mut tm_image_archive_o) -> u64>,
-}
-impl Default for tm_image_archive_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2423,13 +2323,8 @@ pub struct tm_image_loader_i {
         ) -> bool,
     >,
 }
-impl Default for tm_image_loader_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_image_loader_api {
     pub add_loader: ::std::option::Option<unsafe extern "C" fn(loader: *mut tm_image_loader_i)>,
     pub remove_loader: ::std::option::Option<unsafe extern "C" fn(loader: *mut tm_image_loader_i)>,
@@ -2843,11 +2738,6 @@ pub struct tm_input_item_t {
     pub components: u32,
     pub _padding_412: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_input_item_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_input_data_t {
@@ -2860,16 +2750,6 @@ pub union tm_input_data_t__bindgen_ty_1 {
     pub codepoint: u32,
     _bindgen_union_align: [u32; 4usize],
 }
-impl Default for tm_input_data_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_input_data_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_input_event_t {
@@ -2880,11 +2760,6 @@ pub struct tm_input_event_t {
     pub type_: u64,
     pub data: tm_input_data_t,
     pub extra: *mut ::std::os::raw::c_void,
-}
-impl Default for tm_input_event_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2900,13 +2775,8 @@ pub struct tm_input_source_i {
     pub state:
         ::std::option::Option<unsafe extern "C" fn(controller: u64, item: u64) -> tm_input_data_t>,
 }
-impl Default for tm_input_source_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_input_api {
     pub add_source: ::std::option::Option<unsafe extern "C" fn(source: *mut tm_input_source_i)>,
     pub remove_source: ::std::option::Option<unsafe extern "C" fn(source: *mut tm_input_source_i)>,
@@ -2934,22 +2804,12 @@ pub struct tm_integration_test_runner_i {
         unsafe extern "C" fn(inst: *mut tm_integration_test_runner_o, sec: f32, id: u64) -> bool,
     >,
 }
-impl Default for tm_integration_test_runner_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_integration_test_i {
     pub name: *const ::std::os::raw::c_char,
     pub context: u64,
     pub tick: ::std::option::Option<unsafe extern "C" fn(arg1: *mut tm_integration_test_runner_i)>,
-}
-impl Default for tm_integration_test_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2964,13 +2824,8 @@ pub struct tm_jobdecl_t {
     pub pin_thread_handle: u32,
     pub _padding_20: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_jobdecl_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_job_system_api {
     pub run_jobs: ::std::option::Option<
         unsafe extern "C" fn(jobs: *mut tm_jobdecl_t, num_jobs: u32) -> *mut tm_atomic_counter_o,
@@ -3005,7 +2860,7 @@ pub const tm_json_generate_ext_TM_JSON_GENERATE_INLINE_SMALL_OBJECTS: tm_json_ge
 pub const tm_json_generate_ext_TM_JSON_GENERATE_INDENT_WITH_TABS: tm_json_generate_ext = 256;
 pub type tm_json_generate_ext = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_json_line_info_t {
     pub config_item: u32,
     pub line_number: u32,
@@ -3020,11 +2875,6 @@ pub struct tm_json_parse_info_t {
     pub allocated_line_info: u32,
     pub line_info: [tm_json_line_info_t; 1usize],
 }
-impl Default for tm_json_parse_info_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_json_generate_t {
@@ -3032,13 +2882,8 @@ pub struct tm_json_generate_t {
     pub len: u32,
     pub allocated: u32,
 }
-impl Default for tm_json_generate_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_json_api {
     pub parse: ::std::option::Option<
         unsafe extern "C" fn(
@@ -3074,11 +2919,6 @@ pub struct tm_localizer_strings_t {
     pub stride_bytes: u32,
     pub strings: *const *const ::std::os::raw::c_char,
 }
-impl Default for tm_localizer_strings_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub type tm_localizer_strings_i =
     ::std::option::Option<unsafe extern "C" fn(language: u64) -> tm_localizer_strings_t>;
 #[repr(C)]
@@ -3098,21 +2938,11 @@ pub struct tm_localizer_i {
         ) -> *const ::std::os::raw::c_char,
     >,
 }
-impl Default for tm_localizer_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_localizer_api {
     pub def: *mut *mut tm_localizer_i,
     pub passthrough: *mut tm_localizer_i,
-}
-impl Default for tm_localizer_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_log_type_TM_LOG_TYPE_INFO: tm_log_type = 0;
 pub const tm_log_type_TM_LOG_TYPE_DEBUG: tm_log_type = 1;
@@ -3135,11 +2965,6 @@ pub struct tm_logger_i {
         ),
     >,
 }
-impl Default for tm_logger_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_logger_api {
@@ -3157,13 +2982,8 @@ pub struct tm_logger_api {
     >,
     pub default_logger: *mut tm_logger_i,
 }
-impl Default for tm_logger_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_lz4_api {
     pub compress: ::std::option::Option<
         unsafe extern "C" fn(
@@ -3184,7 +3004,7 @@ pub struct tm_lz4_api {
     pub compress_bound: ::std::option::Option<unsafe extern "C" fn(src_size: u32) -> u32>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_math_api {
     pub mat44_multiply: ::std::option::Option<
         unsafe extern "C" fn(res: *mut tm_mat44_t, lhs: *const tm_mat44_t, rhs: *const tm_mat44_t),
@@ -3217,11 +3037,6 @@ pub struct tm_memory_tracker_scope_data_t {
     pub _padding_42: [::std::os::raw::c_char; 3usize],
     pub trace_count: u32,
 }
-impl Default for tm_memory_tracker_scope_data_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_memory_tracker_trace_data_t {
@@ -3231,13 +3046,8 @@ pub struct tm_memory_tracker_trace_data_t {
     pub allocated_bytes: u64,
     pub allocation_count: u64,
 }
-impl Default for tm_memory_tracker_trace_data_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_memory_tracker_api {
     pub check_for_leaked_scopes: ::std::option::Option<unsafe extern "C" fn()>,
     pub create_scope: ::std::option::Option<
@@ -3268,27 +3078,27 @@ pub struct tm_memory_tracker_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_file_o {
     pub opaque: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_file_system_watcher_o {
     pub opaque: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_dll_o {
     pub opaque: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_socket_o {
     pub opaque: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_file_time_o {
     pub opaque: u64,
 }
@@ -3297,23 +3107,18 @@ pub struct tm_file_time_o {
 pub struct tm_critical_section_o {
     pub opaque: [u8; 64usize],
 }
-impl Default for tm_critical_section_o {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_semaphore_o {
     pub opaque: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_thread_o {
     pub opaque: [u64; 2usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_fiber_o {
     pub opaque: u64,
 }
@@ -3330,18 +3135,8 @@ pub union tm_socket_address_t__bindgen_ty_1 {
     pub ip_byte: [u8; 4usize],
     _bindgen_union_align: u32,
 }
-impl Default for tm_socket_address_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_socket_address_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_file_stat_t {
     pub exists: bool,
     pub is_directory: bool,
@@ -3350,7 +3145,7 @@ pub struct tm_file_stat_t {
     pub size: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_strings_t {
     pub count: u32,
     pub bytes: u32,
@@ -3360,7 +3155,7 @@ pub type tm_thread_entry_f =
 pub type tm_fiber_entry_f =
     ::std::option::Option<unsafe extern "C" fn(user_data: *mut ::std::os::raw::c_void)>;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_virtual_memory_api {
     pub map: ::std::option::Option<unsafe extern "C" fn(size: u64) -> *mut ::std::os::raw::c_void>,
     pub unmap:
@@ -3371,7 +3166,7 @@ pub struct tm_os_virtual_memory_api {
         ::std::option::Option<unsafe extern "C" fn(p: *mut ::std::os::raw::c_void, size: u64)>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_file_io_api {
     pub open_input: ::std::option::Option<
         unsafe extern "C" fn(path: *const ::std::os::raw::c_char) -> tm_file_o,
@@ -3416,7 +3211,7 @@ pub struct tm_os_file_io_api {
     pub invalid_file: tm_file_o,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_file_system_api {
     pub stat: ::std::option::Option<
         unsafe extern "C" fn(path: *const ::std::os::raw::c_char) -> tm_file_stat_t,
@@ -3473,7 +3268,7 @@ pub struct tm_os_file_system_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_dll_api {
     pub open: ::std::option::Option<
         unsafe extern "C" fn(path: *const ::std::os::raw::c_char) -> tm_dll_o,
@@ -3508,7 +3303,7 @@ pub const tm_os_socket_option_TM_SOCKET_OPTION__NODELAY: tm_os_socket_option = 0
 pub const tm_os_socket_option_TM_SOCKET_OPTION__NONBLOCK: tm_os_socket_option = 1;
 pub type tm_os_socket_option = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_socket_api {
     pub init: ::std::option::Option<unsafe extern "C" fn()>,
     pub shutdown: ::std::option::Option<unsafe extern "C" fn()>,
@@ -3596,7 +3391,7 @@ pub const tm_os_thread__priority_TM_OS_THREAD__PRIORITY__HIGHEST: tm_os_thread__
 pub const tm_os_thread__priority_TM_OS_THREAD__PRIORITY__TIME_CRITICAL: tm_os_thread__priority = 5;
 pub type tm_os_thread__priority = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_thread_api {
     pub create_critical_section:
         ::std::option::Option<unsafe extern "C" fn(cs: *mut tm_critical_section_o)>,
@@ -3647,7 +3442,7 @@ pub struct tm_os_thread_api {
     pub sleep: ::std::option::Option<unsafe extern "C" fn(seconds: f64)>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_time_api {
     pub now: ::std::option::Option<unsafe extern "C" fn() -> tm_clock_o>,
     pub delta: ::std::option::Option<unsafe extern "C" fn(to: tm_clock_o, from: tm_clock_o) -> f64>,
@@ -3666,11 +3461,6 @@ pub struct tm_os_dialogs_open_t {
     pub allow_multi_select: bool,
     pub _padding_571: [::std::os::raw::c_char; 7usize],
 }
-impl Default for tm_os_dialogs_open_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_os_dialogs_open_res_t {
@@ -3678,23 +3468,13 @@ pub struct tm_os_dialogs_open_res_t {
     pub _padding_579: [::std::os::raw::c_char; 4usize],
     pub files: *mut *mut ::std::os::raw::c_char,
 }
-impl Default for tm_os_dialogs_open_res_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_os_dialogs_save_t {
     pub default_name: *const ::std::os::raw::c_char,
 }
-impl Default for tm_os_dialogs_save_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_dialogs_api {
     pub open: ::std::option::Option<
         unsafe extern "C" fn(
@@ -3720,7 +3500,7 @@ pub struct tm_os_dialogs_api {
     pub show_count: ::std::option::Option<unsafe extern "C" fn() -> u64>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_info_api {
     pub num_logical_processors: ::std::option::Option<unsafe extern "C" fn() -> u32>,
     pub avx_support: ::std::option::Option<unsafe extern "C" fn() -> bool>,
@@ -3733,13 +3513,8 @@ pub struct tm_os_clipboard_item_t {
     pub size: u32,
     pub _padding_639: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_os_clipboard_item_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_clipboard_api {
     pub get: ::std::option::Option<
         unsafe extern "C" fn(
@@ -3751,13 +3526,13 @@ pub struct tm_os_clipboard_api {
         ::std::option::Option<unsafe extern "C" fn(items: *mut tm_os_clipboard_item_t, n: u32)>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_debugger_api {
     pub is_debugger_present: ::std::option::Option<unsafe extern "C" fn() -> bool>,
     pub debug_break: ::std::option::Option<unsafe extern "C" fn()>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_system_api {
     pub open_url: ::std::option::Option<unsafe extern "C" fn(url: *const ::std::os::raw::c_char)>,
     pub open_file:
@@ -3787,13 +3562,8 @@ pub struct tm_os_api {
     pub debugger: *mut tm_os_debugger_api,
     pub system: *mut tm_os_system_api,
 }
-impl Default for tm_os_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_path_api {
     pub split: ::std::option::Option<
         unsafe extern "C" fn(
@@ -3808,7 +3578,7 @@ pub struct tm_path_api {
 pub type tm_plugin_load_f =
     ::std::option::Option<unsafe extern "C" fn(reg: *mut tm_api_registry_api, load: bool)>;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_plugins_api {
     pub load: ::std::option::Option<
         unsafe extern "C" fn(path: *const ::std::os::raw::c_char, hot_reload: bool) -> u64,
@@ -3848,32 +3618,17 @@ pub struct tm_plugin_init_i {
         unsafe extern "C" fn(inst: *mut tm_plugin_o, allocator: *mut tm_allocator_i),
     >,
 }
-impl Default for tm_plugin_init_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_plugin_shutdown_i {
     pub inst: *mut tm_plugin_o,
     pub shutdown: ::std::option::Option<unsafe extern "C" fn(inst: *mut tm_plugin_o)>,
 }
-impl Default for tm_plugin_shutdown_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_plugin_tick_i {
     pub inst: *mut tm_plugin_o,
     pub tick: ::std::option::Option<unsafe extern "C" fn(inst: *mut tm_plugin_o, dt: f32)>,
-}
-impl Default for tm_plugin_tick_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3882,11 +3637,6 @@ pub struct tm_plugin_set_the_truth_i {
     pub set_the_truth: ::std::option::Option<
         unsafe extern "C" fn(inst: *mut tm_plugin_o, tt: *mut tm_the_truth_o),
     >,
-}
-impl Default for tm_plugin_set_the_truth_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_profiler_event_type_TM_PROFILER_EVENT_TYPE_BEGIN: tm_profiler_event_type = 0;
 pub const tm_profiler_event_type_TM_PROFILER_EVENT_TYPE_END: tm_profiler_event_type = 1;
@@ -3919,26 +3669,11 @@ pub struct tm_profiler_event_t__bindgen_ty_1__bindgen_ty_1 {
     pub name: *const ::std::os::raw::c_char,
     pub object: *const ::std::os::raw::c_char,
 }
-impl Default for tm_profiler_event_t__bindgen_ty_1__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_profiler_event_t__bindgen_ty_1__bindgen_ty_2 {
     pub from_fiber: u32,
     pub to_fiber: u32,
-}
-impl Default for tm_profiler_event_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_profiler_event_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3947,11 +3682,6 @@ pub struct tm_profiler_buffer_t {
     pub start: [u64; 2usize],
     pub events: [*const tm_profiler_event_t; 2usize],
     pub count: [u32; 2usize],
-}
-impl Default for tm_profiler_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_PROFILER_THREAD_BUFFER_SIZE: ::std::os::raw::c_int = 256;
 pub type _bindgen_ty_1 = ::std::os::raw::c_int;
@@ -4003,11 +3733,6 @@ pub struct tm_profiler_api {
     >,
     pub buffer: ::std::option::Option<unsafe extern "C" fn() -> tm_profiler_buffer_t>,
 }
-impl Default for tm_profiler_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_task_progress_t {
@@ -4016,11 +3741,6 @@ pub struct tm_task_progress_t {
     pub text: *const ::std::os::raw::c_char,
     pub fraction: f32,
     pub _padding_21: [::std::os::raw::c_char; 4usize],
-}
-impl Default for tm_task_progress_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4031,13 +3751,8 @@ pub struct tm_task_status_t {
     pub num_tasks: u32,
     pub _padding_30: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_task_status_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_progress_report_api {
     pub create:
         ::std::option::Option<unsafe extern "C" fn(a: *mut tm_allocator_i, task_display_time: f32)>,
@@ -4054,7 +3769,7 @@ pub struct tm_progress_report_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_random_api {
     pub next: ::std::option::Option<unsafe extern "C" fn() -> u64>,
     pub next_n: ::std::option::Option<unsafe extern "C" fn(res: *mut u64, n: u32)>,
@@ -4071,13 +3786,8 @@ pub struct tm_runtime_data_t {
     pub version: u64,
     pub data: *mut ::std::os::raw::c_void,
 }
-impl Default for tm_runtime_data_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_runtime_data_io_i {
     pub load: ::std::option::Option<
         unsafe extern "C" fn(
@@ -4095,7 +3805,7 @@ pub struct tm_runtime_data_io_i {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_runtime_data_repository_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -4134,11 +3844,6 @@ pub struct SHA1_CTX {
     pub count: [u32; 2usize],
     pub buffer: [u8; 64usize],
 }
-impl Default for SHA1_CTX {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_string_repository_i {
@@ -4166,13 +3871,8 @@ pub struct tm_string_repository_i {
         ) -> *const ::std::os::raw::c_char,
     >,
 }
-impl Default for tm_string_repository_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_string_repository_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(a: *mut tm_allocator_i) -> *mut tm_string_repository_i,
@@ -4180,7 +3880,7 @@ pub struct tm_string_repository_api {
     pub destroy: ::std::option::Option<unsafe extern "C" fn(i: *mut tm_string_repository_i)>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_task_system_api {
     pub run_task: ::std::option::Option<
         unsafe extern "C" fn(
@@ -4209,11 +3909,6 @@ pub struct tm_temp_allocator_i {
         ) -> *mut ::std::os::raw::c_void,
     >,
 }
-impl Default for tm_temp_allocator_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_temp_allocator_1024_o {
@@ -4222,13 +3917,8 @@ pub struct tm_temp_allocator_1024_o {
     pub backing: *mut tm_allocator_i,
     pub first_block: *mut ::std::os::raw::c_void,
 }
-impl Default for tm_temp_allocator_1024_o {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_temp_allocator_statistics_t {
     pub temp_allocation_blocks: u64,
     pub temp_allocation_bytes: u64,
@@ -4282,11 +3972,6 @@ pub struct tm_temp_allocator_api {
     >,
     pub statistics: *mut tm_temp_allocator_statistics_t,
 }
-impl Default for tm_temp_allocator_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_hash_id_to_id_t {
@@ -4338,31 +4023,16 @@ pub struct tm_the_truth_editor_enum_t {
     pub names: *const *const ::std::os::raw::c_char,
     pub tooltips: *const *const ::std::os::raw::c_char,
 }
-impl Default for tm_the_truth_editor_enum_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_the_truth_editor_string_open_path_t {
     pub extensions: *const ::std::os::raw::c_char,
     pub description: *const ::std::os::raw::c_char,
 }
-impl Default for tm_the_truth_editor_string_open_path_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_the_truth_editor_string_save_path_t {
     pub default_file_name: *const ::std::os::raw::c_char,
-}
-impl Default for tm_the_truth_editor_string_save_path_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4398,16 +4068,6 @@ pub union tm_the_truth_property_definition_t__bindgen_ty_1 {
     pub string_save_path_editor: tm_the_truth_editor_string_save_path_t,
     _bindgen_union_align: [u64; 3usize],
 }
-impl Default for tm_the_truth_property_definition_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_the_truth_property_definition_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub type tm_the_truth_create_types_i =
     ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>;
 pub const tm_the_truth_create_types_TM_THE_TRUTH_CREATE_TYPES_NONE: tm_the_truth_create_types = 0;
@@ -4419,21 +4079,11 @@ pub struct tm_the_truth_get_types_with_aspect_t {
     pub type_: u64,
     pub data: *mut ::std::os::raw::c_void,
 }
-impl Default for tm_the_truth_get_types_with_aspect_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_the_truth_get_aspects_t {
     pub id: u64,
     pub data: *mut ::std::os::raw::c_void,
-}
-impl Default for tm_the_truth_get_aspects_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4448,11 +4098,6 @@ pub struct tm_the_truth_local_set_t {
     pub _padding_511: [::std::os::raw::c_char; 4usize],
     pub instantiated: *const tm_tt_id_t,
 }
-impl Default for tm_the_truth_local_set_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_the_truth_set_local_subobject_set_t {
@@ -4466,11 +4111,6 @@ pub struct tm_the_truth_set_local_subobject_set_t {
     pub _padding_530: [::std::os::raw::c_char; 4usize],
     pub instantiated: *mut *mut tm_the_truth_object_o,
 }
-impl Default for tm_the_truth_set_local_subobject_set_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_the_truth_changed_objects_t {
@@ -4479,11 +4119,6 @@ pub struct tm_the_truth_changed_objects_t {
     pub num_objects: u32,
     pub objects: *mut tm_tt_id_t,
     pub version: u64,
-}
-impl Default for tm_the_truth_changed_objects_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4499,11 +4134,6 @@ pub struct tm_the_truth_interop_context_t {
     pub property_lookup: *mut tm_hash32_t,
     pub buffer_lookup: *mut tm_hash32_t,
     pub object_lookup: *mut tm_hash_u64_to_id_t,
-}
-impl Default for tm_the_truth_interop_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_the_truth_prototype_relation_TM_TT_PROTOTYPE_RELATION_ADDED:
     tm_the_truth_prototype_relation = 0;
@@ -4527,11 +4157,6 @@ pub struct tm_tt_buffer_t {
     pub data: *const ::std::os::raw::c_void,
     pub hash: u64,
 }
-impl Default for tm_tt_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_tt_prop_value_t {
@@ -4553,26 +4178,11 @@ pub union tm_tt_prop_value_t__bindgen_ty_1 {
     pub set: *const tm_tt_id_t,
     _bindgen_union_align: [u64; 4usize],
 }
-impl Default for tm_tt_prop_value_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_tt_prop_value_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_tt_undo_action_t {
     pub before: *const tm_the_truth_object_o,
     pub after: *const tm_the_truth_object_o,
-}
-impl Default for tm_tt_undo_action_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4581,11 +4191,6 @@ pub struct tm_tt_serialize_options_t {
     pub skip_type_index: bool,
     pub _padding_661: [::std::os::raw::c_char; 6usize],
     pub types: *mut tm_set_t,
-}
-impl Default for tm_tt_serialize_options_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_THE_TRUTH_MAX_PROPERTIES: ::std::os::raw::c_int = 64;
 pub type _bindgen_ty_2 = ::std::os::raw::c_int;
@@ -4599,11 +4204,6 @@ pub struct tm_the_truth_serialized_type_info_t {
     pub serialized_property_to_runtime_property: [u32; 64usize],
     pub serialized_property_type: [u32; 64usize],
 }
-impl Default for tm_the_truth_serialized_type_info_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_tt_deserialize_options_t {
@@ -4612,13 +4212,8 @@ pub struct tm_tt_deserialize_options_t {
     pub _padding_704: [::std::os::raw::c_char; 6usize],
     pub type_infos: *const tm_the_truth_serialized_type_info_t,
 }
-impl Default for tm_tt_deserialize_options_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tt_serialize_changes_options_t {
     pub no_header: bool,
 }
@@ -4627,19 +4222,14 @@ pub struct tm_tt_serialize_changes_options_t {
 pub struct tm_tt_deserialize_changes_options_t {
     pub header: *const ::std::os::raw::c_char,
 }
-impl Default for tm_tt_deserialize_changes_options_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tt_memory_use_t {
     pub resident: u64,
     pub unloaded: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_the_truth_api {
     pub allocator:
         ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o) -> *mut tm_allocator_i>,
@@ -5623,11 +5213,6 @@ pub struct tm_asset_tag_t {
     pub uuid: u64,
     pub name: *const ::std::os::raw::c_char,
 }
-impl Default for tm_asset_tag_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub type tm_tt_assets_file_extension_aspect_i = ::std::os::raw::c_char;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5637,11 +5222,6 @@ pub struct tm_tt_assets_buffer_write_t {
     pub hash: u64,
     pub ext: *const ::std::os::raw::c_char,
 }
-impl Default for tm_tt_assets_buffer_write_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_tt_assets_buffer_t {
@@ -5650,18 +5230,13 @@ pub struct tm_tt_assets_buffer_t {
     pub _padding_91: [::std::os::raw::c_char; 4usize],
     pub hash: u64,
 }
-impl Default for tm_tt_assets_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_saved_truth_data_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_the_truth_assets_api {
     pub create_asset_truth_types:
         ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
@@ -5845,13 +5420,8 @@ pub struct tm_the_truth_migration_i {
         unsafe extern "C" fn(inst: *mut tm_the_truth_migration_o, tt: *mut tm_the_truth_o) -> bool,
     >,
 }
-impl Default for tm_the_truth_migration_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_the_truth_migration_api {
     pub migrate: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o) -> bool>,
 }
@@ -5895,7 +5465,7 @@ pub const TM_TT_PROP__RECT__W: ::std::os::raw::c_int = 2;
 pub const TM_TT_PROP__RECT__H: ::std::os::raw::c_int = 3;
 pub type _bindgen_ty_15 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_the_truth_common_types_api {
     pub create_common_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub read_floats: ::std::option::Option<
@@ -6116,13 +5686,8 @@ pub struct tm_undo_stack_i {
         ),
     >,
 }
-impl Default for tm_undo_stack_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_unicode_api {
     pub utf8_encode:
         ::std::option::Option<unsafe extern "C" fn(utf8: *mut u8, codepoint: u32) -> *mut u8>,
@@ -6241,11 +5806,6 @@ pub struct tm_unit_test_runner_i {
         ),
     >,
 }
-impl Default for tm_unit_test_runner_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_unit_test_i {
@@ -6253,11 +5813,6 @@ pub struct tm_unit_test_i {
     pub test: ::std::option::Option<
         unsafe extern "C" fn(tr: *mut tm_unit_test_runner_i, a: *mut tm_allocator_i),
     >,
-}
-impl Default for tm_unit_test_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_visibility_flag_behaviour_TM_VISIBILITY_FLAG_OPT_IN: tm_visibility_flag_behaviour = 0;
 pub const tm_visibility_flag_behaviour_TM_VISIBILITY_FLAG_OPT_OUT: tm_visibility_flag_behaviour = 1;
@@ -6271,18 +5826,13 @@ pub struct tm_visibility_flag_desc_t {
     pub uuid: u32,
     pub behaviour: tm_visibility_flag_behaviour,
 }
-impl Default for tm_visibility_flag_desc_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_visibility_context_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_visibility_flags_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub create_context: ::std::option::Option<
@@ -6335,7 +5885,7 @@ pub const tm_web_socket_opcode_TM_WEB_SOCKET_OPCODE_PING: tm_web_socket_opcode =
 pub const tm_web_socket_opcode_TM_WEB_SOCKET_OPCODE_PONG: tm_web_socket_opcode = 10;
 pub type tm_web_socket_opcode = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_web_socket_protocol_api {
     pub make_client_handshake: ::std::option::Option<
         unsafe extern "C" fn(
@@ -6386,22 +5936,12 @@ pub struct tm_http_request_t {
     pub id: u64,
     pub request_target: *const ::std::os::raw::c_char,
 }
-impl Default for tm_http_request_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_segmented_buffer_t {
     pub data: *mut ::std::os::raw::c_void,
     pub size: u64,
     pub next: *mut tm_segmented_buffer_t,
-}
-impl Default for tm_segmented_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_web_socket_pseudo_opcode_TM_WEB_SOCKET_PSEUDO_OPCODE_OPEN:
     tm_web_socket_pseudo_opcode = 16;
@@ -6420,11 +5960,6 @@ pub struct tm_web_socket_request_t {
     pub id: u64,
     pub request_target: *const ::std::os::raw::c_char,
 }
-impl Default for tm_web_socket_request_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_web_socket_event_t {
@@ -6434,18 +5969,13 @@ pub struct tm_web_socket_event_t {
     pub payload: tm_segmented_buffer_t,
     pub payload_reference: *mut ::std::os::raw::c_void,
 }
-impl Default for tm_web_socket_event_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_web_talker_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_web_talker_api {
     pub listening_address: ::std::option::Option<
         unsafe extern "C" fn(inst: *mut tm_web_talker_o, address: *mut tm_socket_address_t) -> bool,
@@ -6571,7 +6101,7 @@ pub struct tm_analytics_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_analytics_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -6669,11 +6199,6 @@ pub struct tm_animation_pose_t {
     pub rot: *mut tm_vec4_t,
     pub scl: *mut tm_vec3_t,
 }
-impl Default for tm_animation_pose_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_bone_weights_t {
@@ -6685,13 +6210,8 @@ pub struct tm_bone_weights_t {
     pub bone_names: *mut u64,
     pub weights: *mut f32,
 }
-impl Default for tm_bone_weights_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_blender_api {
     pub blend: ::std::option::Option<
         unsafe extern "C" fn(
@@ -6806,19 +6326,19 @@ pub const TM_TT_PROP__ANIMATION_CLIP__LOCOMOTION_NODE: ::std::os::raw::c_int = 7
 pub const TM_TT_PROP__ANIMATION_CLIP__LOCOMOTION: ::std::os::raw::c_int = 8;
 pub type _bindgen_ty_20 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_float_key_t {
     pub time: f32,
     pub v: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_vec3_key_t {
     pub time: f32,
     pub v: tm_vec3_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_quat_key_t {
     pub time: f32,
     pub q: tm_vec4_t,
@@ -6856,11 +6376,6 @@ pub struct tm_animation_raw_t {
     pub curve_keys: *mut *mut tm_animation_float_key_t,
     pub curve_pre_extrapolation: *mut u16,
     pub curve_post_extrapolation: *mut u16,
-}
-impl Default for tm_animation_raw_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_animation_player_loop_TM_ANIMATION_PLAYER_LOOP__NONE: tm_animation_player_loop = 0;
 pub const tm_animation_player_loop_TM_ANIMATION_PLAYER_LOOP__LOOP: tm_animation_player_loop = 1;
@@ -6906,13 +6421,8 @@ pub struct tm_animation_player_playing_o {
     pub locomotion_bone: u32,
     pub locomotion_delta: tm_transform_t,
 }
-impl Default for tm_animation_player_playing_o {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_player_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_animation_player_o,
@@ -6968,18 +6478,13 @@ pub struct tm_animation_simple_player_component_t {
     pub locomotion_delta: tm_transform_t,
     pub _padding_44: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_animation_simple_player_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_animation_simple_player_component_manager_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_simple_player_component_api {
     pub update: ::std::option::Option<
         unsafe extern "C" fn(man: *mut tm_animation_simple_player_component_manager_o, dt: f32),
@@ -7138,13 +6643,8 @@ pub struct tm_animation_state_machine_state_t {
     pub variable_names: [u64; 64usize],
     pub variable_values: [f32; 64usize],
 }
-impl Default for tm_animation_state_machine_state_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_state_machine_api {
     pub compile: ::std::option::Option<
         unsafe extern "C" fn(
@@ -7214,15 +6714,10 @@ pub union tm_entity_t {
     _bindgen_union_align: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_entity_t__bindgen_ty_1 {
     pub index: u32,
     pub generation: u32,
-}
-impl Default for tm_entity_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7250,13 +6745,8 @@ pub struct tm_animation_state_machine_component_t {
     pub locomotion_delta: tm_transform_t,
     pub _padding_36: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_animation_state_machine_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_state_machine_component_api {
     pub update:
         ::std::option::Option<unsafe extern "C" fn(man: *mut tm_component_manager_o, dt: f32)>,
@@ -7269,7 +6759,7 @@ pub struct tm_animation_state_machine_component_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_bone_translation_api {
     pub get_bone_translation_table: ::std::option::Option<
         unsafe extern "C" fn(
@@ -7283,7 +6773,7 @@ pub struct tm_bone_translation_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_expression_language_api {
     pub compile: ::std::option::Option<
         unsafe extern "C" fn(
@@ -7318,7 +6808,7 @@ pub struct tm_expression_language_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_state_graph_aspect_i {
     pub prop_graph__nodes: u32,
     pub prop_graph__transitions: u32,
@@ -7337,13 +6827,8 @@ pub struct tm_state_graph_setup_t {
     pub root_object: tm_tt_id_t,
     pub aspect: *const tm_state_graph_aspect_i,
 }
-impl Default for tm_state_graph_setup_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_state_graph_node_aspect_i {
     pub graph_title: ::std::option::Option<
         unsafe extern "C" fn(
@@ -7380,7 +6865,7 @@ pub struct tm_state_graph_node_aspect_i {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_state_graph_transition_aspect_i {
     pub graph_title: ::std::option::Option<
         unsafe extern "C" fn(
@@ -7405,13 +6890,8 @@ pub struct tm_state_graph_ui_res_t {
     pub selection_changed: bool,
     pub _padding_105: [::std::os::raw::c_char; 7usize],
 }
-impl Default for tm_state_graph_ui_res_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_state_graph_api {
     pub create_graph: ::std::option::Option<
         unsafe extern "C" fn(
@@ -7437,7 +6917,7 @@ pub struct tm_state_graph_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_assimp_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(truth: *mut tm_the_truth_o)>,
     pub import: ::std::option::Option<
@@ -7465,13 +6945,13 @@ pub const tm_mixer_positioning_enum_TM_MIXER_POSITIONING__3D: tm_mixer_positioni
 pub const tm_mixer_positioning_enum_TM_MIXER_POSITIONING__MATRIX: tm_mixer_positioning_enum = 2;
 pub type tm_mixer_positioning_enum = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_mixer_positioning_2d_t {
     pub pan: f32,
     pub channel_mask: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_mixer_positioning_3d_t {
     pub pos: tm_vec3_t,
     pub min_distance: f32,
@@ -7482,11 +6962,6 @@ pub struct tm_mixer_positioning_3d_t {
 #[derive(Copy, Clone)]
 pub struct tm_mixer_positioning_matrix_t {
     pub matrix: *const f32,
-}
-impl Default for tm_mixer_positioning_matrix_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7503,16 +6978,6 @@ pub union tm_mixer_positioning_t__bindgen_ty_1 {
     pub pos_matrix: tm_mixer_positioning_matrix_t,
     _bindgen_union_align: [u64; 3usize],
 }
-impl Default for tm_mixer_positioning_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_mixer_positioning_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_mixer_settings_t {
@@ -7521,22 +6986,12 @@ pub struct tm_mixer_settings_t {
     pub pitch: f32,
     pub pos: tm_mixer_positioning_t,
 }
-impl Default for tm_mixer_settings_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_MIXER_MAX_CHANNELS: ::std::os::raw::c_int = 8;
 pub type _bindgen_ty_43 = ::std::os::raw::c_int;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_mixer_render_t {
     pub channels: [*const f32; 8usize],
-}
-impl Default for tm_mixer_render_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_MIXER_MAX_SAMPLER_USER_DATA_BYTES: ::std::os::raw::c_int = 256;
 pub type _bindgen_ty_44 = ::std::os::raw::c_int;
@@ -7550,7 +7005,7 @@ pub type tm_mixer_sampler_f = ::std::option::Option<
     ) -> u32,
 >;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_mixer_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_mixer_o,
@@ -7634,7 +7089,7 @@ pub struct tm_mixer_api {
 pub const TM_SOUND_BACKEND_MAX_CHANNELS: ::std::os::raw::c_int = 8;
 pub type _bindgen_ty_45 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_sound_backend_api {
     pub num_speakers: ::std::option::Option<unsafe extern "C" fn() -> u32>,
     pub channel_mask: ::std::option::Option<unsafe extern "C" fn() -> u32>,
@@ -7661,11 +7116,6 @@ pub struct tm_sound_source_component_t {
     pub spread: f32,
     pub _padding_42: [::std::os::raw::c_char; 4usize],
     pub mixer_item: *mut tm_mixer_item_o,
-}
-impl Default for tm_sound_source_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_speaker_TM_SPEAKER__FRONT_LEFT: tm_speaker = 1;
 pub const tm_speaker_TM_SPEAKER__FRONT_RIGHT: tm_speaker = 2;
@@ -7725,7 +7175,7 @@ pub const tm_speaker_log_TM_SPEAKER_LOG__TOP_BACK_RIGHT: tm_speaker_log = 17;
 pub const tm_speaker_log_TM_SPEAKER_LOG__END: tm_speaker_log = 18;
 pub type tm_speaker_log = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tone_t {
     pub frequency: f32,
     pub attack_time: f32,
@@ -7735,7 +7185,7 @@ pub struct tm_tone_t {
     pub sustain_level: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tone_generator_api {
     pub sample_sine_wave: ::std::option::Option<
         unsafe extern "C" fn(
@@ -7780,13 +7230,8 @@ pub struct tm_wav_t {
     pub loop_: bool,
     pub _padding_41: [::std::os::raw::c_char; 7usize],
 }
-impl Default for tm_wav_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_wav_api {
     pub read: ::std::option::Option<
         unsafe extern "C" fn(tt: *mut tm_the_truth_o, id: tm_tt_id_t) -> tm_wav_t,
@@ -7823,7 +7268,7 @@ pub type tm_cache_invalidation_callback = ::std::option::Option<
     ),
 >;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_cache_manager_api {
     pub init: ::std::option::Option<unsafe extern "C" fn(a: *mut tm_allocator_i)>,
     pub shutdown: ::std::option::Option<unsafe extern "C" fn()>,
@@ -7869,13 +7314,8 @@ pub struct tm_discord_friend_t {
     pub user_id: u64,
     pub username: *const ::std::os::raw::c_char,
 }
-impl Default for tm_discord_friend_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_collaboration_discord_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -7921,11 +7361,6 @@ pub struct tm_creation_graph_output_node_type_t {
         ),
     >,
 }
-impl Default for tm_creation_graph_output_node_type_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_creation_graph_instance_t {
@@ -7934,11 +7369,6 @@ pub struct tm_creation_graph_instance_t {
     pub interpreter: *mut tm_creation_graph_interpreter_o,
     pub data: *mut tm_creation_graph_instance_data_o,
     pub output: *mut tm_creation_graph_output_data_t,
-}
-impl Default for tm_creation_graph_instance_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7949,11 +7379,6 @@ pub struct tm_creation_graph_output_data_t {
     pub consumer: tm_creation_graph_instance_t,
     pub dirty: bool,
     pub _padding_48: [::std::os::raw::c_char; 7usize],
-}
-impl Default for tm_creation_graph_output_data_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8008,7 +7433,7 @@ pub const TM_TT_PROP__CREATION_GRAPH__RESOURCE_REFERENCE__OUTPUT_NODE_NAME: ::st
     2;
 pub type _bindgen_ty_49 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_creation_graph_destroy_instance_context_t {
     pub manager_shutdown: bool,
 }
@@ -8018,11 +7443,6 @@ pub struct tm_creation_graph_tick_context_t {
     pub dt: f32,
     pub _padding_85: [::std::os::raw::c_char; 4usize],
     pub shader_context: *mut tm_shader_system_context_o,
-}
-impl Default for tm_creation_graph_tick_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8035,11 +7455,6 @@ pub struct tm_creation_graph_viewport_interact_context_t {
     pub shader_context: *const tm_shader_system_context_o,
     pub undo_stack: *mut tm_undo_stack_i,
 }
-impl Default for tm_creation_graph_viewport_interact_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_creation_graph_output_t {
@@ -8047,11 +7462,6 @@ pub struct tm_creation_graph_output_t {
     pub num_output_objects: u32,
     pub _padding_122: [::std::os::raw::c_char; 4usize],
     pub output: *const ::std::os::raw::c_void,
-}
-impl Default for tm_creation_graph_output_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_CREATION_GRAPH_MAX_OUTPUT_NODE_TYPES: ::std::os::raw::c_int = 32;
 pub type _bindgen_ty_50 = ::std::os::raw::c_int;
@@ -8063,11 +7473,6 @@ pub struct tm_creation_graph_all_outputs_t {
     pub _padding_136: [::std::os::raw::c_char; 4usize],
     pub output_node_type_hashes: [u64; 32usize],
     pub output_node_type_display_names: [*const ::std::os::raw::c_char; 32usize],
-}
-impl Default for tm_creation_graph_all_outputs_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8084,11 +7489,6 @@ pub struct tm_creation_graph_task_t {
     pub f: ::std::option::Option<unsafe extern "C" fn(data: *mut ::std::os::raw::c_void, id: u64)>,
     pub data: *mut ::std::os::raw::c_void,
     pub debug_name: *const ::std::os::raw::c_char,
-}
-impl Default for tm_creation_graph_task_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8110,11 +7510,6 @@ pub struct tm_creation_graph_context_t {
     pub tt: *mut tm_the_truth_o,
     pub shader_context: *mut tm_shader_system_context_o,
 }
-impl Default for tm_creation_graph_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_creation_graph_o {
@@ -8126,13 +7521,8 @@ pub struct tm_cached_node_result_t {
     pub object: tm_tt_id_t,
     pub validity_hash: u64,
 }
-impl Default for tm_cached_node_result_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_creation_graph_api {
     pub create_manager: ::std::option::Option<unsafe extern "C" fn(allocator: *mut tm_allocator_i)>,
     pub update_manager: ::std::option::Option<unsafe extern "C" fn()>,
@@ -8240,11 +7630,6 @@ pub struct tm_creation_graph_interpreter_wire_content_t {
     pub size: u32,
     pub data: *mut ::std::os::raw::c_void,
 }
-impl Default for tm_creation_graph_interpreter_wire_content_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_creation_graph_interpreter_context_t {
@@ -8255,11 +7640,6 @@ pub struct tm_creation_graph_interpreter_context_t {
     pub node_id: tm_tt_id_t,
     pub node_type: *const tm_graph_node_type_i,
     pub wires: *const u32,
-}
-impl Default for tm_creation_graph_interpreter_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub type tm_creation_graph_interpreter_run_node_f =
     ::std::option::Option<unsafe extern "C" fn(ctx: *mut tm_creation_graph_interpreter_context_t)>;
@@ -8275,13 +7655,8 @@ pub struct tm_creation_graph_interpreter_node_t {
     pub dependencies_index: u32,
     pub _padding_108: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_creation_graph_interpreter_node_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_creation_graph_interpreter_api {
     pub create_graph_interpreter: ::std::option::Option<
         unsafe extern "C" fn(
@@ -8413,21 +7788,11 @@ pub struct tm_graph_aspect_i {
     >,
     pub subgraph_type_hash: u64,
 }
-impl Default for tm_graph_aspect_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_io_type_t {
     pub type_hash: u64,
     pub display_name: *const ::std::os::raw::c_char,
-}
-impl Default for tm_graph_io_type_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_TT_PROP__GRAPH__NODES: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__GRAPH__CONNECTIONS: ::std::os::raw::c_int = 1;
@@ -8499,11 +7864,6 @@ pub struct tm_graph_connector_t {
     pub hidden: bool,
     pub _padding_236: [::std::os::raw::c_char; 7usize],
 }
-impl Default for tm_graph_connector_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_node_connectors_t {
@@ -8511,11 +7871,6 @@ pub struct tm_graph_node_connectors_t {
     pub out: [tm_graph_connector_t; 16usize],
     pub num_in: u32,
     pub num_out: u32,
-}
-impl Default for tm_graph_node_connectors_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8549,21 +7904,11 @@ pub struct tm_graph_node_type_i {
         ),
     >,
 }
-impl Default for tm_graph_node_type_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_node_cache_invalidation_context_t {
     pub graph_id: tm_tt_id_t,
     pub node_id: tm_tt_id_t,
-}
-impl Default for tm_graph_node_cache_invalidation_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8586,11 +7931,6 @@ pub struct tm_graph_drag_and_drop_i {
         ),
     >,
 }
-impl Default for tm_graph_drag_and_drop_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_ui_res_t {
@@ -8599,18 +7939,13 @@ pub struct tm_graph_ui_res_t {
     pub _padding_338: [::std::os::raw::c_char; 6usize],
     pub focus: tm_tt_id_t,
 }
-impl Default for tm_graph_ui_res_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_graph_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub create_graph: ::std::option::Option<
@@ -8696,11 +8031,6 @@ pub struct tm_creation_graph_compile_context_t {
     pub instanced_settings_id: tm_tt_id_t,
     pub asset_tag_uuid: u64,
 }
-impl Default for tm_creation_graph_compile_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_creation_graph_node_type_i {
@@ -8716,13 +8046,8 @@ pub struct tm_creation_graph_node_type_i {
         ),
     >,
 }
-impl Default for tm_creation_graph_node_type_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gpu_vertex_channel_t {
     pub offset: u32,
     pub stride: u16,
@@ -8748,7 +8073,7 @@ pub const TM_VERTEX_BUFFER_CHANNEL_COLOR1: ::std::os::raw::c_int = 14;
 pub const TM_VERTEX_BUFFER_CHANNEL_MAX_CHANNELS: ::std::os::raw::c_int = 16;
 pub type _bindgen_ty_64 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gpu_vertex_buffer_t {
     pub active_channels_flag: u32,
     pub num_vertices: u32,
@@ -8761,11 +8086,6 @@ pub struct tm_gpu_geometry_t {
     pub vfetch_system: *mut tm_shader_system_o,
     pub vfetch_system_cbuffer: u32,
     pub vfetch_system_rbinder: u32,
-}
-impl Default for tm_gpu_geometry_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_TT_PROP__IMAGE_FILTER_SETTINGS__COLOR_SPACE: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__IMAGE_FILTER_SETTINGS__FILTER: ::std::os::raw::c_int = 1;
@@ -8786,7 +8106,7 @@ pub const TM_TT_PROP__IMAGE_ACRCHIVE__DESCRIPTION: ::std::os::raw::c_int = 2;
 pub const TM_TT_PROP__IMAGE_ACRCHIVE__BUFFER: ::std::os::raw::c_int = 3;
 pub type _bindgen_ty_67 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gpu_buffer_t {
     pub validity_hash: u64,
     pub size: u32,
@@ -8807,11 +8127,6 @@ pub struct tm_creation_graph_shader_instance_t {
     pub cbuf: u32,
     pub rbinder: u32,
 }
-impl Default for tm_creation_graph_shader_instance_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_renderer_command_buffer_o {
@@ -8824,11 +8139,6 @@ pub struct tm_crunch_result_t {
     pub data_size: u32,
     pub _padding_18: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_crunch_result_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub type tm_crunch_progress = ::std::option::Option<
     unsafe extern "C" fn(
         phase_index: u32,
@@ -8839,7 +8149,7 @@ pub type tm_crunch_progress = ::std::option::Option<
     ) -> bool,
 >;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_crunch_api {
     pub compress: ::std::option::Option<
         unsafe extern "C" fn(
@@ -8860,13 +8170,8 @@ pub struct tm_dcc_asset_geometry_t {
     pub vertices: *mut tm_vec3_t,
     pub indices: *mut u32,
 }
-impl Default for tm_dcc_asset_geometry_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_dcc_asset_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub truth_type_info:
@@ -8896,7 +8201,7 @@ pub const TM_TT_PROP__DCC_ASSET_COMPONENT__DCC_ASSET: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__DCC_ASSET_COMPONENT__VISIBILITY_FLAGS: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_68 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_dcc_asset_component_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub create: ::std::option::Option<unsafe extern "C" fn(ctx: *mut tm_entity_context_o)>,
@@ -8938,7 +8243,7 @@ pub const TM_TT_PROP__DCC_ASSET_MATERIAL__DCC_ASSET: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__DCC_ASSET_MATERIAL__MATERIAL: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_71 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_dcc_asset_creation_graph_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub compile_data_to_wire: ::std::option::Option<
@@ -9012,20 +8317,10 @@ pub struct tm_dcc_asset_scene_instance_o {
     pub shader: *mut tm_shader_o,
     pub cbufs: *mut tm_shader_constant_buffer_instance_t,
 }
-impl Default for tm_dcc_asset_scene_instance_o {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_dcc_asset_renderer_shader_system_t {
     pub systems: [*mut tm_shader_system_o; 2usize],
-}
-impl Default for tm_dcc_asset_renderer_shader_system_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_DCC_ASSET_RENDERER_SHADER_SYSTEM_OPAQUE: ::std::os::raw::c_int = 0;
 pub const TM_DCC_ASSET_RENDERER_SHADER_SYSTEM_MASKED: ::std::os::raw::c_int = 1;
@@ -9039,13 +8334,8 @@ pub struct tm_dcc_asset_renderer_frame_memory_thread_context_t {
     pub used: u64,
     pub block_size: u64,
 }
-impl Default for tm_dcc_asset_renderer_frame_memory_thread_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_dcc_asset_renderer_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -9153,7 +8443,7 @@ pub const TM_TT_PROP__DCC_ASSET_ATTRIBUTE__SET: ::std::os::raw::c_int = 1;
 pub const TM_TT_PROP__DCC_ASSET_ATTRIBUTE__ACCESSOR: ::std::os::raw::c_int = 2;
 pub type _bindgen_ty_83 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_dcc_asset_raw_image_header_t {
     pub format: u32,
     pub width: u32,
@@ -9252,19 +8542,19 @@ pub const TM_TT_PROP__DCC_ASSET_SCENE__NAME: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__DCC_ASSET_SCENE__ROOT_NODES: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_97 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tt_prop__dcc_asset_node_animation__float_key_t {
     pub time: f32,
     pub v: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tt_prop__dcc_asset_node_animation__vec3_key_t {
     pub time: f32,
     pub v: tm_vec3_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tt_prop__dcc_asset_node_animation__quat_key_t {
     pub time: f32,
     pub q: tm_vec4_t,
@@ -9312,7 +8602,7 @@ pub const TM_TT_PROP__DCC_ASSET__ANIMATIONS: ::std::os::raw::c_int = 10;
 pub const TM_TT_PROP__DCC_ASSET__SETTINGS: ::std::os::raw::c_int = 11;
 pub type _bindgen_ty_102 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct dcc_asset_type_info_t {
     pub position_type: u64,
     pub rotation_type: u64,
@@ -9347,13 +8637,8 @@ pub type _bindgen_ty_103 = ::std::os::raw::c_int;
 pub struct tm_entity_rigger_component_t {
     pub dcc_asset: tm_tt_id_t,
 }
-impl Default for tm_entity_rigger_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_entity_rigger_component_api {
     pub parse_scene_tree: ::std::option::Option<
         unsafe extern "C" fn(
@@ -9382,7 +8667,7 @@ pub const TM_TT_PROP__IMPORT_SETTINGS__IMPORT__IMAGE_CG: ::std::os::raw::c_int =
 pub const TM_TT_PROP__IMPORT_SETTINGS__DROP__IMAGE_CG: ::std::os::raw::c_int = 6;
 pub type _bindgen_ty_104 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_import_settings_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub asset_browser_create_interface:
@@ -9408,7 +8693,7 @@ pub const TM_TT_PROP__BLOOM_COMPONENT__FALLOFF: ::std::os::raw::c_int = 2;
 pub const TM_TT_PROP__BLOOM_COMPONENT__TINT: ::std::os::raw::c_int = 3;
 pub type _bindgen_ty_105 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_bloom_component_t {
     pub enabled: bool,
     pub _padding_19: [::std::os::raw::c_char; 3usize],
@@ -9438,7 +8723,7 @@ pub const TM_FILTER_IMAGE_POST_CMD: ::std::os::raw::c_int = 1;
 pub const TM_FILTER_IMAGE_MAX_RESOURCE_BUFFERS: ::std::os::raw::c_int = 2;
 pub type _bindgen_ty_106 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_default_render_pipe_api {
     pub create_module: ::std::option::Option<
         unsafe extern "C" fn(
@@ -9502,11 +8787,6 @@ pub struct tm_exposure_component_t {
     pub speed_up: f32,
     pub speed_down: f32,
 }
-impl Default for tm_exposure_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_image_handle_t {
@@ -9561,26 +8841,11 @@ pub struct tm_light_component_t__bindgen_ty_1 {
     pub asset: tm_tt_id_t,
     pub version: u64,
 }
-impl Default for tm_light_component_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_light_component_t__bindgen_ty_2 {
     pub asset: tm_tt_id_t,
     pub version: u64,
-}
-impl Default for tm_light_component_t__bindgen_ty_2 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_light_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_TT_PROP__VOLUME_COMPONENT__TYPE: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__VOLUME_COMPONENT__BLEND_DISTANCE: ::std::os::raw::c_int = 1;
@@ -9604,13 +8869,8 @@ pub struct tm_volume_component_t {
     pub box_lower_bound: tm_vec3_t,
     pub box_upper_bound: tm_vec3_t,
 }
-impl Default for tm_volume_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_volume_component_api {
     pub contains: ::std::option::Option<
         unsafe extern "C" fn(
@@ -9664,7 +8924,7 @@ pub const tm_dxc_output_format_TM_DXC_OUTPUT_FORMAT_DXIL: tm_dxc_output_format =
 pub const tm_dxc_output_format_TM_DXC_OUTPUT_FORMAT_SPIRV: tm_dxc_output_format = 1;
 pub type tm_dxc_output_format = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_dxc_shader_compiler_api {
     pub load: ::std::option::Option<
         unsafe extern "C" fn(dll_path: *const ::std::os::raw::c_char) -> bool,
@@ -9710,11 +8970,6 @@ pub struct tm_asset_save_file_tree_modification_t {
     pub original_name: *const ::std::os::raw::c_char,
     pub original_directory: tm_tt_id_t,
 }
-impl Default for tm_asset_save_file_tree_modification_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_asset_save_o {
@@ -9753,11 +9008,6 @@ pub struct tm_asset_save_i {
         unsafe extern "C" fn(inst: *const tm_asset_save_o) -> *const ::std::os::raw::c_char,
     >,
 }
-impl Default for tm_asset_save_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_asset_browser_o {
@@ -9776,11 +9026,6 @@ pub struct tm_asset_browser_create_asset_i {
             undo_scope: tm_tt_undo_scope_t,
         ) -> tm_tt_id_t,
     >,
-}
-impl Default for tm_asset_browser_create_asset_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9801,11 +9046,6 @@ pub struct tm_asset_browser_open_asset_api {
             object: tm_tt_id_t,
         ) -> bool,
     >,
-}
-impl Default for tm_asset_browser_open_asset_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9846,11 +9086,6 @@ pub struct tm_asset_browser_add_asset_api {
         ) -> tm_tt_id_t,
     >,
 }
-impl Default for tm_asset_browser_add_asset_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_asset_browser_select_asset_api {
@@ -9870,11 +9105,6 @@ pub struct tm_asset_browser_select_asset_api {
             asset: tm_tt_id_t,
         ),
     >,
-}
-impl Default for tm_asset_browser_select_asset_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9900,11 +9130,6 @@ pub struct tm_asset_browser_custom_menu_item_t {
         ),
     >,
 }
-impl Default for tm_asset_browser_custom_menu_item_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_asset_browser_config_t {
@@ -9926,18 +9151,13 @@ pub struct tm_asset_browser_config_t {
     pub custom_menu_items: *const tm_asset_browser_custom_menu_item_t,
     pub save_interface: *mut tm_asset_save_i,
 }
-impl Default for tm_asset_browser_config_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_browser_ui_res_t {
     pub focus_changed: bool,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_browser_api {
     pub create_asset_browser: ::std::option::Option<
         unsafe extern "C" fn(
@@ -9997,7 +9217,7 @@ pub struct tm_profiler_view_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_profiler_view_api {
     pub create_profiler_view: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_profiler_view_o,
@@ -10034,7 +9254,7 @@ pub struct tm_properties_view_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_properties_ui_info_t {
     pub last_hovered_focusable_control: u64,
     pub last_hovered_context_menu_rect: tm_rect_t,
@@ -10077,11 +9297,6 @@ pub struct tm_properties_ui_args_t {
     pub metrics: *mut f32,
     pub last_undo_scope: tm_tt_undo_scope_t,
 }
-impl Default for tm_properties_ui_args_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_properties_float_display_converter_i {
@@ -10096,11 +9311,6 @@ pub struct tm_properties_float_display_converter_i {
         unsafe extern "C" fn(inst: *mut ::std::os::raw::c_void, spinner: *mut tm_ui_spinner_t),
     >,
 }
-impl Default for tm_properties_float_display_converter_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_properties_uint32_display_converter_i {
@@ -10112,11 +9322,6 @@ pub struct tm_properties_uint32_display_converter_i {
         unsafe extern "C" fn(inst: *mut ::std::os::raw::c_void, v: u32) -> u32,
     >,
 }
-impl Default for tm_properties_uint32_display_converter_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_propeties_reference_picker_args_t {
@@ -10125,13 +9330,8 @@ pub struct tm_propeties_reference_picker_args_t {
     pub num_tags: u32,
     pub num_excludes: u32,
 }
-impl Default for tm_propeties_reference_picker_args_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_properties_aspect_i {
     pub custom_ui: ::std::option::Option<
         unsafe extern "C" fn(
@@ -10199,11 +9399,6 @@ pub struct tm_properties_view_config_t {
     pub tt: *mut tm_the_truth_o,
     pub undo_stack: *mut tm_undo_stack_i,
 }
-impl Default for tm_properties_view_config_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_properties_float_slider_t {
@@ -10216,13 +9411,8 @@ pub struct tm_properties_float_slider_t {
     pub edit_max: f32,
     pub converter: *mut tm_properties_float_display_converter_i,
 }
-impl Default for tm_properties_float_slider_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_properties_view_api {
     pub create_properties_view: ::std::option::Option<
         unsafe extern "C" fn(
@@ -10835,13 +10025,8 @@ pub struct tm_tree_view_children_t {
     pub aspect_reference_type: u32,
     pub _padding_29: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_tree_view_children_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tree_view_aspect_i {
     pub setup: ::std::option::Option<
         unsafe extern "C" fn(
@@ -10980,11 +10165,6 @@ pub struct tm_tree_view_setup_t {
     pub _padding_103: [::std::os::raw::c_char; 7usize],
     pub state: *mut ::std::os::raw::c_void,
 }
-impl Default for tm_tree_view_setup_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_tree_view_ui_res_t {
@@ -10994,11 +10174,6 @@ pub struct tm_tree_view_ui_res_t {
     pub selection_changed: bool,
     pub focus_on_tree_background: bool,
     pub _padding_124: [::std::os::raw::c_char; 6usize],
-}
-impl Default for tm_tree_view_ui_res_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -11011,13 +10186,8 @@ pub struct tm_tree_view_parent_t {
     pub _padding_148: [::std::os::raw::c_char; 4usize],
     pub expanded_key: u64,
 }
-impl Default for tm_tree_view_parent_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tree_view_api {
     pub create_tree_view: ::std::option::Option<
         unsafe extern "C" fn(setup: *const tm_tree_view_setup_t) -> *mut tm_tree_view_o,
@@ -11112,11 +10282,6 @@ pub struct tm_ui_popup_item_picker_t {
     pub num_strings: u32,
     pub _padding_26: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ui_popup_item_picker_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_category_popup_item_picker_t {
@@ -11131,11 +10296,6 @@ pub struct tm_ui_category_popup_item_picker_t {
     pub _padding_42: [::std::os::raw::c_char; 4usize],
     pub expanded: *mut tm_set_t,
 }
-impl Default for tm_ui_category_popup_item_picker_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_popup_asset_picker_t {
@@ -11148,13 +10308,8 @@ pub struct tm_ui_popup_asset_picker_t {
     pub asset_root: tm_tt_id_t,
     pub type_hash: u64,
 }
-impl Default for tm_ui_popup_asset_picker_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_popup_item_picker_api {
     pub pick: ::std::option::Option<
         unsafe extern "C" fn(
@@ -11189,7 +10344,7 @@ pub const TM_TT_PROP__CAMERA_COMPONENT__ROTATION_SPEED: ::std::os::raw::c_int = 
 pub const TM_TT_PROP__CAMERA_COMPONENT__TRANSLATION_DAMPING: ::std::os::raw::c_int = 5;
 pub type _bindgen_ty_112 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_camera_component_t {
     pub near_plane: f32,
     pub far_plane: f32,
@@ -11203,7 +10358,7 @@ pub const TM_TT_PROP__ENTITY__COMPONENTS: ::std::os::raw::c_int = 1;
 pub const TM_TT_PROP__ENTITY__CHILDREN: ::std::os::raw::c_int = 2;
 pub type _bindgen_ty_113 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_component_mask_t {
     pub bits: [u64; 16usize],
 }
@@ -11214,21 +10369,11 @@ pub struct tm_entity_array_t {
     pub n: u32,
     pub _padding_79: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_entity_array_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 pub struct tm_entity_set_t {
     pub total_entities: u32,
     pub num_arrays: u32,
     pub arrays: __IncompleteArrayField<tm_entity_array_t>,
-}
-impl Default for tm_entity_set_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -11294,11 +10439,6 @@ pub struct tm_component_i {
     >,
     pub debug_draw_settings: tm_tt_id_t,
 }
-impl Default for tm_component_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_engine_update_array_t {
@@ -11307,11 +10447,6 @@ pub struct tm_engine_update_array_t {
     pub component_bytes: [u32; 16usize],
     pub n: u32,
     pub _padding_171: [::std::os::raw::c_char; 4usize],
-}
-impl Default for tm_engine_update_array_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -11326,16 +10461,6 @@ pub union tm_entity_blackboard_value_t__bindgen_ty_1 {
     pub ptr_value: *mut ::std::os::raw::c_void,
     _bindgen_union_align: u64,
 }
-impl Default for tm_entity_blackboard_value_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_entity_blackboard_value_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 pub struct tm_engine_update_set_t {
     pub engine: *const tm_engine_i,
@@ -11346,11 +10471,6 @@ pub struct tm_engine_update_set_t {
     pub num_arrays: u32,
     pub _padding_198: [::std::os::raw::c_char; 4usize],
     pub arrays: __IncompleteArrayField<tm_engine_update_array_t>,
-}
-impl Default for tm_engine_update_set_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -11380,11 +10500,6 @@ pub struct tm_engine_i {
         ) -> bool,
     >,
 }
-impl Default for tm_engine_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_entity_system_o {
@@ -11401,17 +10516,12 @@ pub struct tm_entity_system_i {
         unsafe extern "C" fn(ctx: *mut tm_entity_context_o, inst: *mut tm_entity_system_o),
     >,
 }
-impl Default for tm_entity_system_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub type tm_entity_simulation_i =
     ::std::option::Option<unsafe extern "C" fn(ctx: *mut tm_entity_context_o)>;
 pub type tm_entity_create_component_i =
     ::std::option::Option<unsafe extern "C" fn(ctx: *mut tm_entity_context_o)>;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_entity_hot_reload_component_i {
     pub name_hash: u64,
     pub reload: ::std::option::Option<
@@ -11419,7 +10529,7 @@ pub struct tm_entity_hot_reload_component_i {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_entity_hot_reload_system_i {
     pub name_hash: u64,
     pub reload: ::std::option::Option<
@@ -11451,11 +10561,6 @@ pub struct tm_entity_listener_i {
         ),
     >,
 }
-impl Default for tm_entity_listener_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_entity_event_listener_i {
@@ -11473,13 +10578,8 @@ pub struct tm_entity_event_listener_i {
         ),
     >,
 }
-impl Default for tm_entity_event_listener_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_entity_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub create_context: ::std::option::Option<
@@ -11772,18 +10872,13 @@ pub struct tm_link_component_t {
     pub scene_tree_node_idx: u32,
     pub _padding_45: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_link_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_link_component_manager_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_link_component_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(ctx: *mut tm_entity_context_o) -> *mut tm_link_component_manager_o,
@@ -11824,7 +10919,7 @@ pub struct tm_link_component_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_owner_component_t {
     pub num_children: u32,
     pub inst: u32,
@@ -11835,7 +10930,7 @@ pub struct tm_owner_component_manager_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_owner_component_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(ctx: *mut tm_entity_context_o) -> *mut tm_owner_component_manager_o,
@@ -11883,7 +10978,7 @@ pub type _bindgen_ty_116 = ::std::os::raw::c_int;
 pub const TM_SCENE_TREE_COMPONENT_ROOT_NODE_PARENT: ::std::os::raw::c_int = -1;
 pub type _bindgen_ty_117 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_scene_tree_node_t {
     pub name: u64,
     pub parent_idx: u32,
@@ -11898,18 +10993,13 @@ pub struct tm_scene_tree_node_names_t {
     pub _padding_59: [::std::os::raw::c_char; 4usize],
     pub node_names: *const u64,
 }
-impl Default for tm_scene_tree_node_names_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_scene_tree_component_manager_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_scene_tree_component_api {
     pub setup_nodes: ::std::option::Option<
         unsafe extern "C" fn(
@@ -11973,7 +11063,7 @@ pub struct tm_scene_tree_component_api {
 pub const TM_TT_PROP__TAG_COMPONENT__TAGS: ::std::os::raw::c_int = 0;
 pub type _bindgen_ty_118 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tag_component_t {
     pub first_ti: u32,
 }
@@ -11983,7 +11073,7 @@ pub struct tm_tag_component_manager_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_tag_component_api {
     pub tag_assets: ::std::option::Option<
         unsafe extern "C" fn(
@@ -12023,13 +11113,13 @@ pub const TM_TT_PROP__TRANSFORM_COMPONENT__ROTATION: ::std::os::raw::c_int = 1;
 pub const TM_TT_PROP__TRANSFORM_COMPONENT__SCALE: ::std::os::raw::c_int = 2;
 pub type _bindgen_ty_119 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_transform_component_t {
     pub tm: tm_transform_t,
     pub version: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_transform_component_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub create: ::std::option::Option<unsafe extern "C" fn(ctx: *mut tm_entity_context_o)>,
@@ -12075,13 +11165,8 @@ pub struct tm_gameplay_context_t {
     pub running_in_editor: bool,
     pub _padding_75: [::std::os::raw::c_char; 5usize],
 }
-impl Default for tm_gameplay_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gameplay_context_api {
     pub init: ::std::option::Option<
         unsafe extern "C" fn(
@@ -12094,7 +11179,7 @@ pub struct tm_gameplay_context_api {
     pub update: ::std::option::Option<unsafe extern "C" fn(ctx: *mut tm_gameplay_context_t)>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gameplay_entity_api {
     pub get_transform: ::std::option::Option<
         unsafe extern "C" fn(ctx: *const tm_gameplay_context_t, e: tm_entity_t) -> tm_transform_t,
@@ -12176,7 +11261,7 @@ pub struct tm_gameplay_entity_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gameplay_physics_api {
     pub get_collision_types: ::std::option::Option<
         unsafe extern "C" fn(
@@ -12197,11 +11282,6 @@ pub struct tm_gameplay_api {
             path: *const ::std::os::raw::c_char,
         ) -> tm_tt_id_t,
     >,
-}
-impl Default for tm_gameplay_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -12225,13 +11305,8 @@ pub struct tm_gltf_uri_i {
         ) -> bool,
     >,
 }
-impl Default for tm_gltf_uri_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gltf_api {
     pub import: ::std::option::Option<
         unsafe extern "C" fn(
@@ -12271,11 +11346,6 @@ pub struct tm_graph_imported_node_t {
     pub is_pure: bool,
     pub _padding_39: [::std::os::raw::c_char; 3usize],
 }
-impl Default for tm_graph_imported_node_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_imported_connection_t {
@@ -12288,11 +11358,6 @@ pub struct tm_graph_imported_connection_t {
     pub _padding_63: [::std::os::raw::c_char; 4usize],
     pub in_conflict_with: tm_tt_id_t,
 }
-impl Default for tm_graph_imported_connection_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_imported_data_t {
@@ -12304,11 +11369,6 @@ pub struct tm_graph_imported_data_t {
     pub _padding_90: [::std::os::raw::c_char; 4usize],
     pub in_conflict_with: tm_tt_id_t,
 }
-impl Default for tm_graph_imported_data_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_imported_comment_t {
@@ -12319,11 +11379,6 @@ pub struct tm_graph_imported_comment_t {
     pub id: tm_tt_id_t,
     pub prototype_relation: u32,
     pub _padding_119: [::std::os::raw::c_char; 4usize],
-}
-impl Default for tm_graph_imported_comment_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -12339,18 +11394,13 @@ pub struct tm_graph_import_result_t {
     pub num_datas: u32,
     pub num_comments: u32,
 }
-impl Default for tm_graph_import_result_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_importer_luts_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_graph_importer_api {
     pub create_lookup_tables: ::std::option::Option<
         unsafe extern "C" fn(
@@ -12394,11 +11444,6 @@ pub type _bindgen_ty_121 = ::std::os::raw::c_int;
 pub struct tm_graph_component_t {
     pub gr: *mut tm_graph_interpreter_o,
 }
-impl Default for tm_graph_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_TT_PROP__ENTITY_GRAPH__GRAPH: ::std::os::raw::c_int = 0;
 pub type _bindgen_ty_122 = ::std::os::raw::c_int;
 pub type tm_graph_component_compile_data_i = ::std::option::Option<
@@ -12411,7 +11456,7 @@ pub type tm_graph_component_compile_data_i = ::std::option::Option<
     ) -> bool,
 >;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_graph_component_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub create: ::std::option::Option<unsafe extern "C" fn(ctx: *mut tm_entity_context_o)>,
@@ -12427,11 +11472,6 @@ pub struct tm_graph_component_compile_context_t {
     pub graph_id: tm_tt_id_t,
     pub settings_id: tm_tt_id_t,
     pub connectors: *mut tm_graph_node_connectors_t,
-}
-impl Default for tm_graph_component_compile_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -12459,11 +11499,6 @@ pub struct tm_graph_interpreter_wire_content_t {
     pub size: u32,
     pub data: *mut ::std::os::raw::c_void,
 }
-impl Default for tm_graph_interpreter_wire_content_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_graph_interpreter_context_t {
@@ -12472,11 +11507,6 @@ pub struct tm_graph_interpreter_context_t {
     pub _padding_55: [::std::os::raw::c_char; 4usize],
     pub node_type: *const tm_graph_node_type_i,
     pub wires: *const u32,
-}
-impl Default for tm_graph_interpreter_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub type tm_graph_interpreter_run_node_f =
     ::std::option::Option<unsafe extern "C" fn(ctx: *mut tm_graph_interpreter_context_t)>;
@@ -12490,13 +11520,8 @@ pub struct tm_graph_interpreter_node_t {
     pub dependencies_index: u32,
     pub _padding_97: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_graph_interpreter_node_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_graph_interpreter_api {
     pub create_graph_interpreter: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_graph_interpreter_o,
@@ -12586,13 +11611,8 @@ pub struct tm_https_request_header_t {
     pub name: *const ::std::os::raw::c_char,
     pub value: *const ::std::os::raw::c_char,
 }
-impl Default for tm_https_request_header_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_https_request_fingerprint_t {
     pub data: [::std::os::raw::c_char; 20usize],
 }
@@ -12613,11 +11633,6 @@ pub struct tm_https_request_t {
     pub num_trust_anchors: u32,
     pub trust_anchors: *const ::std::os::raw::c_void,
 }
-impl Default for tm_https_request_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const tm_https_status_TM_HTTPS_STATUS__IN_PROGRESS: tm_https_status = 0;
 pub const tm_https_status_TM_HTTPS_STATUS__ERROR: tm_https_status = 1;
 pub const tm_https_status_TM_HTTPS_STATUS__SUCCESS: tm_https_status = 2;
@@ -12630,11 +11645,6 @@ pub struct tm_https_response_header_t {
     pub name: *const ::std::os::raw::c_char,
     pub name_hash: u64,
     pub value: *const ::std::os::raw::c_char,
-}
-impl Default for tm_https_response_header_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -12651,13 +11661,8 @@ pub struct tm_https_response_t {
     pub content_received: u64,
     pub body: *mut ::std::os::raw::c_char,
 }
-impl Default for tm_https_response_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_https_progress_t {
     pub content_length: u64,
     pub content_received: u64,
@@ -12671,7 +11676,7 @@ pub struct tm_https_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_https_api {
     pub get: ::std::option::Option<
         unsafe extern "C" fn(
@@ -12705,7 +11710,7 @@ pub struct tm_https_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_openvr_submit_data_t {
     pub right_eye_bounds: tm_rect_t,
     pub right_eye_resource: u32,
@@ -12722,7 +11727,7 @@ pub const tm_openvr_eye_TM_OPENVR_EYE_LEFT: tm_openvr_eye = 0;
 pub const tm_openvr_eye_TM_OPENVR_EYE_RIGHT: tm_openvr_eye = 1;
 pub type tm_openvr_eye = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_openvr_api {
     pub load: ::std::option::Option<
         unsafe extern "C" fn(dll_path: *const ::std::os::raw::c_char) -> bool,
@@ -12764,7 +11769,7 @@ pub struct tm_display_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_display_api {
     pub num_displays: ::std::option::Option<unsafe extern "C" fn() -> u32>,
     pub display: ::std::option::Option<unsafe extern "C" fn(index: u32) -> *mut tm_display_o>,
@@ -12810,7 +11815,7 @@ pub const tm_os_window_adjust_rect_TM_OS_WINDOW_ADJUST_RECT_TO_VIRTUAL: tm_os_wi
     1;
 pub type tm_os_window_adjust_rect = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_window_platform_data_win32_o {
     pub hwnd: u64,
     pub hinstance: u64,
@@ -12819,11 +11824,6 @@ pub struct tm_window_platform_data_win32_o {
 #[derive(Copy, Clone)]
 pub struct tm_window_platform_data_macosx_o {
     pub nswindow: *mut ::std::os::raw::c_void,
-}
-impl Default for tm_window_platform_data_macosx_o {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -12837,18 +11837,8 @@ pub union tm_window_platform_data_o__bindgen_ty_1 {
     pub macosx: tm_window_platform_data_macosx_o,
     _bindgen_union_align: [u64; 2usize],
 }
-impl Default for tm_window_platform_data_o__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_window_platform_data_o {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_window_status_t {
     pub has_focus: bool,
     pub is_under_cursor: bool,
@@ -12857,7 +11847,7 @@ pub struct tm_window_status_t {
     pub is_hidden: bool,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_window_update_result_t {
     pub focus_changed: bool,
 }
@@ -12867,13 +11857,8 @@ pub struct tm_os_dropped_file_t {
     pub filename: *mut ::std::os::raw::c_char,
     pub position: tm_vec2_t,
 }
-impl Default for tm_os_dropped_file_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_os_window_api {
     pub create_window: ::std::option::Option<
         unsafe extern "C" fn(
@@ -12949,7 +11934,7 @@ pub const TM_TT_PROP__PHYSICS_BODY__DISABLE_GRAVITY: ::std::os::raw::c_int = 7;
 pub const TM_TT_PROP__PHYSICS_BODY__ENABLE_CCD: ::std::os::raw::c_int = 8;
 pub type _bindgen_ty_125 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_body_component_t {
     pub mass: f32,
     pub center_of_mass: tm_vec3_t,
@@ -12979,11 +11964,6 @@ pub struct tm_physics_body_compute_inertia_tensor_i {
             mass: f32,
         ) -> tm_physics_body_component_t,
     >,
-}
-impl Default for tm_physics_body_compute_inertia_tensor_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_TT_PROP__PHYSICS_COLLISION__COLLIDES_WITH: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__PHYSICS_COLLISION__NOTIFY_TOUCH_FOUND_WITH: ::std::os::raw::c_int = 1;
@@ -13022,25 +12002,25 @@ pub const TM_TT_PROP__PHYSICS_JOINT__DISTANCE__MIN: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__PHYSICS_JOINT__DISTANCE__MAX: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_131 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_joint_spherical_limits_t {
     pub y_angle: f32,
     pub z_angle: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_joint_revolute_limits_t {
     pub lower: f32,
     pub upper: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_joint_prismatic_limits_t {
     pub lower: f32,
     pub upper: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_joint_distance_limits_t {
     pub min: f32,
     pub max: f32,
@@ -13072,16 +12052,6 @@ pub union tm_physics_joint_component_t__bindgen_ty_1 {
     pub distance_limits: tm_physics_joint_distance_limits_t,
     _bindgen_union_align: [u32; 2usize],
 }
-impl Default for tm_physics_joint_component_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_physics_joint_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_TT_PROP__PHYSICS_MATERIAL__STATIC_FRICTION: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__PHYSICS_MATERIAL__DYNAMIC_FRICTION: ::std::os::raw::c_int = 1;
 pub const TM_TT_PROP__PHYSICS_MATERIAL__RESTITUTION: ::std::os::raw::c_int = 2;
@@ -13096,11 +12066,6 @@ pub struct tm_physics_mover_component_t {
     pub height: f32,
     pub radius: f32,
     pub collision_id: tm_tt_id_t,
-}
-impl Default for tm_physics_mover_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_physics_shape_TM_PHYSICS_SHAPE__NONE: tm_physics_shape = 0;
 pub const tm_physics_shape_TM_PHYSICS_SHAPE__SPHERE: tm_physics_shape = 1;
@@ -13132,18 +12097,18 @@ pub const TM_TT_PROP__PHYSICS_SHAPE__MESH__FORMAT: ::std::os::raw::c_int = 1;
 pub const TM_TT_PROP__PHYSICS_SHAPE__MESH__DATA: ::std::os::raw::c_int = 2;
 pub type _bindgen_ty_139 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_shape_sphere_t {
     pub radius: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_shape_capsule_t {
     pub radius: f32,
     pub half_height: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_shape_box_t {
     pub half_extent: tm_vec3_t,
 }
@@ -13154,13 +12119,8 @@ pub struct tm_physics_shape_cooked_t {
     pub data: *const u8,
     pub size: u64,
 }
-impl Default for tm_physics_shape_cooked_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_shape_material_t {
     pub static_friction: f32,
     pub dynamic_friction: f32,
@@ -13188,16 +12148,6 @@ pub union tm_physics_shape_component_t__bindgen_ty_1 {
     pub mesh: tm_physics_shape_cooked_t,
     _bindgen_union_align: [u64; 3usize],
 }
-impl Default for tm_physics_shape_component_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_physics_shape_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_physics_shape_cooking_o {
@@ -13224,11 +12174,6 @@ pub struct tm_physics_shape_cooking_i {
         ) -> *const ::std::os::raw::c_char,
     >,
 }
-impl Default for tm_physics_shape_cooking_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_physics_shape_drawing_o {
@@ -13253,13 +12198,8 @@ pub struct tm_physics_shape_drawing_i {
         ) -> *const tm_vec3_t,
     >,
 }
-impl Default for tm_physics_shape_drawing_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physics_shape_api {
     pub load_component_from_truth: ::std::option::Option<
         unsafe extern "C" fn(
@@ -13280,7 +12220,7 @@ pub const TM_TT_PROP__VELOCITY_COMPONENT__VELOCITY: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__VELOCITY_COMPONENT__ANGULAR_VELOCITY: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_140 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_velocity_component_t {
     pub velocity: tm_vec3_t,
     pub angular_velocity: tm_vec3_t,
@@ -13310,20 +12250,10 @@ pub struct tm_physx_mover_o {
 pub struct tm_physx_rigid_static_component_t {
     pub actor: *mut tm_physx_actor_o,
 }
-impl Default for tm_physx_rigid_static_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_physx_rigid_body_component_t {
     pub actor: *mut tm_physx_actor_o,
-}
-impl Default for tm_physx_rigid_body_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -13331,20 +12261,10 @@ pub struct tm_physx_rigid_body_shape_component_t {
     pub body_entity: tm_entity_t,
     pub shape: *mut tm_physx_shape_o,
 }
-impl Default for tm_physx_rigid_body_shape_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_physx_joint_component_t {
     pub joint: *mut tm_physx_joint_o,
-}
-impl Default for tm_physx_joint_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -13355,15 +12275,10 @@ pub struct tm_physx_mover_component_t {
     pub is_standing: bool,
     pub _padding_66: [::std::os::raw::c_char; 7usize],
 }
-impl Default for tm_physx_mover_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_PHYSX_SCENE_FLAGS__EDITOR: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_141 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physx_raycast_flags_t {
     pub ignore_static: bool,
     pub ignore_dynamic: bool,
@@ -13378,11 +12293,6 @@ pub struct tm_physx_raycast_hit_t {
     pub body: tm_entity_t,
     pub shape: tm_entity_t,
 }
-impl Default for tm_physx_raycast_hit_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_physx_raycast_t {
@@ -13392,21 +12302,11 @@ pub struct tm_physx_raycast_t {
     pub num_touches: u32,
     pub _padding_118: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_physx_raycast_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_physx_overlap_hit_t {
     pub body: tm_entity_t,
     pub shape: tm_entity_t,
-}
-impl Default for tm_physx_overlap_hit_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -13421,11 +12321,6 @@ pub struct tm_physx_on_contact_t {
     pub lost_touch: bool,
     pub _padding_158: [::std::os::raw::c_char; 6usize],
 }
-impl Default for tm_physx_on_contact_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_physx_on_trigger_t {
@@ -13436,20 +12331,10 @@ pub struct tm_physx_on_trigger_t {
     pub lost_touch: bool,
     pub _padding_178: [::std::os::raw::c_char; 7usize],
 }
-impl Default for tm_physx_on_trigger_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_physx_on_joint_break_t {
     pub joint: tm_entity_t,
-}
-impl Default for tm_physx_on_joint_break_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_physx_force_flags_TM_PHYSX_FORCE_FLAGS__FORCE: tm_physx_force_flags = 0;
 pub const tm_physx_force_flags_TM_PHYSX_FORCE_FLAGS__IMPULSE: tm_physx_force_flags = 1;
@@ -13458,7 +12343,7 @@ pub const tm_physx_force_flags_TM_PHYSX_FORCE_FLAGS__VELOCITY_CHANGE: tm_physx_f
 pub const tm_physx_force_flags_TM_PHYSX_FORCE_FLAGS__CONTINUOUS: tm_physx_force_flags = 4;
 pub type tm_physx_force_flags = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_physx_scene_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(ctx: *mut tm_entity_context_o, flags: u32) -> *mut tm_physx_scene_o,
@@ -13619,13 +12504,8 @@ pub struct tm_renderer_shader_blob_t {
     pub size: u64,
     pub data: *mut u8,
 }
-impl Default for tm_renderer_shader_blob_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_image_subresource_layers_t {
     pub first_layer: u16,
     pub layer_count: u16,
@@ -13633,14 +12513,14 @@ pub struct tm_renderer_image_subresource_layers_t {
     pub mip_levels: u16,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_image_offset_t {
     pub x: u16,
     pub y: u16,
     pub z: u16,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_image_extent_t {
     pub width: u16,
     pub height: u16,
@@ -13696,7 +12576,7 @@ pub struct tm_renderer_command_buffer {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_render_pass_bind_render_target_t {
     pub resource: u32,
     pub aspect: u32,
@@ -13712,7 +12592,7 @@ pub type _bindgen_ty_144 = ::std::os::raw::c_int;
 pub const TM_RENDERER_MAX_QUEUE_FENCES: ::std::os::raw::c_int = 4;
 pub type _bindgen_ty_145 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_scheduling_t {
     pub wait_queue_fences: [u32; 4usize],
     pub wait_device_affinity_masks: [u32; 4usize],
@@ -13721,7 +12601,7 @@ pub struct tm_renderer_scheduling_t {
     pub signal_device_affinity_mask: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_render_pass_bind_t {
     pub device_affinity_mask: u32,
     pub render_targets: [tm_renderer_render_pass_bind_render_target_t; 8usize],
@@ -13729,7 +12609,7 @@ pub struct tm_renderer_render_pass_bind_t {
     pub scheduling: tm_renderer_scheduling_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_queue_bind_t {
     pub device_affinity_mask: u32,
     pub queue_family: u8,
@@ -13740,13 +12620,13 @@ pub struct tm_renderer_queue_bind_t {
 pub const TM_RENDERER_MAX_VIEWPORTS_SCISSOR_RECTS: ::std::os::raw::c_int = 8;
 pub type _bindgen_ty_146 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_set_viewports_t {
     pub viewports: [tm_renderer_set_viewports_t__bindgen_ty_1; 8usize],
     pub num_viewports: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_set_viewports_t__bindgen_ty_1 {
     pub x: f32,
     pub y: f32,
@@ -13756,13 +12636,13 @@ pub struct tm_renderer_set_viewports_t__bindgen_ty_1 {
     pub max_depth: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_set_scissor_rects_t {
     pub rects: [tm_renderer_set_scissor_rects_t__bindgen_ty_1; 8usize],
     pub num_rects: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_set_scissor_rects_t__bindgen_ty_1 {
     pub x: i32,
     pub y: i32,
@@ -13779,13 +12659,8 @@ pub struct tm_renderer_begin_statistics_t {
     pub uid: u64,
     pub backend_data: [u32; 8usize],
 }
-impl Default for tm_renderer_begin_statistics_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_end_statistics_t {
     pub uid: u64,
     pub backend_data: [u32; 8usize],
@@ -13795,12 +12670,12 @@ pub const tm_renderer_dispatch_type_TM_RENDERER_DISPATCH_TYPE_INDIRECT: tm_rende
     1;
 pub type tm_renderer_dispatch_type = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_dispatch_command_t {
     pub group_count: [u32; 3usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_dispatch_indirect_command_t {
     pub indirect_buffer: u32,
     pub _padding_226: [::std::os::raw::c_char; 4usize],
@@ -13819,16 +12694,6 @@ pub union tm_renderer_compute_info_t__bindgen_ty_1 {
     pub dispatch: tm_renderer_dispatch_command_t,
     pub indirect: tm_renderer_dispatch_indirect_command_t,
     _bindgen_union_align: [u64; 2usize],
-}
-impl Default for tm_renderer_compute_info_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_renderer_compute_info_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_renderer_primitive_type_TM_RENDERER_PRIMITIVE_TYPE_TRIANGLE_LIST:
     tm_renderer_primitive_type = 0;
@@ -13849,7 +12714,7 @@ pub const tm_renderer_index_type_TM_RENDERER_INDEX_TYPE_UINT16: tm_renderer_inde
 pub const tm_renderer_index_type_TM_RENDERER_INDEX_TYPE_UINT32: tm_renderer_index_type = 1;
 pub type tm_renderer_index_type = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_draw_command_t {
     pub num_vertices: u32,
     pub num_instances: u32,
@@ -13857,7 +12722,7 @@ pub struct tm_renderer_draw_command_t {
     pub first_instance: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_draw_indexed_command_t {
     pub num_indices: u32,
     pub num_instances: u32,
@@ -13866,7 +12731,7 @@ pub struct tm_renderer_draw_indexed_command_t {
     pub first_instance: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_draw_indirect_command_t {
     pub indirect_buffer: u32,
     pub _padding_306: [::std::os::raw::c_char; 4usize],
@@ -13892,43 +12757,33 @@ pub union tm_renderer_draw_call_info_t__bindgen_ty_1 {
     pub indirect: tm_renderer_draw_indirect_command_t,
     _bindgen_union_align: [u64; 3usize],
 }
-impl Default for tm_renderer_draw_call_info_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_renderer_draw_call_info_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_RENDERER_MAX_RESOURCE_BINDERS: ::std::os::raw::c_int = 6;
 pub const TM_RENDERER_MAX_PUSH_CONSTANTS: ::std::os::raw::c_int = 8;
 pub const TM_RENDERER_MAX_SHADER_STATE_OVERRIDE_BLOCKS: ::std::os::raw::c_int = 4;
 pub type _bindgen_ty_147 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_shader_state_override_blocks_t {
     pub num_override_blocks: u8,
     pub _padding_353: [::std::os::raw::c_char; 3usize],
     pub shader_state_override_blocks: [u32; 4usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_shader_resource_binders_t {
     pub num_resource_binders: u8,
     pub _padding_362: [::std::os::raw::c_char; 3usize],
     pub resource_binders: [u32; 6usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_shader_push_constants_t {
     pub num_constants: u8,
     pub _padding_371: [::std::os::raw::c_char; 3usize],
     pub data: [u32; 8usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_shader_info_t {
     pub shader: u32,
     pub state_override_blocks: tm_renderer_shader_state_override_blocks_t,
@@ -13937,7 +12792,7 @@ pub struct tm_renderer_shader_info_t {
     pub sort_key: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_shader_header_t {
     pub shader: u32,
     pub num_state_override_blocks: u16,
@@ -13953,21 +12808,21 @@ pub const tm_renderer_image_aspect_TM_RENDERER_IMAGE_ASPECT_ADDITONAL_VIEW:
     tm_renderer_image_aspect = 134217728;
 pub type tm_renderer_image_aspect = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_set_resource_t {
     pub bind_point: u32,
     pub resource_handle: u32,
     pub resource_aspect_flag: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_set_array_resources_t {
     pub bind_point: u32,
     pub first_element: u32,
     pub n_handles: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_update_buffer_command_t {
     pub offset: u64,
     pub size: u64,
@@ -13975,7 +12830,7 @@ pub struct tm_renderer_update_buffer_command_t {
     pub _padding_452: [::std::os::raw::c_char; 4usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_update_image_buffer_command_t {
     pub subresource: tm_renderer_image_subresource_layers_t,
     pub offset: tm_renderer_image_offset_t,
@@ -13986,18 +12841,18 @@ pub struct tm_renderer_update_image_buffer_command_t {
     pub _padding_466: [::std::os::raw::c_char; 4usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_create_additional_image_views_t {
     pub device_affinity_mask: u32,
     pub num_views: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_destroy_additional_image_views_t {
     pub device_affinity_mask: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_resource_barrier_header_t {
     pub num_barriers: u32,
 }
@@ -14025,7 +12880,7 @@ pub union tm_renderer_resource_barrier_t__bindgen_ty_1 {
     _bindgen_union_align: [u64; 2usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_resource_barrier_t__bindgen_ty_1__bindgen_ty_1 {
     pub first_layer: u16,
     pub layer_count: u16,
@@ -14033,20 +12888,10 @@ pub struct tm_renderer_resource_barrier_t__bindgen_ty_1__bindgen_ty_1 {
     pub mip_count: u16,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_resource_barrier_t__bindgen_ty_1__bindgen_ty_2 {
     pub offset: u64,
     pub size: u64,
-}
-impl Default for tm_renderer_resource_barrier_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_renderer_resource_barrier_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_renderer_copy_image_flags_TM_RENDERER_COPY_IMAGE_FLAG_IMAGE_ASPECT_STENCIL:
     tm_renderer_copy_image_flags = 1;
@@ -14054,7 +12899,7 @@ pub const tm_renderer_copy_image_flags_TM_RENDERER_COPY_IMAGE_FLAG_SUBRESOURCE:
     tm_renderer_copy_image_flags = 2;
 pub type tm_renderer_copy_image_flags = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_copy_image_buffer_t {
     pub source_resource: u32,
     pub destination_resource: u32,
@@ -14066,7 +12911,7 @@ pub struct tm_renderer_copy_image_buffer_t {
     pub extent: tm_renderer_image_extent_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_copy_buffer_t {
     pub source_resource: u32,
     pub destination_resource: u32,
@@ -14094,11 +12939,6 @@ pub struct tm_renderer_read_image_buffer_t {
     pub bits: *mut ::std::os::raw::c_void,
     pub size_bits: u64,
 }
-impl Default for tm_renderer_read_image_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_renderer_read_buffer_t {
@@ -14111,18 +12951,13 @@ pub struct tm_renderer_read_buffer_t {
     pub size: u64,
     pub bits: *mut ::std::os::raw::c_void,
 }
-impl Default for tm_renderer_read_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_device_memory_view_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_device_memory_view_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_device_memory_view_o,
@@ -14139,7 +12974,7 @@ pub struct tm_device_memory_view_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_nil_renderer_backend_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_renderer_backend_i,
@@ -14159,13 +12994,8 @@ pub struct tm_renderer_api {
         *mut tm_renderer_resource_command_buffer_pool_api,
     pub tm_renderer_resource_command_buffer_api: *mut tm_renderer_resource_command_buffer_api,
 }
-impl Default for tm_renderer_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_init_api {
     pub init: ::std::option::Option<
         unsafe extern "C" fn(
@@ -14183,11 +13013,6 @@ pub struct tm_renderer_memory_statistics_allocation_t {
     pub requested_size: u64,
     pub allocated_size: u64,
 }
-impl Default for tm_renderer_memory_statistics_allocation_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_renderer_memory_statistics_allocator_t {
@@ -14196,18 +13021,13 @@ pub struct tm_renderer_memory_statistics_allocator_t {
     pub _padding_32: [::std::os::raw::c_char; 4usize],
     pub block_size: [u64; 256usize],
 }
-impl Default for tm_renderer_memory_statistics_allocator_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_swap_chain_o {
     pub opaque: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_device_memory_o {
     pub opaque: [u64; 6usize],
 }
@@ -14317,11 +13137,6 @@ pub struct tm_renderer_backend_resource_allocator_i {
         ) -> u32,
     >,
 }
-impl Default for tm_renderer_backend_resource_allocator_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_renderer_device_memory_allocator_i {
@@ -14346,11 +13161,6 @@ pub struct tm_renderer_device_memory_allocator_i {
     pub allocate_resource_read_fence: ::std::option::Option<
         unsafe extern "C" fn(inst: *mut ::std::os::raw::c_void, device_affinity_mask: u32) -> u32,
     >,
-}
-impl Default for tm_renderer_device_memory_allocator_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -14493,11 +13303,6 @@ pub struct tm_renderer_backend_i {
         ),
     >,
 }
-impl Default for tm_renderer_backend_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_renderer_command_buffer_pool_o {
@@ -14543,13 +13348,8 @@ pub struct tm_renderer_commands_t {
     pub types: *mut u32,
     pub data: *mut *mut ::std::os::raw::c_void,
 }
-impl Default for tm_renderer_commands_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_command_buffer_api {
     pub bind_render_pass: ::std::option::Option<
         unsafe extern "C" fn(
@@ -14675,7 +13475,7 @@ pub struct tm_renderer_command_buffer_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_command_buffer_pool_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -14708,7 +13508,7 @@ extern "C" {
     );
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_command_buffer_sort_api {
     pub sort_memory_needed: ::std::option::Option<
         unsafe extern "C" fn(
@@ -14756,13 +13556,8 @@ pub struct tm_renderer_resource_commands_t {
     pub handles: *mut u32,
     pub data: *mut *mut ::std::os::raw::c_void,
 }
-impl Default for tm_renderer_resource_commands_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_resource_command_buffer_api {
     pub create_buffer: ::std::option::Option<
         unsafe extern "C" fn(
@@ -14933,7 +13728,7 @@ pub struct tm_renderer_resource_command_buffer_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_resource_command_buffer_pool_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -14951,7 +13746,7 @@ pub struct tm_renderer_resource_command_buffer_pool_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_statistics_t {
     pub non_indexed_draws: u64,
     pub indexed_draws: u64,
@@ -15003,11 +13798,6 @@ pub struct tm_renderer_buffer_t {
     pub usage_flags: tm_renderer_buffer_usage_flags,
     pub debug_tag: *const ::std::os::raw::c_char,
 }
-impl Default for tm_renderer_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const tm_renderer_image_buffer_usage_flags_TM_RENDERER_IMAGE_BUFFER_USAGE_RENDER_TARGET:
     tm_renderer_image_buffer_usage_flags = 1;
 pub const tm_renderer_image_buffer_usage_flags_TM_RENDERER_IMAGE_BUFFER_USAGE_UAV:
@@ -15039,26 +13829,11 @@ pub union tm_renderer_clear_value_t_color__bindgen_ty_1 {
     pub uint32: [u32; 4usize],
     _bindgen_union_align: [u32; 4usize],
 }
-impl Default for tm_renderer_clear_value_t_color__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_renderer_clear_value_t_color {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_clear_value_t_depth_stencil {
     pub depth: f32,
     pub stencil: u32,
-}
-impl Default for tm_renderer_clear_value_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -15076,13 +13851,8 @@ pub struct tm_renderer_image_buffer_t {
     pub _padding_117: [::std::os::raw::c_char; 4usize],
     pub debug_tag: *const ::std::os::raw::c_char,
 }
-impl Default for tm_renderer_image_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_additional_image_view_t {
     pub first_layer: u16,
     pub layer_count: u16,
@@ -15147,20 +13917,10 @@ pub struct tm_renderer_shader_t {
     pub multi_sample_states: tm_renderer_shader_blob_t,
     pub stages: [tm_renderer_shader_blob_t; 6usize],
 }
-impl Default for tm_renderer_shader_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_renderer_sampler_t {
     pub sampler_states: tm_renderer_shader_blob_t,
-}
-impl Default for tm_renderer_sampler_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -15170,11 +13930,6 @@ pub struct tm_renderer_shader_state_override_t {
     pub depth_stencil_states: tm_renderer_shader_blob_t,
     pub blend_states: tm_renderer_shader_blob_t,
     pub multi_sample_states: tm_renderer_shader_blob_t,
-}
-impl Default for tm_renderer_shader_state_override_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_renderer_shader_stage_flag_TM_RENDERER_SHADER_STAGE_FLAG_VERTEX:
     tm_renderer_shader_stage_flag = 1;
@@ -15195,7 +13950,7 @@ pub const tm_renderer_resource_bind_usage_flag_TM_RENDERER_RESOURCE_BIND_USAGE_F
     tm_renderer_resource_bind_usage_flag = 1;
 pub type tm_renderer_resource_bind_usage_flag = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_resource_bind_point_t {
     pub bind_point: u32,
     pub stage_flags: u32,
@@ -15234,21 +13989,11 @@ pub union tm_renderer_state_value_pair_t__bindgen_ty_1 {
     pub nested_states: *mut tm_renderer_state_value_pair_t,
     _bindgen_union_align: u64,
 }
-impl Default for tm_renderer_state_value_pair_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_renderer_state_value_pair_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_RENDERER_STATE_BLOCK_COMPLETE: ::std::os::raw::c_int = 0;
 pub const TM_RENDERER_STATE_BLOCK_OVERRIDE: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_150 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_renderer_shader_compiler_api {
     pub init: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_renderer_shader_compiler_o,
@@ -15670,7 +14415,7 @@ pub const tm_render_graph_write_bind_flag_TM_RENDER_GRAPH_WRITE_BIND_FLAG_DEPTH_
     tm_render_graph_write_bind_flag = 4;
 pub type tm_render_graph_write_bind_flag = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_graph_handle_t {
     pub value: u32,
 }
@@ -15686,11 +14431,6 @@ pub union tm_render_graph_blackboard_value {
     pub boolean: bool,
     _bindgen_union_align: u64,
 }
-impl Default for tm_render_graph_blackboard_value {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_render_graph_viewer_t {
@@ -15704,13 +14444,8 @@ pub struct tm_render_graph_viewer_t {
     pub near_plane: f32,
     pub far_plane: f32,
 }
-impl Default for tm_render_graph_viewer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_graph_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -15818,13 +14553,8 @@ pub struct tm_render_graph_module_editor_submenu_i {
         ),
     >,
 }
-impl Default for tm_render_graph_module_editor_submenu_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_graph_module_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -15903,7 +14633,7 @@ pub struct tm_render_graph_module_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_graph_setup_api {
     pub external_resource: ::std::option::Option<
         unsafe extern "C" fn(
@@ -15993,13 +14723,13 @@ pub struct tm_render_graph_setup_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_graph_layer_sort_key_t {
     pub layer_name: u64,
     pub sort_key: u64,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_graph_execute_api {
     pub default_command_buffer: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16049,7 +14779,7 @@ pub struct tm_render_graph_execute_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_graph_pass_api {
     pub init_pass: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16090,11 +14820,6 @@ pub struct tm_render_graph_pass_i {
     pub profiling_scope: *const ::std::os::raw::c_char,
     pub api: tm_render_graph_pass_api,
 }
-impl Default for tm_render_graph_pass_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_render_graph_module_o {
@@ -16116,7 +14841,7 @@ pub struct tm_render_pipeline_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_pipeline_update_frame_parameters_t {
     pub last_time: f32,
     pub time: f32,
@@ -16131,11 +14856,6 @@ pub struct tm_render_pipeline_shader_system_t {
     pub constants: *mut tm_shader_constant_buffer_instance_t,
     pub resources: *mut tm_shader_resource_binder_instance_t,
 }
-impl Default for tm_render_pipeline_shader_system_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const tm_render_pipeline_global_shader_system_TM_RENDER_PIPELINE_FRAME_PARAMETERS:
     tm_render_pipeline_global_shader_system = 0;
 pub const tm_render_pipeline_global_shader_system_TM_RENDER_PIPELINE_EDITOR_SELECTION:
@@ -16148,7 +14868,7 @@ pub const tm_render_pipeline_global_shader_system_TM_RENDER_PIPELINE_SHADER_SYST
     tm_render_pipeline_global_shader_system = 4;
 pub type tm_render_pipeline_global_shader_system = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_pipeline_api {
     pub name: ::std::option::Option<unsafe extern "C" fn() -> *const ::std::os::raw::c_char>,
     pub create: ::std::option::Option<
@@ -16209,11 +14929,6 @@ pub struct tm_render_pipeline_i {
     pub inst: *mut tm_render_pipeline_o,
     pub api: *mut tm_render_pipeline_api,
 }
-impl Default for tm_render_pipeline_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_shadow_map_manager_o {
@@ -16241,31 +14956,21 @@ pub union tm_shadow_mapping_input_t__bindgen_ty_1 {
     _bindgen_union_align: [u32; 3usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shadow_mapping_input_t__bindgen_ty_1__bindgen_ty_1 {
     pub num_cascades: u32,
     pub shadow_distance: f32,
     pub uniform_log_weight: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shadow_mapping_input_t__bindgen_ty_1__bindgen_ty_2 {
     pub near_range: f32,
     pub far_range: f32,
     pub spot_angle_outer: f32,
 }
-impl Default for tm_shadow_mapping_input_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_shadow_mapping_input_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shadow_mapping_api {
     pub create_manager: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16314,18 +15019,8 @@ pub union tm_pass_render_target_t__bindgen_ty_1 {
     pub opaque: [u8; 64usize],
     _bindgen_union_align: [u64; 8usize],
 }
-impl Default for tm_pass_render_target_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_pass_render_target_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_pass_buffer_write_t {
     pub name: u64,
     pub usage_flags: u8,
@@ -16342,11 +15037,6 @@ pub struct tm_material_pass_setup_t {
     pub depth_stencil_target: tm_pass_render_target_t,
     pub layer_name: u64,
 }
-impl Default for tm_material_pass_setup_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_FULLSCREEN_PASS_MAX_INPUT_RESOURCES_PER_SLOT: ::std::os::raw::c_int = 8;
 pub const TM_FULLSCREEN_PASS_MAX_INPUT_SLOTS: ::std::os::raw::c_int = 4;
 pub type _bindgen_ty_174 = ::std::os::raw::c_int;
@@ -16354,14 +15044,14 @@ pub const tm_fullscreen_pass_type_TM_FULLSCREEN_PASS_TYPE__GRAPHICS: tm_fullscre
 pub const tm_fullscreen_pass_type_TM_FULLSCREEN_PASS_TYPE__COMPUTE: tm_fullscreen_pass_type = 1;
 pub type tm_fullscreen_pass_type = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_fullscreen_pass_input_resource_t {
     pub name: u64,
     pub view_aspect_flag: u32,
     pub _padding_90: [::std::os::raw::c_char; 4usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_fullscreen_pass_input_slot_resources_t {
     pub slot_name: u64,
     pub bind_flag_name: u64,
@@ -16380,13 +15070,8 @@ pub struct tm_fullscreen_pass_setup_t {
     pub buffer_writes: [tm_pass_buffer_write_t; 8usize],
     pub shader: u64,
 }
-impl Default for tm_fullscreen_pass_setup_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_debug_visualization_pass_setup_t {
     pub color_target: u64,
     pub shader: u64,
@@ -16419,16 +15104,6 @@ pub const tm_debug_visualization_resources_t__bindgen_ty_1_CONTENT_EV100: ::std:
 pub const tm_debug_visualization_resources_t__bindgen_ty_1_CONTENT_NAN_INF: ::std::os::raw::c_int =
     6;
 pub type tm_debug_visualization_resources_t__bindgen_ty_1__bindgen_ty_1 = ::std::os::raw::c_int;
-impl Default for tm_debug_visualization_resources_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_debug_visualization_resources_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub type tm_custom_fullscreen_setup = ::std::option::Option<
     unsafe extern "C" fn(
         const_data: *const ::std::os::raw::c_void,
@@ -16437,7 +15112,7 @@ pub type tm_custom_fullscreen_setup = ::std::option::Option<
     ),
 >;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_graph_toolbox_api {
     pub fullscreen_pass: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16505,13 +15180,8 @@ pub struct tm_component_shader_system_t {
     pub constants: *mut tm_shader_constant_buffer_instance_t,
     pub resources: *mut tm_shader_resource_binder_instance_t,
 }
-impl Default for tm_component_shader_system_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_component_shader_system_i {
     pub name_hash: u64,
     pub update_system: ::std::option::Option<
@@ -16527,7 +15197,7 @@ pub struct tm_component_shader_system_i {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_component_shader_system_api {
     pub update_systems: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16559,18 +15229,13 @@ pub type _bindgen_ty_175 = ::std::os::raw::c_int;
 pub struct tm_cubemap_capture_component_t {
     pub image_asset: tm_tt_id_t,
 }
-impl Default for tm_cubemap_capture_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_cubemap_capture_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_cubemap_capture_api {
     pub capture: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16594,18 +15259,13 @@ pub struct tm_cubemap_capture_i {
     pub inst: *mut tm_cubemap_capture_o,
     pub api: *mut tm_cubemap_capture_api,
 }
-impl Default for tm_cubemap_capture_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_gpu_picking_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gpu_picking_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16650,7 +15310,7 @@ pub const TM_TT_PROP__GRID_SETTINGS__THIN_LINES_COLOR: ::std::os::raw::c_int = 3
 pub const TM_TT_PROP__GRID_SETTINGS__THICK_LINES_COLOR: ::std::os::raw::c_int = 4;
 pub type _bindgen_ty_176 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_visual_grid_t {
     pub tm: tm_mat44_t,
     pub grid_extent: f32,
@@ -16661,7 +15321,7 @@ pub struct tm_visual_grid_t {
     pub _padding_38: [::std::os::raw::c_char; 3usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_grid_renderer_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub read_from_truth_settings: ::std::option::Option<
@@ -16703,13 +15363,8 @@ pub struct tm_image_inspector_data_t {
     pub origo: tm_vec2_t,
     pub zoom: f32,
 }
-impl Default for tm_image_inspector_data_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_image_inspector_api {
     pub render: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16736,17 +15391,12 @@ pub struct tm_primitive_drawer_buffer_t {
     pub bytes: u32,
     pub bytes_allocated: u32,
 }
-impl Default for tm_primitive_drawer_buffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_PRIMITIVE_DRAWER__OK: ::std::os::raw::c_int = 0;
 pub const TM_PRIMITIVE_DRAWER__PBUFFER_FULL: ::std::os::raw::c_int = 1;
 pub const TM_PRIMITIVE_DRAWER__VBUFFER_FULL: ::std::os::raw::c_int = 2;
 pub type _bindgen_ty_177 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_primitive_drawer_api {
     pub stroke_lines: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16888,7 +15538,7 @@ pub struct tm_primitive_renderer_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_primitive_renderer_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16918,12 +15568,12 @@ pub struct tm_primitive_renderer_api {
 pub const TM_TT_PROP__RENDER_COMPONENT__CREATION_GRAPH: ::std::os::raw::c_int = 0;
 pub type _bindgen_ty_178 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_component_public_t {
     pub update_shader_variables: bool,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_component_api {
     pub draw_call: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16935,7 +15585,7 @@ pub struct tm_render_component_api {
 pub const TM_TT_PROP__SKINNING_COMPONENT__BONES: ::std::os::raw::c_int = 0;
 pub type _bindgen_ty_179 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_bone_t {
     pub name: u64,
     pub bone_idx: u32,
@@ -16943,7 +15593,7 @@ pub struct tm_bone_t {
     pub _padding_29: [::std::os::raw::c_char; 4usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_skinning_component_api {
     pub update_system: ::std::option::Option<
         unsafe extern "C" fn(
@@ -16991,20 +15641,15 @@ pub struct tm_sculpt_component__select_tool_settings_t {
     pub rotate_settings: *const tm_gizmo__rotate_settings_t,
     pub scale_settings: *const tm_gizmo__scale_settings_t,
 }
-impl Default for tm_sculpt_component__select_tool_settings_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_sculpt_component__select_tool_results_t {
     pub gizmo_showing: bool,
     pub _padding_77: [::std::os::raw::c_char; 3usize],
     pub gizmo_pos: tm_vec3_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_sculpt_component_api {
     pub box_place_tool: ::std::option::Option<
         unsafe extern "C" fn(
@@ -17077,11 +15722,6 @@ pub union tm_shader_constant_t__bindgen_ty_1 {
     pub hashed_name: u64,
     _bindgen_union_align: u64,
 }
-impl Default for tm_shader_constant_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union tm_shader_constant_t__bindgen_ty_2 {
@@ -17090,20 +15730,10 @@ pub union tm_shader_constant_t__bindgen_ty_2 {
     _bindgen_union_align: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shader_constant_t__bindgen_ty_2__bindgen_ty_1 {
     pub rows: u8,
     pub columns: u8,
-}
-impl Default for tm_shader_constant_t__bindgen_ty_2 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_shader_constant_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_shader_resource_type_TM_SHADER_RESOURCE_TYPE_BUFFER: tm_shader_resource_type = 0;
 pub const tm_shader_resource_type_TM_SHADER_RESOURCE_TYPE_TEXTURE_1D: tm_shader_resource_type = 1;
@@ -17140,16 +15770,6 @@ pub union tm_shader_resource_t__bindgen_ty_1 {
     pub name: *const ::std::os::raw::c_char,
     pub hashed_name: u64,
     _bindgen_union_align: u64,
-}
-impl Default for tm_shader_resource_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_shader_resource_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_shader_system_semantic_type_TM_SHADER_SYSTEM_SEMANTIC_POSITION:
     tm_shader_system_semantic_type = 0;
@@ -17197,11 +15817,6 @@ pub struct tm_shader_stage_export_t {
     pub constant: tm_shader_constant_t,
     pub interpolation_modifier: u32,
     pub _padding_104: [::std::os::raw::c_char; 4usize],
-}
-impl Default for tm_shader_stage_export_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_shader_tess_attribute_domain_TM_SHADER_TESS_ATTRIBUTE_DOMAIN_VALUE_TRIANGLE:
     tm_shader_tess_attribute_domain = 0;
@@ -17261,16 +15876,6 @@ pub union tm_shader_stage_attribute_t__bindgen_ty_1 {
     pub value: u32,
     _bindgen_union_align: [u32; 4usize],
 }
-impl Default for tm_shader_stage_attribute_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-impl Default for tm_shader_stage_attribute_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 extern "C" {
     pub static tm_shader_constant_type_to_bytes: [u32; 9usize];
 }
@@ -17280,11 +15885,6 @@ pub union tm_shader_system_cl_type_t {
     pub uint64: u64,
     pub boolean: bool,
     _bindgen_union_align: u64,
-}
-impl Default for tm_shader_system_cl_type_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -17305,11 +15905,6 @@ pub struct tm_creation_graph_update_shader_constant_resource_t {
     pub entity_id: u64,
     pub entity_ctx: *mut tm_entity_context_o,
 }
-impl Default for tm_creation_graph_update_shader_constant_resource_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_shader_declaration_o {
@@ -17327,7 +15922,7 @@ pub type _bindgen_ty_182 = ::std::os::raw::c_int;
 pub const TM_SHADER_SYSTEM_MAX_PASSES: ::std::os::raw::c_int = 16;
 pub type _bindgen_ty_183 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shader_declaration_api {
     pub clear: ::std::option::Option<unsafe extern "C" fn(inst: *mut tm_shader_declaration_o)>,
     pub append_render_states: ::std::option::Option<
@@ -17418,7 +16013,7 @@ pub struct tm_shader_declaration_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shader_system_api {
     pub create_context: ::std::option::Option<
         unsafe extern "C" fn(
@@ -17460,12 +16055,12 @@ pub struct tm_shader_system_api {
 pub const TM_SHADER_SYSTEM_UNINITIALIZED_INSTANCE: ::std::os::raw::c_int = -1;
 pub type _bindgen_ty_184 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shader_constant_buffer_instance_t {
     pub instance_id: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shader_resource_binder_instance_t {
     pub instance_id: u32,
 }
@@ -17478,11 +16073,6 @@ pub struct tm_shader_constant_update_t {
     pub num_bytes: u32,
     pub data: *const ::std::os::raw::c_void,
 }
-impl Default for tm_shader_constant_update_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_shader_resource_update_t {
@@ -17493,18 +16083,13 @@ pub struct tm_shader_resource_update_t {
     pub resources: *const u32,
     pub resources_view_aspect_flags: *const u32,
 }
-impl Default for tm_shader_resource_update_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_shader_io_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shader_api {
     pub create_constant_buffer_instances: ::std::option::Option<
         unsafe extern "C" fn(
@@ -17661,13 +16246,8 @@ pub struct tm_shader_system_background_create_i {
         ),
     >,
 }
-impl Default for tm_shader_system_background_create_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shader_repository_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -17860,13 +16440,8 @@ pub struct tm_shader_creation_graph_data_o {
     pub actions: *mut tm_tt_id_t,
     pub settings: *mut tm_tt_id_t,
 }
-impl Default for tm_shader_creation_graph_data_o {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_shader_creation_graph_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub compile_data_to_wire: ::std::option::Option<
@@ -18108,7 +16683,7 @@ pub const TM_TT_PROP__RUNNER_SETTINGS__PLUGINS_DIR: ::std::os::raw::c_int = 3;
 pub const TM_TT_PROP__RUNNER_SETTINGS__WINDOW_TITLE: ::std::os::raw::c_int = 4;
 pub type _bindgen_ty_213 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_runner_settings_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
 }
@@ -18118,7 +16693,7 @@ pub struct tm_simulate_context_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_simulate_context_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -18155,7 +16730,7 @@ pub const TM_TT_PROP__STATISTICS_GRAPH_SOURCE__SOURCE: ::std::os::raw::c_int = 1
 pub const TM_TT_PROP__STATISTICS_GRAPH_SOURCE__COLOR: ::std::os::raw::c_int = 2;
 pub type _bindgen_ty_215 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_statistics_graph_api {
     pub ui: ::std::option::Option<
         unsafe extern "C" fn(
@@ -18180,13 +16755,8 @@ pub struct tm_statistics_source_t {
     pub values: *mut f64,
     pub frame_value: f64,
 }
-impl Default for tm_statistics_source_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_statistics_source_api {
     pub source: ::std::option::Option<
         unsafe extern "C" fn(
@@ -18221,13 +16791,8 @@ pub struct tm_asset_preview_api__ui_args_t {
     pub uistyle: *const tm_ui_style_t,
     pub content_r: tm_rect_t,
 }
-impl Default for tm_asset_preview_api__ui_args_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_preview_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_asset_preview_o,
@@ -18291,13 +16856,8 @@ pub struct tm_asset_preview_i {
     pub api: *mut tm_asset_preview_api,
     pub inst: *mut tm_asset_preview_o,
 }
-impl Default for tm_asset_preview_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_scene_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_asset_scene_o,
@@ -18340,11 +16900,6 @@ pub struct tm_asset_scene_i {
     pub api: *mut tm_asset_scene_api,
     pub inst: *mut tm_asset_scene_o,
 }
-impl Default for tm_asset_scene_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const camera_controller_mode_MODE_NONE: camera_controller_mode = 0;
 pub const camera_controller_mode_MODE_FREE_FLIGHT: camera_controller_mode = 1;
 pub const camera_controller_mode_MODE_MAYA_SPIN: camera_controller_mode = 2;
@@ -18365,18 +16920,13 @@ pub struct tm_camera_controller_component_t {
     pub spin: tm_vec2_t,
     pub pan: tm_vec2_t,
 }
-impl Default for tm_camera_controller_component_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_camera_controller_component_manager_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_camera_controller_component_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -18403,7 +16953,7 @@ pub type tm_ci_editor_properties_ui_f = ::std::option::Option<
     ) -> f32,
 >;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ci_editor_ui_icon_i {
     pub unicode: ::std::option::Option<unsafe extern "C" fn() -> *const ::std::os::raw::c_char>,
 }
@@ -18433,13 +16983,8 @@ pub struct tm_ci_viewport_interact {
         unsafe extern "C" fn(editor: *mut ::std::os::raw::c_void, item_t: tm_tt_id_t),
     >,
 }
-impl Default for tm_ci_viewport_interact {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ci_viewport_interact_result {
     pub hide_gizmo: bool,
 }
@@ -18451,13 +16996,8 @@ pub struct tm_ci_toolbar {
     pub set_active_tool:
         ::std::option::Option<unsafe extern "C" fn(editor: *mut ::std::os::raw::c_void, id: u64)>,
 }
-impl Default for tm_ci_toolbar {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ci_editor_ui_i {
     pub disabled: ::std::option::Option<unsafe extern "C" fn() -> bool>,
     pub category: ::std::option::Option<unsafe extern "C" fn() -> *const ::std::os::raw::c_char>,
@@ -18527,13 +17067,8 @@ pub struct tm_ci_render_viewer_t {
     pub viewer_cbuffer: *mut tm_shader_constant_buffer_instance_t,
     pub viewer_rbinder: *mut tm_shader_resource_binder_instance_t,
 }
-impl Default for tm_ci_render_viewer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ci_render_i {
     pub init: ::std::option::Option<
         unsafe extern "C" fn(
@@ -18594,13 +17129,8 @@ pub struct tm_ci_render_gather_callback_args_t {
     pub entity_indices: [*mut u32; 64usize],
     pub num_renderables_per_component: [u32; 64usize],
 }
-impl Default for tm_ci_render_gather_callback_args_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ci_shader_i {
     pub init: ::std::option::Option<
         unsafe extern "C" fn(
@@ -18659,19 +17189,14 @@ pub struct tm_ci_shader_data_gather_callback_args_t {
     pub num_shader_data_per_component: [u32; 15usize],
     pub _padding_56: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ci_shader_data_gather_callback_args_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_culling_viewer_t {
     pub visibility_mask: u64,
     pub frustum_planes: [tm_vec4_t; 6usize],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_frustum_culling_api {
     pub viewer_from_projection_mat: ::std::option::Option<
         unsafe extern "C" fn(
@@ -18702,7 +17227,7 @@ pub struct tm_render_context_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_render_context_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(allocator: *mut tm_allocator_i) -> *mut tm_render_context_o,
@@ -18750,11 +17275,6 @@ pub struct tm_render_args_t {
     pub render_pipeline: *mut tm_render_pipeline_i,
     pub shader_context: *const tm_shader_system_context_o,
 }
-impl Default for tm_render_args_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_lighting_environment_settings_t {
@@ -18764,13 +17284,8 @@ pub struct tm_lighting_environment_settings_t {
     pub spawned_entity: tm_entity_t,
     pub search_buf: [::std::os::raw::c_char; 1024usize],
 }
-impl Default for tm_lighting_environment_settings_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_scene_common_api {
     pub init_camera: ::std::option::Option<
         unsafe extern "C" fn(camera: *mut tm_transform_t, translation: tm_vec3_t),
@@ -18920,11 +17435,6 @@ pub struct tm_viewer_render_args_t {
     pub gather_render_callback_inst: *mut ::std::os::raw::c_void,
     pub gpu_picking: *mut tm_gpu_picking_o,
 }
-impl Default for tm_viewer_render_args_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_viewer_render_info_t {
@@ -18935,13 +17445,8 @@ pub struct tm_viewer_render_info_t {
     pub camera: *const tm_camera_t,
     pub render_pipeline: *mut tm_render_pipeline_i,
 }
-impl Default for tm_viewer_render_info_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_viewer_api {
     pub request_render: ::std::option::Option<
         unsafe extern "C" fn(
@@ -18965,7 +17470,7 @@ pub struct tm_viewer_api {
         ::std::option::Option<unsafe extern "C" fn(viewer: *mut tm_viewer_o, activate: bool)>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_viewer_manager_api {
     pub create_manager: ::std::option::Option<
         unsafe extern "C" fn(
@@ -19009,7 +17514,7 @@ pub const TM_TT_PROP__CLIPBOARD__OBJECTS: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__CLIPBOARD__IS_CUT: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_217 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_clipboard_api {
     pub setup_the_truth: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub cut: ::std::option::Option<
@@ -19065,11 +17570,6 @@ pub struct tm_tab_vt_root_t {
     pub root: tm_tt_id_t,
     pub counter: u64,
 }
-impl Default for tm_tab_vt_root_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_docking_feed_events_args_t {
@@ -19079,11 +17579,6 @@ pub struct tm_docking_feed_events_args_t {
     pub window_has_focus: bool,
     pub window_under_cursor: bool,
     pub _padding_89: [::std::os::raw::c_char; 2usize],
-}
-impl Default for tm_docking_feed_events_args_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_TT_PROP__DOCKING_SETTINGS__TOOLBARS_SETTINGS: ::std::os::raw::c_int = 0;
 pub type _bindgen_ty_218 = ::std::os::raw::c_int;
@@ -19154,22 +17649,12 @@ pub struct tm_tab_vt {
     pub run_as_job: bool,
     pub _padding_222: [::std::os::raw::c_char; 6usize],
 }
-impl Default for tm_tab_vt {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_tab_i {
     pub vt: *mut tm_tab_vt,
     pub inst: *mut tm_tab_o,
     pub root_id: u64,
-}
-impl Default for tm_tab_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_docking_tabwell_split_TM_DOCKING_TABWELL_SPLIT_NONE: tm_docking_tabwell_split = 0;
 pub const tm_docking_tabwell_split_TM_DOCKING_TABWELL_SPLIT_RIGHT: tm_docking_tabwell_split = 1;
@@ -19188,11 +17673,6 @@ pub struct tm_docking_tab_info_t {
     pub pin_type: u32,
     pub _padding_267: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_docking_tab_info_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_DOCKING_MAX_TABS_IN_TABWELL: ::std::os::raw::c_int = 32;
 pub type _bindgen_ty_219 = ::std::os::raw::c_int;
 #[repr(C)]
@@ -19207,21 +17687,11 @@ pub struct tm_docking_tabwell_info_t {
     pub tabs: [*mut tm_tab_i; 32usize],
     pub last_rect: tm_rect_t,
 }
-impl Default for tm_docking_tabwell_info_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_docking_find_tab_t {
     pub tab: *mut tm_tab_i,
     pub ui: *mut tm_ui_o,
-}
-impl Default for tm_docking_find_tab_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19234,13 +17704,8 @@ pub struct tm_docking_find_tab_opt_t {
     pub exclude_pinned: bool,
     pub _padding_319: [::std::os::raw::c_char; 7usize],
 }
-impl Default for tm_docking_find_tab_opt_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_docking_api {
     pub create_truth_types: ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o)>,
     pub add_ui: ::std::option::Option<unsafe extern "C" fn(ui: *mut tm_ui_o, r: tm_rect_t)>,
@@ -19368,7 +17833,7 @@ pub struct tm_docking_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_drag_api {
     pub start_dragging:
         ::std::option::Option<unsafe extern "C" fn(tt: *mut tm_the_truth_o, object: tm_tt_id_t)>,
@@ -19387,7 +17852,7 @@ pub struct tm_ui_drag_api {
     pub stop_dragging: ::std::option::Option<unsafe extern "C" fn()>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_font_glyph_t {
     pub texture: u32,
     pub uv: tm_rect_t,
@@ -19396,20 +17861,20 @@ pub struct tm_font_glyph_t {
     pub glyph_segments_offset: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_font_glyph_line_segment_t {
     pub p0: tm_vec2_t,
     pub p1: tm_vec2_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_font_glyph_bezier_segment_t {
     pub p0: tm_vec2_t,
     pub p1: tm_vec2_t,
     pub c: tm_vec2_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_font_range_t {
     pub start: u32,
     pub n: u32,
@@ -19437,11 +17902,6 @@ pub struct tm_font_t {
     pub cap_height: [f32; 8usize],
     pub _padding_134: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_font_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_DRAW2D__FEATHER__DEFAULT: ::std::os::raw::c_int = 0;
 pub const TM_DRAW2D__FEATHER__NONE: ::std::os::raw::c_int = 1;
 pub type _bindgen_ty_221 = ::std::os::raw::c_int;
@@ -19459,22 +17919,12 @@ pub struct tm_draw2d_style_t {
     pub include_alpha: bool,
     pub _padding_175: [::std::os::raw::c_char; 3usize],
 }
-impl Default for tm_draw2d_style_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_draw2d_vbuffer_t {
     pub vbuffer: *mut u8,
     pub vbytes: u32,
     pub vbytes_allocated: u32,
-}
-impl Default for tm_draw2d_vbuffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19483,15 +17933,10 @@ pub struct tm_draw2d_ibuffer_t {
     pub in_: u32,
     pub in_allocated: u32,
 }
-impl Default for tm_draw2d_ibuffer_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_DRAW2D_AUX_DATA_TYPE_GRID: ::std::os::raw::c_int = 3;
 pub type _bindgen_ty_222 = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_draw2d_aux_data_grid_t {
     pub offset: tm_vec2_t,
     pub cell_size: f32,
@@ -19499,7 +17944,7 @@ pub struct tm_draw2d_aux_data_grid_t {
     pub thick_lines_color: tm_color_srgb_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_draw2d_api {
     pub add_clip_rect: ::std::option::Option<
         unsafe extern "C" fn(vbuffer: *mut tm_draw2d_vbuffer_t, clip: tm_rect_t) -> u32,
@@ -19714,7 +18159,7 @@ pub struct tm_draw2d_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_font_api {
     pub glyphs: ::std::option::Option<
         unsafe extern "C" fn(
@@ -19776,21 +18221,21 @@ pub const tm_draw2d_corner_TM_DRAW2D_CORNER_BL: tm_draw2d_corner = 33554432;
 pub const tm_draw2d_corner_TM_DRAW2D_CORNER_BR: tm_draw2d_corner = 50331648;
 pub type tm_draw2d_corner = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_draw2d_triangle_vertex_t {
     pub pos: tm_vec2_t,
     pub color: tm_color_srgb_t,
     pub clip: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_draw2d_rect_vertex_t {
     pub rect: tm_rect_t,
     pub color: tm_color_srgb_t,
     pub clip: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_draw2d_rect_textured_vertex_t {
     pub rect: tm_rect_t,
     pub tint: tm_color_srgb_t,
@@ -19799,7 +18244,7 @@ pub struct tm_draw2d_rect_textured_vertex_t {
     pub uv: tm_rect_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_draw2d_glyph_range_vertex_t {
     pub origin: tm_vec2_t,
     pub color: tm_color_srgb_t,
@@ -19810,7 +18255,7 @@ pub struct tm_draw2d_glyph_range_vertex_t {
     pub y: tm_vec2_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_draw2d_glyph_vertex_t {
     pub x_offset: f32,
     pub glyph: u32,
@@ -19861,7 +18306,7 @@ pub const tm_gizmo__move_result_TM_GIZMO__MOVE_RESULT__COMMIT: tm_gizmo__move_re
 pub const tm_gizmo__move_result_TM_GIZMO__MOVE_RESULT__DUPLICATE: tm_gizmo__move_result = 3;
 pub type tm_gizmo__move_result = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gizmo__move_settings_t {
     pub use_world_axes: bool,
     pub grid_snap: bool,
@@ -19869,7 +18314,7 @@ pub struct tm_gizmo__move_settings_t {
     pub grid_size: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gizmo__rotate_settings_t {
     pub use_world_axes: bool,
     pub snap: bool,
@@ -19877,19 +18322,19 @@ pub struct tm_gizmo__rotate_settings_t {
     pub snap_angle: f32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gizmo__scale_settings_t {
     pub absolute_handle: bool,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gizmo__grid_settings_t {
     pub visibile: bool,
     pub _padding_69: [::std::os::raw::c_char; 3usize],
     pub transform: tm_transform_t,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_gizmo_api {
     pub move_: ::std::option::Option<
         unsafe extern "C" fn(
@@ -19933,7 +18378,7 @@ pub struct tm_gizmo_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_modal_api {
     pub message_box: ::std::option::Option<
         unsafe extern "C" fn(
@@ -19997,11 +18442,6 @@ pub struct tm_shape3d_api {
     pub _padding_27: [::std::os::raw::c_char; 4usize],
     pub box_ib: *mut u32,
 }
-impl Default for tm_shape3d_api {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_TT_PROP__TOOLBAR_SETTINGS__ID: ::std::os::raw::c_int = 0;
 pub const TM_TT_PROP__TOOLBAR_SETTINGS__CONTAINER: ::std::os::raw::c_int = 1;
 pub const TM_TT_PROP__TOOLBAR_SETTINGS__ANCHOR: ::std::os::raw::c_int = 2;
@@ -20049,19 +18489,14 @@ pub struct tm_tab_toolbar_i {
     pub only_horizontal: bool,
     pub _padding_86: [::std::os::raw::c_char; 7usize],
 }
-impl Default for tm_tab_toolbar_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ttf_range_t {
     pub start: u32,
     pub n: u32,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ttf_baker_api {
     pub bake: ::std::option::Option<
         unsafe extern "C" fn(
@@ -20175,11 +18610,6 @@ pub struct tm_ui_theme_t {
     pub tt: *mut tm_the_truth_o,
     pub id: tm_tt_id_t,
 }
-impl Default for tm_ui_theme_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const tm_ui_buffer_TM_UI_BUFFER_MAIN: tm_ui_buffer = 0;
 pub const tm_ui_buffer_TM_UI_BUFFER_OVERLAY: tm_ui_buffer = 1;
 pub type tm_ui_buffer = ::std::os::raw::c_int;
@@ -20193,11 +18623,6 @@ pub struct tm_ui_style_t {
     pub buffer: tm_ui_buffer,
     pub feather_width: f32,
     pub _padding_276: [::std::os::raw::c_char; 4usize],
-}
-impl Default for tm_ui_style_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_ui_window_event_TM_UI_WINDOW_EVENT_NONE: tm_ui_window_event = 0;
 pub const tm_ui_window_event_TM_UI_WINDOW_EVENT_ACTIVATE: tm_ui_window_event = 1;
@@ -20215,13 +18640,8 @@ pub struct tm_ui_window_t {
     pub can_close: bool,
     pub _padding_306: [::std::os::raw::c_char; 5usize],
 }
-impl Default for tm_ui_window_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_scrollbar_t {
     pub id: u64,
     pub rect: tm_rect_t,
@@ -20246,11 +18666,6 @@ pub struct tm_ui_scrollview_t {
     pub visibility_x: tm_ui_scrollbar_visibility,
     pub visibility_y: tm_ui_scrollbar_visibility,
 }
-impl Default for tm_ui_scrollview_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_label_t {
@@ -20258,11 +18673,6 @@ pub struct tm_ui_label_t {
     pub rect: tm_rect_t,
     pub text: *const ::std::os::raw::c_char,
     pub tooltip: *const ::std::os::raw::c_char,
-}
-impl Default for tm_ui_label_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_ui_align_TM_UI_ALIGN_LEFT: tm_ui_align = 0;
 pub const tm_ui_align_TM_UI_ALIGN_CENTER: tm_ui_align = 1;
@@ -20277,11 +18687,6 @@ pub struct tm_ui_text_t {
     pub align: tm_ui_align,
     pub _padding_373: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ui_text_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_link_t {
@@ -20291,11 +18696,6 @@ pub struct tm_ui_link_t {
     pub color: *const tm_color_srgb_t,
     pub align: tm_ui_align,
     pub _padding_385: [::std::os::raw::c_char; 4usize],
-}
-impl Default for tm_ui_link_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -20312,11 +18712,6 @@ pub struct tm_ui_button_t {
     pub text_offset_y: f32,
     pub _padding_401: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ui_button_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_checkbox_t {
@@ -20327,11 +18722,6 @@ pub struct tm_ui_checkbox_t {
     pub text: *const ::std::os::raw::c_char,
     pub tooltip: *const ::std::os::raw::c_char,
 }
-impl Default for tm_ui_checkbox_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_radio_t {
@@ -20341,11 +18731,6 @@ pub struct tm_ui_radio_t {
     pub _padding_421: [::std::os::raw::c_char; 7usize],
     pub text: *const ::std::os::raw::c_char,
 }
-impl Default for tm_ui_radio_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_progress_t {
@@ -20353,13 +18738,8 @@ pub struct tm_ui_progress_t {
     pub rect: tm_rect_t,
     pub text: *const ::std::os::raw::c_char,
 }
-impl Default for tm_ui_progress_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_slider_t {
     pub id: u64,
     pub rect: tm_rect_t,
@@ -20391,11 +18771,6 @@ pub struct tm_ui_spinner_t {
     pub _padding_483: [::std::os::raw::c_char; 4usize],
     pub tooltip: *const ::std::os::raw::c_char,
 }
-impl Default for tm_ui_spinner_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_dropdown_t {
@@ -20407,11 +18782,6 @@ pub struct tm_ui_dropdown_t {
     pub tooltips: *mut *const ::std::os::raw::c_char,
     pub num_items: u32,
     pub _padding_501: [::std::os::raw::c_char; 4usize],
-}
-impl Default for tm_ui_dropdown_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -20429,18 +18799,13 @@ pub struct tm_ui_textedit_t {
     pub select: tm_ui_textedit_t__bindgen_ty_1,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_textedit_t__bindgen_ty_1 {
     pub all: bool,
     pub range: bool,
     pub _padding_538: [::std::os::raw::c_char; 2usize],
     pub start: u32,
     pub end: u32,
-}
-impl Default for tm_ui_textedit_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const TM_UI_MENU_DEFAULT_ID_BASE: ::std::os::raw::c_int = -268435456;
 pub type _bindgen_ty_227 = ::std::os::raw::c_int;
@@ -20458,11 +18823,6 @@ pub struct tm_ui_menu_item_t {
     pub is_hidden: bool,
     pub _padding_581: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ui_menu_item_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_menubar_t {
@@ -20474,11 +18834,6 @@ pub struct tm_ui_menubar_t {
     pub num_items: u32,
     pub _padding_601: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ui_menubar_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_menu_t {
@@ -20486,11 +18841,6 @@ pub struct tm_ui_menu_t {
     pub items: *const tm_ui_menu_item_t,
     pub num_items: u32,
     pub _padding_615: [::std::os::raw::c_char; 4usize],
-}
-impl Default for tm_ui_menu_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -20500,22 +18850,12 @@ pub struct tm_ui_menu_result_t {
     pub highlighted_item_id: u64,
     pub submenu_pos: tm_vec2_t,
 }
-impl Default for tm_ui_menu_result_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_treeitem_t {
     pub id: u64,
     pub rect: tm_rect_t,
     pub text: *const ::std::os::raw::c_char,
-}
-impl Default for tm_ui_treeitem_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_ui_tab_pin_type_TM_UI_TAB_PIN_TYPE__NONE: tm_ui_tab_pin_type = 0;
 pub const tm_ui_tab_pin_type_TM_UI_TAB_PIN_TYPE__OBJECT: tm_ui_tab_pin_type = 1;
@@ -20532,11 +18872,6 @@ pub struct tm_ui_tabbar_item_t {
     pub _padding_669: [::std::os::raw::c_char; 2usize],
     pub pin_type: tm_ui_tab_pin_type,
 }
-impl Default for tm_ui_tabbar_item_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_tabbar_t {
@@ -20549,11 +18884,6 @@ pub struct tm_ui_tabbar_t {
     pub is_dragging_external_tab: bool,
     pub _padding_695: [::std::os::raw::c_char; 1usize],
     pub dragged_external_item: *mut *const ::std::os::raw::c_char,
-}
-impl Default for tm_ui_tabbar_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 pub const tm_ui_tabbar_event_TM_UI_TABBAR_EVENT_NONE: tm_ui_tabbar_event = 0;
 pub const tm_ui_tabbar_event_TM_UI_TABBAR_EVENT_SELECT: tm_ui_tabbar_event = 1;
@@ -20572,11 +18902,6 @@ pub struct tm_ui_tabbar_result_t {
     pub new_position: u32,
     pub drag_offset: tm_vec2_t,
 }
-impl Default for tm_ui_tabbar_result_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_draggedtab_t {
@@ -20588,13 +18913,8 @@ pub struct tm_ui_draggedtab_t {
     pub _padding_753: [::std::os::raw::c_char; 2usize],
     pub pin_type: tm_ui_tab_pin_type,
 }
-impl Default for tm_ui_draggedtab_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_splitter_t {
     pub id: u64,
     pub rect: tm_rect_t,
@@ -20613,13 +18933,8 @@ pub struct tm_ui_titlebar_t {
     pub icon_texture: u32,
     pub _padding_787: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ui_titlebar_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_titlebar_result_t {
     pub close_window: bool,
     pub restore_window: bool,
@@ -20654,11 +18969,6 @@ pub struct tm_ui_buffers_t {
     pub colors: *mut tm_color_srgb_t,
     pub allocator: *mut tm_allocator_i,
 }
-impl Default for tm_ui_buffers_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const tm_ui_interaction_result_t_TM_UI_INTERACTION_RESULT_NO_CHANGE:
     tm_ui_interaction_result_t = 0;
 pub const tm_ui_interaction_result_t_TM_UI_INTERACTION_RESULT_TRANSIENT_CHANGE:
@@ -20676,13 +18986,8 @@ pub struct tm_ui_mouse_help_texts_t {
     pub double_click: *const ::std::os::raw::c_char,
     pub triple_click: *const ::std::os::raw::c_char,
 }
-impl Default for tm_ui_mouse_help_texts_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_api {
     pub create: ::std::option::Option<unsafe extern "C" fn(a: *mut tm_allocator_i) -> *mut tm_ui_o>,
     pub destroy: ::std::option::Option<unsafe extern "C" fn(i: *mut tm_ui_o)>,
@@ -21033,7 +19338,7 @@ pub struct tm_ui_api {
     pub main_ui: ::std::option::Option<unsafe extern "C" fn(ui: *mut tm_ui_o) -> *mut tm_ui_o>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_activation_t {
     pub active: u64,
     pub lost_focus: u64,
@@ -21135,11 +19440,6 @@ pub struct tm_ui_input_state_t {
     pub text_input: [u32; 32usize],
     pub _padding_212: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ui_input_state_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 pub const TM_UI_ACTIVE_DATA_BYTES: ::std::os::raw::c_int = 16384;
 pub type _bindgen_ty_230 = ::std::os::raw::c_int;
 pub const tm_ui_icon_TM_UI_ICON__PLAY: tm_ui_icon = 0;
@@ -21159,13 +19459,8 @@ pub struct tm_ui_icon_button_t {
     pub _padding_26: [::std::os::raw::c_char; 3usize],
     pub icon: tm_ui_icon,
 }
-impl Default for tm_ui_icon_button_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_icon_api {
     pub button: ::std::option::Option<
         unsafe extern "C" fn(
@@ -21184,7 +19479,7 @@ pub struct tm_ui_icon_api {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_renderer_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -21254,11 +19549,6 @@ pub struct tm_ui_tree_t {
         ) -> u32,
     >,
 }
-impl Default for tm_ui_tree_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_tree_item_metrics_t {
@@ -21270,11 +19560,6 @@ pub struct tm_ui_tree_item_metrics_t {
     pub toolbar_element_count: u32,
     pub _padding_52: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_ui_tree_item_metrics_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_ui_tree_state_t {
@@ -21283,13 +19568,8 @@ pub struct tm_ui_tree_state_t {
     pub total_height: f32,
     pub scroll_y: f32,
 }
-impl Default for tm_ui_tree_state_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C, packed)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_tree_item_state_t {
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize], u8>,
 }
@@ -21383,7 +19663,7 @@ impl tm_ui_tree_item_state_t {
     }
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_tree_item_res_t {
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 2usize], u8>,
     pub _padding_109: [::std::os::raw::c_char; 2usize],
@@ -21577,7 +19857,7 @@ impl tm_ui_tree_item_res_t {
     }
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_ui_tree_api {
     pub tree: ::std::option::Option<
         unsafe extern "C" fn(
@@ -21639,13 +19919,8 @@ pub struct tm_upnp_result_t {
     pub _padding_25: [::std::os::raw::c_char; 4usize],
     pub router_wan_address: *mut tm_socket_address_t,
 }
-impl Default for tm_upnp_result_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_upnp_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -21666,7 +19941,7 @@ pub const tm_vulkan_device_flag_TM_VULKAN_DEVICE_FLAG_DISCRETE: tm_vulkan_device
 pub const tm_vulkan_device_flag_TM_VULKAN_DEVICE_FLAG_INTEGRATED: tm_vulkan_device_flag = 2;
 pub type tm_vulkan_device_flag = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_vulkan_device_id {
     pub opaque: u32,
 }
@@ -21680,11 +19955,6 @@ pub struct tm_vulkan_raw_device_access_t {
     pub vk_graphics_queue_family_index: u32,
     pub _padding_49: [::std::os::raw::c_char; 4usize],
 }
-impl Default for tm_vulkan_raw_device_access_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct tm_vulkan_raw_image_buffer_access_t {
@@ -21697,11 +19967,6 @@ pub struct tm_vulkan_raw_image_buffer_access_t {
     pub layers: u32,
     pub mip_levels: u32,
     pub vk_image: *mut VkImage_T,
-}
-impl Default for tm_vulkan_raw_image_buffer_access_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21785,13 +20050,8 @@ pub struct tm_vulkan_backend_i {
         ) -> bool,
     >,
 }
-impl Default for tm_vulkan_backend_i {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_vulkan_api {
     pub create_backend: ::std::option::Option<
         unsafe extern "C" fn(
@@ -21805,7 +20065,7 @@ pub struct tm_vulkan_api {
         ::std::option::Option<unsafe extern "C" fn() -> *mut tm_renderer_shader_compiler_api>,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_browser_tab_api {
     pub find_asset_browser:
         ::std::option::Option<unsafe extern "C" fn(ui: *mut tm_ui_o) -> tm_tt_id_t>,
@@ -21824,7 +20084,7 @@ extern "C" {
     pub static mut console_logger: *mut tm_logger_i;
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_update_tracker_api {
     pub init: ::std::option::Option<unsafe extern "C" fn(allocator: *mut tm_allocator_i)>,
     pub should_show_update_notification:
@@ -21859,7 +20119,7 @@ extern "C" {
     pub fn import_tab__import_project(tab: *mut tm_tab_o, file: *const ::std::os::raw::c_char);
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_integration_test_runner_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(
@@ -21889,13 +20149,13 @@ pub const tm_login__tab_action_TM_LOGIN__TAB_ACTION__HIDE: tm_login__tab_action 
 pub const tm_login__tab_action_TM_LOGIN__TAB_ACTION__QUIT: tm_login__tab_action = 4;
 pub type tm_login__tab_action = ::std::os::raw::c_int;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_login_update_t {
     pub show_login_tab: bool,
     pub force_focus_login_tab: bool,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_login_api {
     pub init: ::std::option::Option<unsafe extern "C" fn(allocator: *mut tm_allocator_i)>,
     pub update: ::std::option::Option<unsafe extern "C" fn() -> tm_login__tab_action>,
@@ -21959,11 +20219,6 @@ pub struct scene_tab_entity_data_t {
     pub camera: tm_entity_t,
     pub entity: tm_entity_t,
 }
-impl Default for scene_tab_entity_data_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 extern "C" {
     pub fn scene_tab_entity_data(tab: *mut tm_tab_o) -> scene_tab_entity_data_t;
 }
@@ -21982,7 +20237,7 @@ pub struct tm_task_manager_o {
     _unused: [u8; 0],
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_task_manager_api {
     pub create: ::std::option::Option<
         unsafe extern "C" fn(alloc: *mut tm_allocator_i) -> *mut tm_task_manager_o,
@@ -22360,13 +20615,8 @@ pub struct tm_tab_create_context_t {
     pub save_interface: *mut tm_asset_save_i,
     pub ui_renderer: *mut tm_ui_renderer_o,
 }
-impl Default for tm_tab_create_context_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_the_machinery_tab_vt {
     pub __bindgen_padding_0: [u64; 16usize],
     pub menu_title: ::std::option::Option<
@@ -22385,7 +20635,7 @@ pub struct tm_the_machinery_tab_vt {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_preview_tab_vt {
     pub __bindgen_padding_0: [u64; 18usize],
     pub preview_entity: ::std::option::Option<
@@ -22393,7 +20643,7 @@ pub struct tm_preview_tab_vt {
     >,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_graph_tab_vt {
     pub __bindgen_padding_0: [u64; 18usize],
     pub refresh_node_types: ::std::option::Option<
@@ -22405,97 +20655,97 @@ pub struct tm_graph_tab_vt {
 }
 pub type __builtin_va_list = *mut ::std::os::raw::c_char;
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_viewer_manager_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_io_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_plugin_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_string_repository_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_temp_allocator_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_hash32_t {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_animation_player_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_creation_graph_instance_data_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_browser_create_asset_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_browser_open_asset_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_browser_add_asset_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_browser_select_asset_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_preview_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct tm_asset_scene_o {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct VkInstance_T {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct VkDevice_T {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct VkPhysicalDevice_T {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct VkQueue_T {
     pub _address: u8,
 }
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct VkImage_T {
     pub _address: u8,
 }

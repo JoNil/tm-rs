@@ -24,9 +24,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .clang_arg("-Wno-microsoft-anon-tag")
         .rust_target(bindgen::RustTarget::Stable_1_40)
         .derive_debug(false)
-        .derive_default(true)
         .layout_tests(false)
-        .no_default("tm_graph_component_node_type_i")
         .generate()
         .map_err(|_| "Failed to generate bindings")?
         .write_to_file(out_path)?;
