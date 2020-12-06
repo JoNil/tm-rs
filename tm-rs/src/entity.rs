@@ -80,6 +80,7 @@ unsafe extern "C" fn engine_update(inst: *mut tm_engine_o, data: *mut tm_engine_
 }
 
 impl EntityApiInstanceMut {
+    /// Registers a component with the context.
     #[inline]
     pub fn register_component(&mut self, component: &tm_component_i) -> u32 {
         unsafe {
@@ -90,6 +91,7 @@ impl EntityApiInstanceMut {
         }
     }
 
+    /// Registers an engine with the context.
     #[inline]
     pub fn register_engine<C>(
         &mut self,
@@ -131,24 +133,41 @@ impl EntityApiInstanceMut {
         }
     }
 
+    /// Returns The Truth object that the context was created with.
     #[inline]
     pub fn the_truth(&mut self) -> TheTruthApiInstanceMut {
         api::with_ctx_mut::<TheTruthApi>(unsafe { (*self.api).the_truth.unwrap()(self.ctx) })
     }
 
+    /// Returns The Truth object that the context was created with.
     #[inline]
     pub fn the_truth_assets(&mut self) -> TheTruthAssetsApiInstanceMut {
         api::with_ctx_mut::<TheTruthAssetsApi>(unsafe { (*self.api).the_truth.unwrap()(self.ctx) })
     }
 
+    /// Creates an entity based on an entity asset in The Truth. Components and children of the asset will
+    /// be automatically created.
     #[inline]
     pub fn create_entity_from_asset(&mut self, asset: TheTruthId) -> Entity {
         unsafe { (*self.api).create_entity_from_asset.unwrap()(self.ctx, asset) }
     }
 
+    /// Looks up a component by name and returns its index. Returns 0 if the component doesn't exist.
     #[inline]
     pub fn lookup_component(&mut self, name_hash: u64) -> u32 {
         unsafe { (*self.api).lookup_component.unwrap()(self.ctx, name_hash) }
+    }
+
+    /// Returns the parent of the entity when spawned as a child entity.
+    #[inline]
+    pub fn parent(&mut self, entity: Entity) -> Entity {
+        unsafe { (*self.api).parent.unwrap()(self.ctx, entity) }
+    }
+
+    /// Returns the asset used to create the specified entity.
+    #[inline]
+    pub fn asset(&mut self, entity: Entity) -> TheTruthId {
+        unsafe { (*self.api).asset.unwrap()(self.ctx, entity) }
     }
 }
 

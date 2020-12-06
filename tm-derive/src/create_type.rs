@@ -89,7 +89,7 @@ pub(crate) fn expand_fn<'a>(
                     component_type,
                     default_object);
 
-                static mut editor_aspect: EditorUiWrapper = EditorUiWrapper {
+                static mut EDITOR_ASPECT: EditorUiWrapper = EditorUiWrapper {
                     inner: ::tm_rs::ffi::tm_ci_editor_ui_i {
                         disabled: None,
                         category: None,
@@ -109,7 +109,7 @@ pub(crate) fn expand_fn<'a>(
                     the_truth_api.ctx,
                     component_type,
                     ::tm_rs::hash(b"tm_ci_editor_ui_i\0"),
-                    &mut editor_aspect.inner as *mut ::tm_rs::ffi::tm_ci_editor_ui_i
+                    &mut EDITOR_ASPECT.inner as *mut ::tm_rs::ffi::tm_ci_editor_ui_i
                         as *mut ::std::ffi::c_void);
             }
         }

@@ -110,7 +110,7 @@ macro_rules! impl_component_tuple {
             where
                 $($t: Accessor),*
             {
-                type Item = ($($t::RefT),*,);
+                type Item = ($crate::entity::Entity, $($t::RefT),*,);
 
                 #[inline]
                 fn next(&mut self) -> Option<Self::Item> {
@@ -134,6 +134,8 @@ macro_rules! impl_component_tuple {
                     #[allow(unused_assignments)]
                     unsafe {
 
+                        let entity = *array.entities.add(self.components_index);
+
                         let mut component_count = 0;
 
                         $(
@@ -145,7 +147,7 @@ macro_rules! impl_component_tuple {
 
                         self.components_index += 1;
 
-                        Some(($($t::ref_from_ptr([<$t:lower>])),*,))
+                        Some((entity, $($t::ref_from_ptr([<$t:lower>])),*,))
                     }
                 }
             }
