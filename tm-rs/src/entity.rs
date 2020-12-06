@@ -3,6 +3,8 @@ use crate::{
     component::{ComponentTuple, ComponentsIterator},
     the_truth::TheTruthApi,
     the_truth::{TheTruthApiInstanceMut, TheTruthId},
+    the_truth_assets::TheTruthAssetsApi,
+    the_truth_assets::TheTruthAssetsApiInstanceMut,
 };
 use std::ffi::{c_void, CString};
 use tm_sys::ffi::{
@@ -78,7 +80,6 @@ unsafe extern "C" fn engine_update(inst: *mut tm_engine_o, data: *mut tm_engine_
 }
 
 impl EntityApiInstanceMut {
-
     #[inline]
     pub fn register_component(&mut self, component: &tm_component_i) -> u32 {
         unsafe {
@@ -133,6 +134,11 @@ impl EntityApiInstanceMut {
     #[inline]
     pub fn the_truth(&mut self) -> TheTruthApiInstanceMut {
         api::with_ctx_mut::<TheTruthApi>(unsafe { (*self.api).the_truth.unwrap()(self.ctx) })
+    }
+
+    #[inline]
+    pub fn the_truth_assets(&mut self) -> TheTruthAssetsApiInstanceMut {
+        api::with_ctx_mut::<TheTruthAssetsApi>(unsafe { (*self.api).the_truth.unwrap()(self.ctx) })
     }
 
     #[inline]

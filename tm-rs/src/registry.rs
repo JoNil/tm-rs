@@ -52,12 +52,10 @@ impl RegistryApi {
 
     pub fn add_or_remove_component<C: DerivedComponent>(&mut self) {
         unsafe {
-            if let Some(create_types) = C::CREATE_TYPES {
-                self.add_or_remove_implementation(
-                    TM_THE_TRUTH_CREATE_TYPES_INTERFACE_NAME,
-                    create_types as *mut c_void,
-                );
-            }
+            self.add_or_remove_implementation(
+                TM_THE_TRUTH_CREATE_TYPES_INTERFACE_NAME,
+                C::CREATE_TYPES as *mut c_void,
+            );
             self.add_or_remove_implementation(
                 TM_ENTITY_CREATE_COMPONENT_INTERFACE_NAME,
                 C::CREATE_COMPONENT as *mut c_void,

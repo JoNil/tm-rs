@@ -7,6 +7,7 @@ mod hash;
 pub mod log;
 pub mod registry;
 pub mod the_truth;
+pub mod the_truth_assets;
 
 pub use hash::hash;
 pub use tm_sys::ffi;

@@ -12,7 +12,7 @@ pub trait Component {
 }
 
 pub trait DerivedComponent: Component {
-    const CREATE_TYPES: Option<unsafe extern "C" fn(*mut tm_the_truth_o)>;
+    const CREATE_TYPES: unsafe extern "C" fn(*mut tm_the_truth_o);
     const CREATE_COMPONENT: unsafe extern "C" fn(*mut tm_entity_context_o);
 }
 

@@ -100,6 +100,45 @@ impl TheTruthApiInstance {
 }
 
 impl TheTruthApiInstanceMut {
+    pub fn read(&self, id: TheTruthId) -> *const tm_the_truth_object_o {
+        unsafe { (*self.api).read.unwrap()(self.ctx, id) }
+    }
+
+    #[inline]
+    #[allow(clippy::not_unsafe_ptr_arg_deref)]
+    pub fn get_f32(&self, tto: *const tm_the_truth_object_o, property: u32) -> f32 {
+        assert!(!tto.is_null());
+        unsafe { (*self.api).get_float.unwrap()(self.ctx, tto, property) }
+    }
+
+    #[inline]
+    #[allow(clippy::not_unsafe_ptr_arg_deref)]
+    pub fn get_f64(&self, tto: *const tm_the_truth_object_o, property: u32) -> f64 {
+        assert!(!tto.is_null());
+        unsafe { (*self.api).get_double.unwrap()(self.ctx, tto, property) }
+    }
+
+    #[inline]
+    #[allow(clippy::not_unsafe_ptr_arg_deref)]
+    pub fn get_u32(&self, tto: *const tm_the_truth_object_o, property: u32) -> u32 {
+        assert!(!tto.is_null());
+        unsafe { (*self.api).get_uint32_t.unwrap()(self.ctx, tto, property) }
+    }
+
+    #[inline]
+    #[allow(clippy::not_unsafe_ptr_arg_deref)]
+    pub fn get_u64(&self, tto: *const tm_the_truth_object_o, property: u32) -> u64 {
+        assert!(!tto.is_null());
+        unsafe { (*self.api).get_uint64_t.unwrap()(self.ctx, tto, property) }
+    }
+
+    #[inline]
+    #[allow(clippy::not_unsafe_ptr_arg_deref)]
+    pub fn get_bool(&self, tto: *const tm_the_truth_object_o, property: u32) -> bool {
+        assert!(!tto.is_null());
+        unsafe { (*self.api).get_bool.unwrap()(self.ctx, tto, property) }
+    }
+
     #[inline]
     pub fn create_object_type(
         &mut self,
