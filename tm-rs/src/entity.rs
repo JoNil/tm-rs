@@ -1,14 +1,16 @@
 use crate::{
     api::{self, Api, ApiWithCtx, ApiWithCtxMut},
     component::{ComponentTuple, ComponentsIterator},
+    the_truth::TheTruthApi,
+    the_truth::{TheTruthApiInstanceMut, TheTruthId},
 };
-use std::{
-    ffi::{c_void, CString},
-};
+use std::ffi::{c_void, CString};
 use tm_sys::ffi::{
     tm_component_i, tm_component_mask_t, tm_engine_i, tm_engine_o, tm_engine_update_set_t,
     tm_entity_api, tm_entity_context_o, TM_ENTITY_API_NAME,
 };
+
+pub use super::ffi::tm_entity_t as Entity;
 
 #[derive(Copy, Clone)]
 pub struct EntityApi {
@@ -76,9 +78,15 @@ unsafe extern "C" fn engine_update(inst: *mut tm_engine_o, data: *mut tm_engine_
 }
 
 impl EntityApiInstanceMut {
+
     #[inline]
-    pub fn lookup_component(&mut self, name_hash: u64) -> u32 {
-        unsafe { (*self.api).lookup_component.unwrap()(self.ctx, name_hash) }
+    pub fn register_component(&mut self, component: &tm_component_i) -> u32 {
+        unsafe {
+            (*self.api).register_component.unwrap()(
+                self.ctx,
+                component as *const ::tm_sys::ffi::tm_component_i,
+            )
+        }
     }
 
     #[inline]
@@ -123,13 +131,18 @@ impl EntityApiInstanceMut {
     }
 
     #[inline]
-    pub fn register_component(&mut self, component: &tm_component_i) -> u32 {
-        unsafe {
-            (*self.api).register_component.unwrap()(
-                self.ctx,
-                component as *const ::tm_sys::ffi::tm_component_i,
-            )
-        }
+    pub fn the_truth(&mut self) -> TheTruthApiInstanceMut {
+        api::with_ctx_mut::<TheTruthApi>(unsafe { (*self.api).the_truth.unwrap()(self.ctx) })
+    }
+
+    #[inline]
+    pub fn create_entity_from_asset(&mut self, asset: TheTruthId) -> Entity {
+        unsafe { (*self.api).create_entity_from_asset.unwrap()(self.ctx, asset) }
+    }
+
+    #[inline]
+    pub fn lookup_component(&mut self, name_hash: u64) -> u32 {
+        unsafe { (*self.api).lookup_component.unwrap()(self.ctx, name_hash) }
     }
 }
 

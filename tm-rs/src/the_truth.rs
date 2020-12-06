@@ -2,8 +2,10 @@ use crate::api::{Api, ApiWithCtx, ApiWithCtxMut};
 use std::ffi::c_void;
 use tm_sys::ffi::{
     tm_the_truth_api, tm_the_truth_o, tm_the_truth_object_o, tm_the_truth_property_definition_t,
-    tm_tt_id_t, TM_THE_TRUTH_API_NAME,
+    TM_THE_TRUTH_API_NAME,
 };
+
+pub use super::ffi::tm_tt_id_t as TheTruthId;
 
 #[derive(Copy, Clone)]
 pub struct TheTruthApi {
@@ -57,7 +59,7 @@ impl ApiWithCtxMut for TheTruthApi {
 }
 
 impl TheTruthApiInstance {
-    pub fn read(&self, id: tm_tt_id_t) -> *const tm_the_truth_object_o {
+    pub fn read(&self, id: TheTruthId) -> *const tm_the_truth_object_o {
         unsafe { (*self.api).read.unwrap()(self.ctx, id) }
     }
 
