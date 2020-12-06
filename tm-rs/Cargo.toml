@@ -1,6 +1,6 @@
 [package]
 name = "tm-rs"
-version = "2020.11.10"
+version = "2020.11.11"
 authors = ["Jonathan Nilsson <jonathan@voysys.se>"]
 edition = "2018"
 
