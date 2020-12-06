@@ -140,10 +140,6 @@ macro_rules! impl_component_tuple {
                             let [<$t:lower>] = (array.components[component_count] as *mut <$t::C as Component>::CType)
                                 .add(self.components_index);
 
-                            if [<$t:lower>].is_null() {
-                                return None;
-                            }
-
                             component_count += 1;
                         )*
 

@@ -1,11 +1,9 @@
 use crate::{
     api::{self, Api, ApiWithCtx, ApiWithCtxMut},
     component::{ComponentTuple, ComponentsIterator},
-    ComponentMask,
 };
 use std::{
     ffi::{c_void, CString},
-    slice,
 };
 use tm_sys::ffi::{
     tm_component_i, tm_component_mask_t, tm_engine_i, tm_engine_o, tm_engine_update_set_t,
@@ -66,8 +64,6 @@ impl ApiWithCtxMut for EntityApi {
 struct EngineCallbackData {
     ctx: *mut tm_entity_context_o,
     update: Box<dyn Fn(*mut tm_entity_context_o, &mut tm_engine_update_set_t)>,
-    #[allow(clippy::type_complexity)]
-    filter: Option<Box<dyn Fn(&[u32], &ComponentMask) -> bool>>,
 }
 
 unsafe extern "C" fn engine_update(inst: *mut tm_engine_o, data: *mut tm_engine_update_set_t) {
@@ -77,27 +73,6 @@ unsafe extern "C" fn engine_update(inst: *mut tm_engine_o, data: *mut tm_engine_
     let callback_data = (inst as *const EngineCallbackData).as_ref().unwrap();
 
     (callback_data.update)(callback_data.ctx, data.as_mut().unwrap());
-}
-
-unsafe extern "C" fn engine_filter(
-    inst: *mut tm_engine_o,
-    components: *const u32,
-    num_components: u32,
-    mask: *const tm_component_mask_t,
-) -> bool {
-    assert!(!inst.is_null());
-    assert!(!components.is_null());
-    assert!(!mask.is_null());
-
-    let callback_data = (inst as *const EngineCallbackData).as_ref().unwrap();
-    let components = slice::from_raw_parts(components, num_components as usize);
-    let mask = mask.as_ref().unwrap();
-
-    if let Some(filter) = &callback_data.filter {
-        filter(components, mask)
-    } else {
-        false
-    }
 }
 
 impl EntityApiInstanceMut {
@@ -111,13 +86,10 @@ impl EntityApiInstanceMut {
         &mut self,
         name: &'static str,
         update: impl Fn(&mut EntityApiInstanceMut, ComponentsIterator<C>) + Send + Sync + 'static,
-        filter: Option<fn(&[u32], &ComponentMask) -> bool>,
     ) where
         C: ComponentTuple,
     {
         let name = CString::new(name).unwrap();
-
-        let has_filter_fn = filter.is_some();
 
         // This is leaked
         let inst = Box::into_raw(Box::new(EngineCallbackData {
@@ -127,11 +99,6 @@ impl EntityApiInstanceMut {
                 let components = ComponentsIterator::<C>::new(update_set);
                 update(&mut entity_api, components)
             }),
-            filter: if let Some(filter) = filter {
-                Some(Box::new(filter))
-            } else {
-                None
-            },
         })) as *mut tm_engine_o;
 
         let engine = tm_engine_i {
@@ -144,11 +111,7 @@ impl EntityApiInstanceMut {
             writes: C::get_writes(),
             inst,
             update: Some(engine_update),
-            filter: if has_filter_fn {
-                Some(engine_filter)
-            } else {
-                None
-            },
+            filter: None,
         };
 
         unsafe {
