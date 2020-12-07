@@ -18,6 +18,6 @@ impl ApplicationApi {
 impl ApplicationApiInstance {
     #[inline]
     pub fn asset_root(&self) -> TheTruthId {
-        unsafe { (*self.api).asset_root.unwrap()(self.ctx) }
+        TheTruthId(unsafe { (*self.api).asset_root.unwrap()(self.ctx) })
     }
 }

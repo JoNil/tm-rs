@@ -1,9 +1,19 @@
+use std::fmt::{self, Debug, Formatter};
+
 use tm_sys::ffi::{
     tm_the_truth_api, tm_the_truth_o, tm_the_truth_object_o, tm_the_truth_property_definition_t,
-    TM_THE_TRUTH_API_NAME,
+    tm_tt_id_t, TM_THE_TRUTH_API_NAME,
 };
 
-pub use crate::ffi::tm_tt_id_t as TheTruthId;
+pub struct TheTruthId(pub(crate) tm_tt_id_t);
+
+impl Debug for TheTruthId {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Entity")
+            .field("id", unsafe { &self.0.__bindgen_anon_1.u64_ })
+            .finish()
+    }
+}
 
 impl_api_with_ctx!(
     TheTruthApi,
@@ -16,7 +26,7 @@ impl TheTruthApiInstance {
     /// Get a read pointer for reading properties from the object.
     #[inline]
     pub fn read(&self, id: TheTruthId) -> *const tm_the_truth_object_o {
-        unsafe { (*self.api).read.unwrap()(self.ctx, id) }
+        unsafe { (*self.api).read.unwrap()(self.ctx, id.0) }
     }
 
     #[inline]

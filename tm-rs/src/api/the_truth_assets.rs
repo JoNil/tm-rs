@@ -20,6 +20,8 @@ impl TheTruthAssetsApiInstance {
     #[inline]
     pub fn asset_from_path(&self, root: TheTruthId, path: &str) -> TheTruthId {
         let c_path = CString::new(path).unwrap();
-        unsafe { (*self.api).asset_from_path.unwrap()(self.ctx, root, c_path.as_ptr()) }
+        TheTruthId(unsafe {
+            (*self.api).asset_from_path.unwrap()(self.ctx, root.0, c_path.as_ptr())
+        })
     }
 }

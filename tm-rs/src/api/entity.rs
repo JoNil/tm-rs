@@ -6,13 +6,24 @@ use crate::{
     },
     component::{ComponentTuple, ComponentsIterator},
 };
-use std::ffi::CString;
+use std::{
+    ffi::CString,
+    fmt::{self, Debug, Formatter},
+};
 use tm_sys::ffi::{
     tm_component_i, tm_component_mask_t, tm_engine_i, tm_engine_o, tm_engine_update_set_t,
-    tm_entity_api, tm_entity_context_o, TM_ENTITY_API_NAME,
+    tm_entity_api, tm_entity_context_o, tm_entity_t, TM_ENTITY_API_NAME,
 };
 
-pub use crate::ffi::tm_entity_t as Entity;
+pub struct Entity(pub(crate) tm_entity_t);
+
+impl Debug for Entity {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Entity")
+            .field("id", unsafe { &self.0.u64_ })
+            .finish()
+    }
+}
 
 impl_api_with_ctx!(
     EntityApi,
@@ -105,7 +116,7 @@ impl EntityApiInstanceMut {
     /// be automatically created.
     #[inline]
     pub fn create_entity_from_asset(&mut self, asset: TheTruthId) -> Entity {
-        unsafe { (*self.api).create_entity_from_asset.unwrap()(self.ctx, asset) }
+        Entity(unsafe { (*self.api).create_entity_from_asset.unwrap()(self.ctx, asset.0) })
     }
 
     /// Looks up a component by name and returns its index. Returns 0 if the component doesn't exist.
@@ -117,13 +128,13 @@ impl EntityApiInstanceMut {
     /// Returns the parent of the entity when spawned as a child entity.
     #[inline]
     pub fn parent(&mut self, entity: Entity) -> Entity {
-        unsafe { (*self.api).parent.unwrap()(self.ctx, entity) }
+        Entity(unsafe { (*self.api).parent.unwrap()(self.ctx, entity.0) })
     }
 
     /// Returns the asset used to create the specified entity.
     #[inline]
     pub fn asset(&mut self, entity: Entity) -> TheTruthId {
-        unsafe { (*self.api).asset.unwrap()(self.ctx, entity) }
+        TheTruthId(unsafe { (*self.api).asset.unwrap()(self.ctx, entity.0) })
     }
 }
 

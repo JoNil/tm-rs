@@ -148,7 +148,7 @@ macro_rules! impl_component_tuple {
 
                         self.components_index += 1;
 
-                        Some((entity, $($t::ref_from_ptr([<$t:lower>])),*,))
+                        Some(($crate::api::entity::Entity(entity), $($t::ref_from_ptr([<$t:lower>])),*,))
                     }
                 }
             }
