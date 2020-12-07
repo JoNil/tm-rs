@@ -5,6 +5,7 @@ use tm_sys::ffi::{
     tm_tt_id_t, TM_THE_TRUTH_API_NAME,
 };
 
+#[derive(Copy, Clone)]
 pub struct TheTruthId(pub(crate) tm_tt_id_t);
 
 impl Debug for TheTruthId {

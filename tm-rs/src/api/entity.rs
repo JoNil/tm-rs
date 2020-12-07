@@ -15,6 +15,7 @@ use tm_sys::ffi::{
     tm_entity_api, tm_entity_context_o, tm_entity_t, TM_ENTITY_API_NAME,
 };
 
+#[derive(Copy, Clone)]
 pub struct Entity(pub(crate) tm_entity_t);
 
 impl Debug for Entity {
