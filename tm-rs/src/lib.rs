@@ -1,13 +1,7 @@
 pub mod api;
 pub mod component;
-pub mod components;
-pub mod entity;
-pub mod graph_interpreter;
 mod hash;
-pub mod log;
 pub mod registry;
-pub mod the_truth;
-pub mod the_truth_assets;
 
 pub use hash::hash;
 pub use tm_sys::ffi;
@@ -28,7 +22,7 @@ macro_rules! tm_plugin {
             reg: *mut $crate::ffi::tm_api_registry_api,
             load: bool,
         ) {
-            let $reg = &mut $crate::registry::RegistryApi::new(reg, load);
+            let $reg = &mut $crate::api::registry::RegistryApi::new(reg, load);
 
             api::register::<EntityApi>($reg);
             api::register::<TheTruthApi>($reg);

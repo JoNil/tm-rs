@@ -1,10 +1,11 @@
+use crate::{api::entity::EntityApiInstanceMut, hash};
 use std::marker::PhantomData;
-
 use tm_sys::ffi::{
     tm_engine_update_array_t, tm_engine_update_set_t, tm_entity_context_o, tm_the_truth_o,
 };
 
-use crate::{entity::EntityApiInstanceMut, hash};
+pub mod graph;
+pub mod light;
 
 pub trait Component {
     const NAME: &'static [u8];
@@ -110,7 +111,7 @@ macro_rules! impl_component_tuple {
             where
                 $($t: Accessor),*
             {
-                type Item = ($crate::entity::Entity, $($t::RefT),*,);
+                type Item = ($crate::api::entity::Entity, $($t::RefT),*,);
 
                 #[inline]
                 fn next(&mut self) -> Option<Self::Item> {
@@ -158,7 +159,7 @@ macro_rules! impl_component_tuple {
             $($t: Accessor),*
         {
             #[inline]
-            fn get_components(entity_api: &mut $crate::entity::EntityApiInstanceMut) -> [u32; 16] {
+            fn get_components(entity_api: &mut $crate::api::entity::EntityApiInstanceMut) -> [u32; 16] {
                 [
                     $(entity_api.lookup_component(hash($t::C::NAME))),*,
                     $(replace_lit!($none, 0)),*

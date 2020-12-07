@@ -191,7 +191,7 @@ pub fn derive_component(input: proc_macro::TokenStream) -> proc_macro::TokenStre
             unsafe extern "C" fn #create_component_ident(
                 ctx: *mut ::tm_rs::ffi::tm_entity_context_o
             ) {
-                let mut entity_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::entity::EntityApi>(ctx);
+                let mut entity_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::api::entity::EntityApi>(ctx);
 
                 let component = ::tm_rs::ffi::tm_component_i {
                     name: ::std::concat!(#snake_case_name, "\0").as_bytes().as_ptr() as *const ::std::os::raw::c_char,

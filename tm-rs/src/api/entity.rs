@@ -1,10 +1,13 @@
+pub use crate::ffi::tm_entity_t as Entity;
 use crate::{
-    api::{self, Api, ApiWithCtx, ApiWithCtxMut},
+    api::{
+        self,
+        the_truth::{TheTruthApi, TheTruthApiInstanceMut, TheTruthId},
+        the_truth_assets::{TheTruthAssetsApi, TheTruthAssetsApiInstanceMut},
+        Api, ApiWithCtx, ApiWithCtxMut,
+    },
     component::{ComponentTuple, ComponentsIterator},
-    the_truth::TheTruthApi,
-    the_truth::{TheTruthApiInstanceMut, TheTruthId},
-    the_truth_assets::TheTruthAssetsApi,
-    the_truth_assets::TheTruthAssetsApiInstanceMut,
+    impl_api_with_ctx,
 };
 use std::ffi::{c_void, CString};
 use tm_sys::ffi::{
@@ -12,58 +15,12 @@ use tm_sys::ffi::{
     tm_entity_api, tm_entity_context_o, TM_ENTITY_API_NAME,
 };
 
-pub use super::ffi::tm_entity_t as Entity;
-
-#[derive(Copy, Clone)]
-pub struct EntityApi {
-    api: *mut tm_entity_api,
-}
-
-unsafe impl Send for EntityApi {}
-unsafe impl Sync for EntityApi {}
-
-impl Api for EntityApi {
-    type CType = *mut tm_entity_api;
-    const NAME: &'static [u8] = TM_ENTITY_API_NAME;
-
-    #[inline]
-    fn new(api: *mut c_void) -> Self {
-        Self {
-            api: api as Self::CType,
-        }
-    }
-}
-
-#[derive(Copy, Clone)]
-pub struct EntityApiInstance {
-    pub api: *mut tm_entity_api,
-    pub ctx: *const tm_entity_context_o,
-}
-
-#[derive(Copy, Clone)]
-pub struct EntityApiInstanceMut {
-    pub api: *mut tm_entity_api,
-    pub ctx: *mut tm_entity_context_o,
-}
-
-impl ApiWithCtx for EntityApi {
-    type Ctx = tm_entity_context_o;
-    type ApiInstance = EntityApiInstance;
-
-    #[inline]
-    fn wrap(self, ctx: *const Self::Ctx) -> Self::ApiInstance {
-        EntityApiInstance { api: self.api, ctx }
-    }
-}
-
-impl ApiWithCtxMut for EntityApi {
-    type ApiInstanceMut = EntityApiInstanceMut;
-
-    #[inline]
-    fn wrap_mut(self, ctx: *mut Self::Ctx) -> Self::ApiInstanceMut {
-        EntityApiInstanceMut { api: self.api, ctx }
-    }
-}
+impl_api_with_ctx!(
+    EntityApi,
+    tm_entity_api,
+    tm_entity_context_o,
+    TM_ENTITY_API_NAME,
+);
 
 struct EngineCallbackData {
     ctx: *mut tm_entity_context_o,

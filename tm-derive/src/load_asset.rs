@@ -32,7 +32,7 @@ pub(crate) fn expand_fn<'a>(
                 asset: ::tm_rs::ffi::tm_tt_id_t,
             ) -> bool {
 
-                let the_truth_api = ::tm_rs::api::with_ctx::<::tm_rs::the_truth::TheTruthApi>(tt);
+                let the_truth_api = ::tm_rs::api::with_ctx::<::tm_rs::api::the_truth::TheTruthApi>(tt);
 
                 let c = c_vp as *mut super::#struct_ident;
                 let c = c.as_mut().unwrap();

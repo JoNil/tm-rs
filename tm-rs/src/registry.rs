@@ -1,11 +1,9 @@
+use crate::component::DerivedComponent;
+use crate::ffi;
+use std::{ffi::c_void, os::raw::c_char};
 use tm_sys::ffi::{
     TM_ENTITY_CREATE_COMPONENT_INTERFACE_NAME, TM_THE_TRUTH_CREATE_TYPES_INTERFACE_NAME,
 };
-
-use crate::component::DerivedComponent;
-
-use super::ffi;
-use std::{ffi::c_void, os::raw::c_char};
 
 pub struct RegistryApi {
     reg: *mut ffi::tm_api_registry_api,
@@ -71,7 +69,7 @@ macro_rules! add_or_remove_entity_simulation {
             unsafe extern "C" fn [<$name _extern>](ctx: *mut $crate::ffi::tm_entity_context_o) {
                 assert!(!ctx.is_null());
 
-                let mut entity_api = $crate::api::with_ctx_mut::<$crate::entity::EntityApi>(ctx);
+                let mut entity_api = $crate::api::with_ctx_mut::<$crate::api::entity::EntityApi>(ctx);
 
                 $name(&mut entity_api);
             }

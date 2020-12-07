@@ -64,7 +64,7 @@ pub(crate) fn expand_fn<'a>(
             let name = ::std::concat!(#snake_case_name, "\0").as_bytes();
             let hash = ::tm_rs::hash(name);
 
-            let mut the_truth_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::the_truth::TheTruthApi>(tt);
+            let mut the_truth_api = ::tm_rs::api::with_ctx_mut::<::tm_rs::api::the_truth::TheTruthApi>(tt);
 
             let properties: [::tm_rs::ffi::tm_the_truth_property_definition_t; #properties_count] = [
                 #properties_array_content
