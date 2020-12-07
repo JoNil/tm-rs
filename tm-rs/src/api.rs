@@ -54,14 +54,42 @@ macro_rules! impl_api_with_ctx {
                 }
             }
 
+            #[allow(dead_code)]
             pub struct [<$struct_name Instance>] {
-                pub api: *mut $api_type,
-                pub ctx: *const $ctx_type,
+                api: *mut $api_type,
+                ctx: *const $ctx_type,
             }
 
+            impl [<$struct_name Instance>] {
+
+                #[inline]
+                pub fn get_api_ptr(&self) -> *mut $api_type {
+                    self.api
+                }
+
+                #[inline]
+                pub fn get_ctx_ptr(&self) -> *const $ctx_type {
+                    self.ctx
+                }
+            }
+
+            #[allow(dead_code)]
             pub struct [<$struct_name InstanceMut>] {
-                pub api: *mut $api_type,
-                pub ctx: *mut $ctx_type,
+                api: *mut $api_type,
+                ctx: *mut $ctx_type,
+            }
+
+            impl [<$struct_name InstanceMut>] {
+
+                #[inline]
+                pub fn get_api_ptr(&self) -> *mut $api_type {
+                    self.api
+                }
+
+                #[inline]
+                pub fn get_ctx_ptr(&self) -> *mut $ctx_type {
+                    self.ctx
+                }
             }
 
             impl ::std::ops::Deref for [<$struct_name InstanceMut>] {

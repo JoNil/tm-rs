@@ -74,8 +74,8 @@ pub(crate) fn expand_fn<'a>(
                 .create_object_type(name, &properties);
 
             unsafe {
-                let default_object = (*the_truth_api.api).quick_create_object.unwrap()(
-                    the_truth_api.ctx,
+                let default_object = (*the_truth_api.get_api_ptr()).quick_create_object.unwrap()(
+                    the_truth_api.get_ctx_ptr(),
                     ::tm_rs::ffi::tm_tt_undo_scope_t { 
                         u64_: 0u64,
                     },
@@ -84,8 +84,8 @@ pub(crate) fn expand_fn<'a>(
                     -1,
                 );
 
-                (*the_truth_api.api).set_default_object.unwrap()(
-                    the_truth_api.ctx,
+                (*the_truth_api.get_api_ptr()).set_default_object.unwrap()(
+                    the_truth_api.get_ctx_ptr(),
                     component_type,
                     default_object);
 
@@ -105,8 +105,8 @@ pub(crate) fn expand_fn<'a>(
                         toolbar: None,
                     },
                 };
-                (*the_truth_api.api).set_aspect.unwrap()(
-                    the_truth_api.ctx,
+                (*the_truth_api.get_api_ptr()).set_aspect.unwrap()(
+                    the_truth_api.get_ctx_ptr(),
                     component_type,
                     ::tm_rs::hash(b"tm_ci_editor_ui_i\0"),
                     &mut EDITOR_ASPECT.inner as *mut ::tm_rs::ffi::tm_ci_editor_ui_i
