@@ -63,12 +63,14 @@ macro_rules! impl_api_with_ctx {
             impl [<$struct_name Instance>] {
 
                 #[inline]
-                pub fn get_api_ptr(&self) -> *mut $api_type {
+                #[allow(clippy::missing_safety_doc)]
+                pub unsafe fn get_api_ptr(&self) -> *mut $api_type {
                     self.api
                 }
 
                 #[inline]
-                pub fn get_ctx_ptr(&self) -> *const $ctx_type {
+                #[allow(clippy::missing_safety_doc)]
+                pub unsafe fn get_ctx_ptr(&self) -> *const $ctx_type {
                     self.ctx
                 }
             }
@@ -82,12 +84,14 @@ macro_rules! impl_api_with_ctx {
             impl [<$struct_name InstanceMut>] {
 
                 #[inline]
-                pub fn get_api_ptr(&self) -> *mut $api_type {
+                #[allow(clippy::missing_safety_doc)]
+                pub unsafe fn get_api_ptr(&self) -> *mut $api_type {
                     self.api
                 }
 
                 #[inline]
-                pub fn get_ctx_ptr(&self) -> *mut $ctx_type {
+                #[allow(clippy::missing_safety_doc)]
+                pub unsafe fn get_ctx_ptr(&self) -> *mut $ctx_type {
                     self.ctx
                 }
             }
