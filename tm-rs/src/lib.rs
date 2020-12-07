@@ -1,4 +1,5 @@
 pub mod api;
+
 pub mod component;
 mod hash;
 pub mod registry;
@@ -22,7 +23,7 @@ macro_rules! tm_plugin {
             reg: *mut $crate::ffi::tm_api_registry_api,
             load: bool,
         ) {
-            let $reg = &mut $crate::api::registry::RegistryApi::new(reg, load);
+            let $reg = &mut $crate::registry::RegistryApi::new(reg, load);
 
             api::register::<EntityApi>($reg);
             api::register::<TheTruthApi>($reg);

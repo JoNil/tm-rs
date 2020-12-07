@@ -1,8 +1,5 @@
-use crate::{
-    api::{Api, ApiWithCtx, ApiWithCtxMut},
-    hash, impl_api_with_ctx,
-};
-use std::{convert::TryInto, ffi::c_void, slice};
+use crate::hash;
+use std::{convert::TryInto, slice};
 use tm_sys::ffi::{
     tm_graph_interpreter_api, tm_graph_interpreter_o, TM_GRAPH_INTERPRETER_API_NAME,
 };

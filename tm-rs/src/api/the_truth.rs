@@ -1,13 +1,9 @@
-pub use crate::ffi::tm_tt_id_t as TheTruthId;
-use crate::{
-    api::{Api, ApiWithCtx, ApiWithCtxMut},
-    impl_api_with_ctx,
-};
-use std::ffi::c_void;
 use tm_sys::ffi::{
     tm_the_truth_api, tm_the_truth_o, tm_the_truth_object_o, tm_the_truth_property_definition_t,
     TM_THE_TRUTH_API_NAME,
 };
+
+pub use crate::ffi::tm_tt_id_t as TheTruthId;
 
 impl_api_with_ctx!(
     TheTruthApi,

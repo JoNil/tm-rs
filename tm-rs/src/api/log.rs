@@ -1,5 +1,5 @@
-use crate::{api::Api, impl_api};
-use std::ffi::{c_void, CString};
+use crate::api::Api;
+use std::ffi::CString;
 use tm_sys::ffi::{
     tm_log_type_TM_LOG_TYPE_DEBUG, tm_log_type_TM_LOG_TYPE_ERROR, tm_log_type_TM_LOG_TYPE_INFO,
     tm_logger_api, TM_LOGGER_API_NAME,

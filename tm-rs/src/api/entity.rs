@@ -1,19 +1,18 @@
-pub use crate::ffi::tm_entity_t as Entity;
 use crate::{
     api::{
         self,
         the_truth::{TheTruthApi, TheTruthApiInstanceMut, TheTruthId},
         the_truth_assets::{TheTruthAssetsApi, TheTruthAssetsApiInstanceMut},
-        Api, ApiWithCtx, ApiWithCtxMut,
     },
     component::{ComponentTuple, ComponentsIterator},
-    impl_api_with_ctx,
 };
-use std::ffi::{c_void, CString};
+use std::ffi::CString;
 use tm_sys::ffi::{
     tm_component_i, tm_component_mask_t, tm_engine_i, tm_engine_o, tm_engine_update_set_t,
     tm_entity_api, tm_entity_context_o, TM_ENTITY_API_NAME,
 };
+
+pub use crate::ffi::tm_entity_t as Entity;
 
 impl_api_with_ctx!(
     EntityApi,
