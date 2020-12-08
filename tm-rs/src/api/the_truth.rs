@@ -1,4 +1,7 @@
-use std::fmt::{self, Debug, Formatter};
+use std::{
+    ffi::CStr,
+    fmt::{self, Debug, Formatter},
+};
 
 use tm_sys::ffi::{
     tm_the_truth_api, tm_the_truth_o, tm_the_truth_object_o, tm_the_truth_property_definition_t,
@@ -48,6 +51,17 @@ impl TheTruthApiInstance {
                 object,
             })
         }
+    }
+
+    #[inline]
+    pub fn type_name(&self, object_type: u64) -> String {
+        let name = unsafe { CStr::from_ptr((*self.api).type_name.unwrap()(self.ctx, object_type)) };
+        String::from_utf8_lossy(name.to_bytes()).into()
+    }
+
+    #[inline]
+    pub fn type_name_hash(&self, object_type: u64) -> u64 {
+        unsafe { (*self.api).type_name_hash.unwrap()(self.ctx, object_type) }
     }
 }
 
@@ -110,5 +124,12 @@ impl<'a> TheTruthObject<'a> {
         unsafe {
             (*self.the_truth.api).get_bool.unwrap()(self.the_truth.ctx, self.object, property)
         }
+    }
+
+    #[inline]
+    pub fn get_subobject(&self, property: u32) -> TheTruthId {
+        TheTruthId(unsafe {
+            (*self.the_truth.api).get_subobject.unwrap()(self.the_truth.ctx, self.object, property)
+        })
     }
 }
