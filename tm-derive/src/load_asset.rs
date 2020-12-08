@@ -37,7 +37,7 @@ pub(crate) fn expand_fn<'a>(
                 let c = c_vp as *mut super::#struct_ident;
                 let c = c.as_mut().unwrap();
 
-                let asset_r = the_truth_api.read(asset);
+                let asset_r = the_truth_api.read(::tm_rs::api::the_truth::TheTruthId::wrap(asset));
 
                 if asset_r.is_null() {
                     return false;

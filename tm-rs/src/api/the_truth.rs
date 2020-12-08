@@ -8,9 +8,15 @@ use tm_sys::ffi::{
 #[derive(Copy, Clone)]
 pub struct TheTruthId(pub(crate) tm_tt_id_t);
 
+impl TheTruthId {
+    pub fn wrap(input: tm_tt_id_t) -> TheTruthId {
+        TheTruthId(input)
+    }
+}
+
 impl Debug for TheTruthId {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        f.debug_struct("Entity")
+        f.debug_struct("TheTruthId")
             .field("id", unsafe { &self.0.__bindgen_anon_1.u64_ })
             .finish()
     }
