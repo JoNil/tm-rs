@@ -19,7 +19,7 @@ pub(crate) fn expand_fn<'a>(
             let i = i as u32;
 
             get_properties.extend(quote! {
-                c.#property_ident = the_truth_api.#getter_ident(asset_r, #i);
+                c.#property_ident = asset.#getter_ident(#i);
             });
         }
 
@@ -37,16 +37,17 @@ pub(crate) fn expand_fn<'a>(
                 let c = c_vp as *mut super::#struct_ident;
                 let c = c.as_mut().unwrap();
 
-                let asset_r = the_truth_api.read(::tm_rs::api::the_truth::TheTruthId::wrap(asset));
+                let asset = the_truth_api.read(::tm_rs::api::the_truth::TheTruthId::wrap(asset));
 
-                if asset_r.is_null() {
-                    return false;
+                if let Some(asset) = asset {
+
+                    *c = Default::default();
+                    #get_properties
+
+                    true
+                } else {
+                    false
                 }
-
-                *c = Default::default();
-                #get_properties
-
-                true
             }
         }
     }

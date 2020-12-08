@@ -29,46 +29,25 @@ impl_api_with_ctx!(
     TM_THE_TRUTH_API_NAME,
 );
 
+pub struct TheTruthObject<'a> {
+    the_truth: &'a TheTruthApiInstance,
+    object: *const tm_the_truth_object_o,
+}
+
 impl TheTruthApiInstance {
     /// Get a read pointer for reading properties from the object.
     #[inline]
-    pub fn read(&self, id: TheTruthId) -> *const tm_the_truth_object_o {
-        unsafe { (*self.api).read.unwrap()(self.ctx, id.0) }
-    }
+    pub fn read(&self, id: TheTruthId) -> Option<TheTruthObject> {
+        let object = unsafe { (*self.api).read.unwrap()(self.ctx, id.0) };
 
-    #[inline]
-    #[allow(clippy::not_unsafe_ptr_arg_deref)]
-    pub fn get_f32(&self, tto: *const tm_the_truth_object_o, property: u32) -> f32 {
-        assert!(!tto.is_null());
-        unsafe { (*self.api).get_float.unwrap()(self.ctx, tto, property) }
-    }
-
-    #[inline]
-    #[allow(clippy::not_unsafe_ptr_arg_deref)]
-    pub fn get_f64(&self, tto: *const tm_the_truth_object_o, property: u32) -> f64 {
-        assert!(!tto.is_null());
-        unsafe { (*self.api).get_double.unwrap()(self.ctx, tto, property) }
-    }
-
-    #[inline]
-    #[allow(clippy::not_unsafe_ptr_arg_deref)]
-    pub fn get_u32(&self, tto: *const tm_the_truth_object_o, property: u32) -> u32 {
-        assert!(!tto.is_null());
-        unsafe { (*self.api).get_uint32_t.unwrap()(self.ctx, tto, property) }
-    }
-
-    #[inline]
-    #[allow(clippy::not_unsafe_ptr_arg_deref)]
-    pub fn get_u64(&self, tto: *const tm_the_truth_object_o, property: u32) -> u64 {
-        assert!(!tto.is_null());
-        unsafe { (*self.api).get_uint64_t.unwrap()(self.ctx, tto, property) }
-    }
-
-    #[inline]
-    #[allow(clippy::not_unsafe_ptr_arg_deref)]
-    pub fn get_bool(&self, tto: *const tm_the_truth_object_o, property: u32) -> bool {
-        assert!(!tto.is_null());
-        unsafe { (*self.api).get_bool.unwrap()(self.ctx, tto, property) }
+        if object.is_null() {
+            None
+        } else {
+            Some(TheTruthObject {
+                the_truth: self,
+                object,
+            })
+        }
     }
 }
 
@@ -93,6 +72,43 @@ impl TheTruthApiInstanceMut {
                 properties.as_ptr(),
                 properties.len() as u32,
             )
+        }
+    }
+}
+
+impl<'a> TheTruthObject<'a> {
+    #[inline]
+    pub fn get_f32(&self, property: u32) -> f32 {
+        unsafe {
+            (*self.the_truth.api).get_float.unwrap()(self.the_truth.ctx, self.object, property)
+        }
+    }
+
+    #[inline]
+    pub fn get_f64(&self, property: u32) -> f64 {
+        unsafe {
+            (*self.the_truth.api).get_double.unwrap()(self.the_truth.ctx, self.object, property)
+        }
+    }
+
+    #[inline]
+    pub fn get_u32(&self, property: u32) -> u32 {
+        unsafe {
+            (*self.the_truth.api).get_uint32_t.unwrap()(self.the_truth.ctx, self.object, property)
+        }
+    }
+
+    #[inline]
+    pub fn get_u64(&self, property: u32) -> u64 {
+        unsafe {
+            (*self.the_truth.api).get_uint64_t.unwrap()(self.the_truth.ctx, self.object, property)
+        }
+    }
+
+    #[inline]
+    pub fn get_bool(&self, property: u32) -> bool {
+        unsafe {
+            (*self.the_truth.api).get_bool.unwrap()(self.the_truth.ctx, self.object, property)
         }
     }
 }
