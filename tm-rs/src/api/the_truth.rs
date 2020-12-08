@@ -17,6 +17,12 @@ impl TheTruthId {
     }
 }
 
+impl TheTruthId {
+    pub fn get_id(&self) -> u64 {
+        unsafe { self.0.__bindgen_anon_1.u64_ }
+    }
+}
+
 impl Debug for TheTruthId {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_struct("TheTruthId")
@@ -54,9 +60,14 @@ impl TheTruthApiInstance {
     }
 
     #[inline]
-    pub fn type_name(&self, object_type: u64) -> String {
-        let name = unsafe { CStr::from_ptr((*self.api).type_name.unwrap()(self.ctx, object_type)) };
-        String::from_utf8_lossy(name.to_bytes()).into()
+    pub fn type_name(&self, object_type: u64) -> Option<String> {
+        let name_ptr = unsafe { (*self.api).type_name.unwrap()(self.ctx, object_type) };
+        if !name_ptr.is_null() {
+            let name = unsafe { CStr::from_ptr(name_ptr) };
+            Some(String::from_utf8_lossy(name.to_bytes()).into())
+        } else {
+            None
+        }
     }
 
     #[inline]
