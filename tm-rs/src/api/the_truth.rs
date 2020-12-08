@@ -18,8 +18,8 @@ impl TheTruthId {
 }
 
 impl TheTruthId {
-    pub fn get_id(&self) -> u64 {
-        unsafe { self.0.__bindgen_anon_1.u64_ }
+    pub fn get_type(&self) -> u64 {
+        unsafe { self.0.__bindgen_anon_1.u64_ & 0x0000_0000_0000_03ff }
     }
 }
 
@@ -60,8 +60,8 @@ impl TheTruthApiInstance {
     }
 
     #[inline]
-    pub fn type_name(&self, object_type: u64) -> Option<String> {
-        let name_ptr = unsafe { (*self.api).type_name.unwrap()(self.ctx, object_type) };
+    pub fn type_name(&self, id: TheTruthId) -> Option<String> {
+        let name_ptr = unsafe { (*self.api).type_name.unwrap()(self.ctx, id.get_type()) };
         if !name_ptr.is_null() {
             let name = unsafe { CStr::from_ptr(name_ptr) };
             Some(String::from_utf8_lossy(name.to_bytes()).into())
@@ -71,8 +71,8 @@ impl TheTruthApiInstance {
     }
 
     #[inline]
-    pub fn type_name_hash(&self, object_type: u64) -> u64 {
-        unsafe { (*self.api).type_name_hash.unwrap()(self.ctx, object_type) }
+    pub fn type_name_hash(&self, id: TheTruthId) -> u64 {
+        unsafe { (*self.api).type_name_hash.unwrap()(self.ctx, id.get_type()) }
     }
 }
 
