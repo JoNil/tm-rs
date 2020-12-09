@@ -15,5 +15,6 @@ repository = "https://github.com/JoNil/tm-rs"
 [dependencies]
 anymap = "0.12"
 lazy_static = "1"
+log = "0.4"
 paste = "1"
 tm-sys = "2020.11.6"

@@ -11,6 +11,8 @@ pub use tm_sys::ffi::tm_vec2_t as Vec2;
 pub use tm_sys::ffi::tm_vec3_t as Vec3;
 pub use tm_sys::ffi::tm_vec4_t as Vec4;
 
+pub use log;
+
 #[doc(hidden)]
 pub use paste;
 
@@ -25,8 +27,12 @@ macro_rules! tm_plugin {
         ) {
             let $reg = &mut $crate::registry::RegistryApi::new(reg, load);
 
-            api::register::<EntityApi>($reg);
-            api::register::<TheTruthApi>($reg);
+            api::register::<$crate::api::log::LogApi>($reg);
+            api::register::<$crate::api::entity::EntityApi>($reg);
+            api::register::<$crate::api::the_truth::TheTruthApi>($reg);
+
+            $crate::log::set_logger(&$crate::api::log::LOGGER).ok();
+            $crate::log::set_max_level($crate::log::LevelFilter::Trace);
 
             $body
         }

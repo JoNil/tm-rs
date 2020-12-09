@@ -1,4 +1,5 @@
-use crate::api::Api;
+use crate::api::{self, Api};
+use log::{Level, Log, Metadata, Record};
 use std::ffi::CString;
 use tm_sys::ffi::{
     tm_log_type_TM_LOG_TYPE_DEBUG, tm_log_type_TM_LOG_TYPE_ERROR, tm_log_type_TM_LOG_TYPE_INFO,
@@ -41,3 +42,35 @@ impl LogApi {
         };
     }
 }
+
+pub struct TmLogger;
+
+impl Log for TmLogger {
+    fn enabled(&self, _: &Metadata) -> bool {
+        true
+    }
+
+    fn log(&self, record: &Record) {
+        let api = api::get::<LogApi>();
+        let string = format!("{}", record.args());
+
+        match record.level() {
+            Level::Error => {
+                api.error(&string);
+            }
+            Level::Warn => {
+                api.error(&string);
+            }
+            Level::Info => {
+                api.info(&string);
+            }
+            Level::Debug | Level::Trace => {
+                api.debug(&string);
+            }
+        }
+    }
+
+    fn flush(&self) {}
+}
+
+pub static LOGGER: TmLogger = TmLogger;
